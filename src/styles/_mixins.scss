@@ -1,0 +1,83 @@
+@mixin focus-ring($offset: 2px) {
+  &:focus-visible {
+    outline: 2px solid var(--ui-color-focus);
+    outline-offset: $offset;
+  }
+}
+
+@mixin control-field {
+  width: 100%;
+  min-width: 0;
+  height: var(--_height, var(--ui-control-height-md));
+  padding-inline: var(--ui-space-3);
+  border: 1px solid var(--ui-control-border, var(--ui-color-border));
+  border-radius: var(--ui-control-radius, var(--ui-radius-md));
+  background: var(--ui-control-bg, var(--ui-color-surface));
+  color: var(--ui-control-fg, var(--ui-color-fg));
+  transition:
+    border-color var(--ui-duration) var(--ui-ease),
+    background-color var(--ui-duration) var(--ui-ease),
+    color var(--ui-duration) var(--ui-ease);
+
+  &::placeholder {
+    color: var(--ui-color-muted);
+  }
+
+  &:hover:not(:disabled) {
+    border-color: var(--ui-control-border-hover, var(--ui-color-border-strong));
+  }
+
+  &:focus {
+    outline: 1px solid var(--ui-color-focus);
+    outline-offset: 2px;
+    border-color: var(--ui-control-border-focus, var(--ui-color-accent));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    color: var(--ui-control-fg-disabled, var(--ui-color-muted));
+    background: var(--ui-control-bg-disabled, var(--ui-color-subtle));
+  }
+
+  &[aria-invalid='true'] {
+    border-color: var(--ui-control-border-invalid, var(--ui-color-danger));
+  }
+}
+
+@mixin control-sizes {
+  &[data-size='sm'] {
+    --_height: var(--ui-control-height-sm);
+    font-size: var(--ui-font-size-xs);
+  }
+
+  &[data-size='md'] {
+    --_height: var(--ui-control-height-md);
+    font-size: var(--ui-font-size-sm);
+  }
+
+  &[data-size='lg'] {
+    --_height: var(--ui-control-height-lg);
+    font-size: var(--ui-font-size-md);
+  }
+}
+
+@mixin gap-scale {
+  &[data-gap='none'] {
+    --_gap: 0;
+  }
+  &[data-gap='xs'] {
+    --_gap: var(--ui-space-1);
+  }
+  &[data-gap='sm'] {
+    --_gap: var(--ui-space-2);
+  }
+  &[data-gap='md'] {
+    --_gap: var(--ui-space-4);
+  }
+  &[data-gap='lg'] {
+    --_gap: var(--ui-space-5);
+  }
+  &[data-gap='xl'] {
+    --_gap: var(--ui-space-6);
+  }
+}

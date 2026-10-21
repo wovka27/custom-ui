@@ -1,0 +1,2477 @@
+{
+  "kit": "Custom UI",
+  "version": 1,
+  "prompt": "You are aligning the Custom UI kit with an internal design system. This JSON is the complete override contract. Fill proposal only. Do not add, rename, or remove tokens. proposal stays null when the kit default should remain. When themes is an object, proposal must be { \"light\": \"<css>\", \"dark\": \"<css>\" }. When themes is null, proposal must be a single CSS value string. Set variables on an ancestor such as .ui-config. Components read var(--name, fallback) and do not redeclare the public name, so the ancestor wins. fallback and fallbackByVariant are the kit defaults used when the variable is unset. Do not copy them into proposal unless the design intentionally matches them. One --ui-button-* value applies to every button variant. Variant differences exist only while the variable is unset. Pagination radius is fixed at 2px and is not a token. Do not invent a token for it. prefers-reduced-motion sets --ui-press-scale to 1 and collapses transition duration. Do not encode meaning in motion. Return the same JSON with proposal filled, then one CSS block for .ui-config and [data-theme=\"dark\"] .ui-config containing only variables whose proposal is not null.",
+  "rules": [
+    "Override on an ancestor. Never redeclare --ui-* on the component itself.",
+    "Foundation tokens change every consumer. Component hooks change one family.",
+    "A hook left unset keeps fallback or fallbackByVariant.",
+    "Theme tokens require both light and dark.",
+    "Do not invent token names. Pagination, dialog chrome, the radio dot, and the checkbox mark are documented under fixed because they are not hooks."
+  ],
+  "example": {
+    "proposal": {
+      "--ui-button-radius": "2px",
+      "--ui-color-accent": {
+        "light": "oklch(0.45 0.14 250)",
+        "dark": "oklch(0.82 0.12 250)"
+      }
+    },
+    "css": ".ui-config {\n  --ui-button-radius: 2px;\n  --ui-color-accent: oklch(0.45 0.14 250);\n}\n\n[data-theme='dark'] .ui-config {\n  --ui-color-accent: oklch(0.82 0.12 250);\n}"
+  },
+  "tree": [
+    {
+      "id": "foundation",
+      "title": "Foundation",
+      "summary": "Declared on :root. Changing one of these moves every component that falls back to it. Theme colors and shadows have light and dark values. Type, space, radii, motion, and layout metrics are shared.",
+      "children": [
+        {
+          "id": "color",
+          "title": "Color",
+          "summary": "Light and dark. Accent is the only chromatic emphasis. Status colors are for alerts and badges.",
+          "tokens": [
+            "--ui-color-bg",
+            "--ui-color-fg",
+            "--ui-color-muted",
+            "--ui-color-subtle",
+            "--ui-color-surface",
+            "--ui-color-surface-raised",
+            "--ui-color-border",
+            "--ui-color-border-strong",
+            "--ui-color-ink",
+            "--ui-color-paper",
+            "--ui-color-accent",
+            "--ui-color-accent-hover",
+            "--ui-color-accent-fg",
+            "--ui-color-accent-subtle",
+            "--ui-color-danger",
+            "--ui-color-danger-hover",
+            "--ui-color-danger-fg",
+            "--ui-color-danger-subtle",
+            "--ui-color-success",
+            "--ui-color-success-fg",
+            "--ui-color-success-subtle",
+            "--ui-color-warning",
+            "--ui-color-warning-fg",
+            "--ui-color-warning-subtle",
+            "--ui-color-info",
+            "--ui-color-info-fg",
+            "--ui-color-info-subtle",
+            "--ui-color-focus",
+            "--ui-color-overlay"
+          ]
+        },
+        {
+          "id": "type",
+          "title": "Type",
+          "summary": "Segoe UI Variable for text and display. Cascadia Mono for code.",
+          "tokens": [
+            "--ui-font-sans",
+            "--ui-font-display",
+            "--ui-font-mono",
+            "--ui-font-size-xs",
+            "--ui-font-size-sm",
+            "--ui-font-size-md",
+            "--ui-font-size-lg",
+            "--ui-font-size-xl",
+            "--ui-font-size-2xl",
+            "--ui-line-height"
+          ]
+        },
+        {
+          "id": "space",
+          "title": "Space",
+          "summary": "Seven steps from 0.25rem to 3rem. Used as gap and padding.",
+          "tokens": [
+            "--ui-space-1",
+            "--ui-space-2",
+            "--ui-space-3",
+            "--ui-space-4",
+            "--ui-space-5",
+            "--ui-space-6",
+            "--ui-space-7"
+          ]
+        },
+        {
+          "id": "shape",
+          "title": "Shape",
+          "summary": "Chrome radii are 2px, 4px, and 6px. Full is the pill radius. Buttons do not use this scale.",
+          "tokens": [
+            "--ui-radius-sm",
+            "--ui-radius-md",
+            "--ui-radius-lg",
+            "--ui-radius-full"
+          ]
+        },
+        {
+          "id": "scrollbar",
+          "title": "Scrollbar",
+          "summary": "The page bar and every scrollable region. Size and radius are declared. Track and thumb are hooks, so an ancestor can restyle them without touching the kit.",
+          "fixed": [
+            "Firefox uses scrollbar-width thin. The size token sets the WebKit thickness.",
+            "The carousel track hides its scrollbar. Paging is the control."
+          ],
+          "tokens": [
+            "--ui-scrollbar-size",
+            "--ui-scrollbar-radius",
+            "--ui-scrollbar-track",
+            "--ui-scrollbar-thumb",
+            "--ui-scrollbar-thumb-hover"
+          ]
+        },
+        {
+          "id": "motion",
+          "title": "Motion",
+          "summary": "Color in 120ms, press in 90ms, reveal in 180ms. prefers-reduced-motion sets --ui-press-scale to 1 and collapses duration.",
+          "tokens": [
+            "--ui-duration",
+            "--ui-duration-press",
+            "--ui-duration-reveal",
+            "--ui-press-scale",
+            "--ui-ease"
+          ]
+        },
+        {
+          "id": "elevation",
+          "title": "Elevation",
+          "summary": "Small and medium shadows are none. Only the pop shadow is visible, on dialogs and select menus.",
+          "tokens": [
+            "--ui-shadow-sm",
+            "--ui-shadow-md",
+            "--ui-shadow-pop",
+            "--ui-z-dropdown",
+            "--ui-z-overlay",
+            "--ui-z-dialog"
+          ]
+        },
+        {
+          "id": "layout",
+          "title": "Layout",
+          "summary": "Content and sidebar widths are declared. Container width and grid min are hooks with fallbacks.",
+          "tokens": [
+            "--ui-content-width",
+            "--ui-sidebar-width",
+            "--ui-container-width",
+            "--ui-grid-min"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "button",
+      "title": "Button",
+      "summary": "Hooks are unset, so each variant keeps its own fallback until an ancestor sets the variable. One set value applies to primary, secondary, ghost, and danger together.",
+      "fixed": [
+        "Disabled is opacity 0.4. There is no disabled color token.",
+        "Pressed scale reads --ui-press-scale. Text fields do not scale.",
+        "Focus ring is a 2px outline of --ui-color-focus.",
+        "Pagination does not read --ui-button-radius."
+      ],
+      "children": [
+        {
+          "id": "button-shared",
+          "title": "Shared",
+          "summary": "Radius is the only button token declared by the kit. Default is 0.75rem.",
+          "tokens": [
+            "--ui-button-radius"
+          ]
+        },
+        {
+          "id": "button-rest",
+          "title": "Rest",
+          "summary": "Transparent fill. Primary border is an 18% foreground hairline. Ghost has no border. Danger text is --ui-color-danger.",
+          "tokens": [
+            "--ui-button-bg",
+            "--ui-button-fg",
+            "--ui-button-border"
+          ]
+        },
+        {
+          "id": "button-hover",
+          "title": "Hover",
+          "summary": "Primary hover is an accent wash at 14%, not an inverted solid. Secondary and ghost use --ui-color-subtle. Danger uses --ui-color-danger-subtle.",
+          "tokens": [
+            "--ui-button-bg-hover",
+            "--ui-button-fg-hover",
+            "--ui-button-border-hover"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "field",
+      "title": "Field",
+      "summary": "Input, textarea, and the select button share --ui-control-*. Set the hook to restyle fields without recoloring the whole page.",
+      "fixed": [
+        "Placeholder color is --ui-color-muted and has no separate hook.",
+        "Invalid label color is --ui-color-danger.",
+        "Focus ring stays --ui-color-focus even when --ui-control-border-focus changes.",
+        "Text fields do not use --ui-press-scale, so the caret does not jump."
+      ],
+      "children": [
+        {
+          "id": "field-chrome",
+          "title": "Chrome",
+          "summary": "Rest, hover, focus, invalid, and disabled. Each border state has its own hook.",
+          "tokens": [
+            "--ui-control-radius",
+            "--ui-control-bg",
+            "--ui-control-fg",
+            "--ui-control-border",
+            "--ui-control-border-hover",
+            "--ui-control-border-focus",
+            "--ui-control-border-invalid",
+            "--ui-control-bg-disabled",
+            "--ui-control-fg-disabled"
+          ]
+        },
+        {
+          "id": "field-size",
+          "title": "Size",
+          "summary": "Declared heights for sm, md, and lg.",
+          "tokens": [
+            "--ui-control-height-sm",
+            "--ui-control-height-md",
+            "--ui-control-height-lg"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "choice",
+      "title": "Choice",
+      "summary": "Checkbox fill and the radio ring are hooks. The radio dot, the checkbox mark, and the off switch are foundation colors.",
+      "fixed": [
+        "Checkbox mark uses --ui-color-accent-fg.",
+        "Unchecked checkbox uses --ui-color-border-strong and --ui-color-surface, with --ui-radius-sm.",
+        "Radio inner dot uses --ui-color-accent. Only the selected ring reads --ui-choice-border-checked.",
+        "Off switch track uses --ui-color-border-strong. Thumb uses --ui-color-surface."
+      ],
+      "children": [
+        {
+          "id": "choice-checked",
+          "title": "Checked",
+          "summary": "Checkbox fill and the shared checked border. Radio uses the border hook only.",
+          "tokens": [
+            "--ui-choice-bg-checked",
+            "--ui-choice-border-checked"
+          ]
+        },
+        {
+          "id": "choice-switch",
+          "title": "Switch",
+          "summary": "On-track hook. Falls back to the accent.",
+          "tokens": [
+            "--ui-switch-bg-checked"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "table",
+      "title": "Table",
+      "summary": "Frame, scroll cap, hover, and selection are hooks. A form inside a cell uses as=\"region\" so it does not nest a form element.",
+      "fixed": [
+        "Embedded tables ignore --ui-table-max-height.",
+        "Hover is suppressed on the selected row and on a row that contains focus.",
+        "Zebra rows use --ui-color-subtle."
+      ],
+      "children": [
+        {
+          "id": "table-frame",
+          "title": "Frame",
+          "summary": "Background, border, radius, and max height.",
+          "tokens": [
+            "--ui-table-bg",
+            "--ui-table-border",
+            "--ui-table-radius",
+            "--ui-table-max-height"
+          ]
+        },
+        {
+          "id": "table-row",
+          "title": "Row",
+          "summary": "Hover falls back to surface-raised. Selection falls back to accent-subtle.",
+          "tokens": [
+            "--ui-table-row-hover",
+            "--ui-table-row-selected"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dialog",
+      "title": "Dialog",
+      "summary": "No dedicated dialog color hooks. The panel reads foundation tokens.",
+      "fixed": [
+        "Panel fill is --ui-color-surface. Border is --ui-color-border. Radius is --ui-radius-lg. Shadow is --ui-shadow-pop.",
+        "Backdrop is --ui-color-overlay.",
+        "Entrance uses --ui-duration-reveal.",
+        "Native showModal stacks on the top layer. Close order is still top dialog first."
+      ],
+      "tokens": []
+    },
+    {
+      "id": "pagination",
+      "title": "Pagination",
+      "summary": "No pagination hooks. Squares stay 28px.",
+      "fixed": [
+        "Each page is 1.75rem square with a 2px radius. It does not read --ui-button-radius.",
+        "Idle text is --ui-color-muted. Idle border is --ui-color-border.",
+        "Current page fill is --ui-color-fg and its text is --ui-color-bg.",
+        "Focus ring is --ui-color-focus. Press scale is --ui-press-scale."
+      ],
+      "tokens": []
+    }
+  ],
+  "tokens": [
+    {
+      "name": "--ui-color-bg",
+      "path": [
+        "foundation",
+        "color",
+        "bg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.985 0.003 250)",
+        "dark": "oklch(0.16 0.014 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Page background behind the app shell and gallery.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-fg",
+      "path": [
+        "foundation",
+        "color",
+        "fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.2 0.02 255)",
+        "dark": "oklch(0.96 0.008 250)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Primary text. Also the filled current page in pagination.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-muted",
+      "path": [
+        "foundation",
+        "color",
+        "muted"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.5 0.02 255)",
+        "dark": "oklch(0.72 0.02 250)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Secondary text, placeholders, idle pagination numbers, ghost button text.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.965 0.004 250)",
+        "dark": "oklch(0.2 0.016 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Quiet fills: secondary and ghost hover, disabled field background, zebra rows.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-surface",
+      "path": [
+        "foundation",
+        "color",
+        "surface"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.995 0.002 250)",
+        "dark": "oklch(0.19 0.016 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Field, table, dialog, checkbox, and switch-thumb surfaces.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-surface-raised",
+      "path": [
+        "foundation",
+        "color",
+        "surface-raised"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.955 0.006 250)",
+        "dark": "oklch(0.24 0.02 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Table row hover when --ui-table-row-hover is unset.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-border",
+      "path": [
+        "foundation",
+        "color",
+        "border"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.9 0.006 250)",
+        "dark": "oklch(0.32 0.018 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Hairline on fields, tables, pagination, and the dialog panel.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-border-strong",
+      "path": [
+        "foundation",
+        "color",
+        "border-strong"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.72 0.02 250)",
+        "dark": "oklch(0.55 0.03 230)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Hover border, unchecked checkbox, and the off switch track.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-ink",
+      "path": [
+        "foundation",
+        "color",
+        "ink"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.2 0.02 255)",
+        "dark": "oklch(0.96 0.008 250)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Reserved ink paired with --ui-color-paper. Not the default body text.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-paper",
+      "path": [
+        "foundation",
+        "color",
+        "paper"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.995 0.002 250)",
+        "dark": "oklch(0.16 0.014 255)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Reserved paper paired with --ui-color-ink.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-accent",
+      "path": [
+        "foundation",
+        "color",
+        "accent"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.48 0.12 200)",
+        "dark": "oklch(0.84 0.13 195)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "The only accent. Focus, checked choice, switch, and primary hover border fall back here.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-accent-hover",
+      "path": [
+        "foundation",
+        "color",
+        "accent-hover"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.42 0.12 200)",
+        "dark": "oklch(0.9 0.1 190)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Darker or lighter accent for a hover that needs a solid accent, not a wash.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-accent-fg",
+      "path": [
+        "foundation",
+        "color",
+        "accent-fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.99 0.002 250)",
+        "dark": "oklch(0.16 0.03 210)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Text or icon on a solid accent, including the checkbox mark.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-accent-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "accent-subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.95 0.025 200)",
+        "dark": "oklch(0.28 0.04 200)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Selected table row and the active select option.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-danger",
+      "path": [
+        "foundation",
+        "color",
+        "danger"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.52 0.17 28)",
+        "dark": "oklch(0.72 0.13 28)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Destructive text, invalid borders, and invalid field labels.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-danger-hover",
+      "path": [
+        "foundation",
+        "color",
+        "danger-hover"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.46 0.16 28)",
+        "dark": "oklch(0.78 0.12 30)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Solid danger hover when a component asks for a darker danger.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-danger-fg",
+      "path": [
+        "foundation",
+        "color",
+        "danger-fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.99 0.005 95)",
+        "dark": "oklch(0.2 0.04 28)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Text on a solid danger fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-danger-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "danger-subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.95 0.025 30)",
+        "dark": "oklch(0.32 0.05 28)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Danger button hover wash and danger alert background.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-success",
+      "path": [
+        "foundation",
+        "color",
+        "success"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.46 0.09 155)",
+        "dark": "oklch(0.78 0.09 155)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Success tone for alerts and badges.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-success-fg",
+      "path": [
+        "foundation",
+        "color",
+        "success-fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.99 0.005 155)",
+        "dark": "oklch(0.2 0.04 155)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Text on a solid success fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-success-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "success-subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.95 0.03 155)",
+        "dark": "oklch(0.32 0.04 155)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Success alert and badge background.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-warning",
+      "path": [
+        "foundation",
+        "color",
+        "warning"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.62 0.12 78)",
+        "dark": "oklch(0.82 0.11 85)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Warning tone for alerts and badges.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-warning-fg",
+      "path": [
+        "foundation",
+        "color",
+        "warning-fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.25 0.04 70)",
+        "dark": "oklch(0.24 0.04 70)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Text on a warning fill. Dark in both themes.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-warning-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "warning-subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.96 0.04 95)",
+        "dark": "oklch(0.34 0.04 80)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Warning alert and badge background.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-info",
+      "path": [
+        "foundation",
+        "color",
+        "info"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.48 0.07 230)",
+        "dark": "oklch(0.8 0.06 230)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Info tone for alerts and badges.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-info-fg",
+      "path": [
+        "foundation",
+        "color",
+        "info-fg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.99 0.005 230)",
+        "dark": "oklch(0.22 0.04 230)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Text on a solid info fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-info-subtle",
+      "path": [
+        "foundation",
+        "color",
+        "info-subtle"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.95 0.02 230)",
+        "dark": "oklch(0.32 0.03 230)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Info alert and badge background.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-focus",
+      "path": [
+        "foundation",
+        "color",
+        "focus"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "outline-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.48 0.12 200)",
+        "dark": "oklch(0.84 0.13 195)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Focus ring (outline) on buttons, fields, choices, tabs, and pagination.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-color-overlay",
+      "path": [
+        "foundation",
+        "color",
+        "overlay"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "oklch(0.18 0.02 255 / 0.4)",
+        "dark": "oklch(0.08 0.01 255 / 0.62)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Dialog backdrop and the mobile sidebar scrim.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-sans",
+      "path": [
+        "foundation",
+        "type",
+        "sans"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-family",
+      "declared": true,
+      "value": "'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "UI text.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-display",
+      "path": [
+        "foundation",
+        "type",
+        "display"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-family",
+      "declared": true,
+      "value": "'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Display headings.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-mono",
+      "path": [
+        "foundation",
+        "type",
+        "mono"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-family",
+      "declared": true,
+      "value": "'Cascadia Mono', ui-monospace, monospace",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Code and token names.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-xs",
+      "path": [
+        "foundation",
+        "type",
+        "size-xs"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "0.75rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Labels, hints, and table meta.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-sm",
+      "path": [
+        "foundation",
+        "type",
+        "size-sm"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "0.875rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Controls, buttons, and body copy in dense UI.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-md",
+      "path": [
+        "foundation",
+        "type",
+        "size-md"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "1rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Default body size.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-lg",
+      "path": [
+        "foundation",
+        "type",
+        "size-lg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "1.125rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Section titles inside panels.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-xl",
+      "path": [
+        "foundation",
+        "type",
+        "size-xl"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "1.5rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Page titles.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-font-size-2xl",
+      "path": [
+        "foundation",
+        "type",
+        "size-2xl"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "font-size",
+      "declared": true,
+      "value": "2.25rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Hero display size.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-line-height",
+      "path": [
+        "foundation",
+        "type",
+        "line-height"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "line-height",
+      "declared": true,
+      "value": "1.5",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Default line height.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-1",
+      "path": [
+        "foundation",
+        "space",
+        "1"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "0.25rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Smallest step. Icon gaps and tight padding.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-2",
+      "path": [
+        "foundation",
+        "space",
+        "2"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "0.5rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Control internal gap and compact stacks.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-3",
+      "path": [
+        "foundation",
+        "space",
+        "3"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "0.75rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Default stack gap between fields.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-4",
+      "path": [
+        "foundation",
+        "space",
+        "4"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "1rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Section padding and form group gap.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-5",
+      "path": [
+        "foundation",
+        "space",
+        "5"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "1.5rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Loose stacks.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-6",
+      "path": [
+        "foundation",
+        "space",
+        "6"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "2rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Page section separation.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-space-7",
+      "path": [
+        "foundation",
+        "space",
+        "7"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "gap",
+      "declared": true,
+      "value": "3rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Largest step.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-radius-sm",
+      "path": [
+        "foundation",
+        "shape",
+        "sm"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "2px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Checkbox, menu item, and small chrome.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-radius-md",
+      "path": [
+        "foundation",
+        "shape",
+        "md"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "4px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Fields and the select list. Control radius falls back here.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-radius-lg",
+      "path": [
+        "foundation",
+        "shape",
+        "lg"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "6px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Table frame and dialog panel.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-radius-full",
+      "path": [
+        "foundation",
+        "shape",
+        "full"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "999px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Switch track, pills, and filter chips.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-scrollbar-size",
+      "path": [
+        "foundation",
+        "scrollbar",
+        "size"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "width",
+      "declared": true,
+      "value": "8px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Thickness of every scrollbar in WebKit. Firefox stays on the thin keyword.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-scrollbar-radius",
+      "path": [
+        "foundation",
+        "scrollbar",
+        "radius"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "999px",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Thumb corner.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-scrollbar-track",
+      "path": [
+        "foundation",
+        "scrollbar",
+        "track"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "transparent",
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Track behind the thumb.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-scrollbar-thumb",
+      "path": [
+        "foundation",
+        "scrollbar",
+        "thumb"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border-strong)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-border-strong"
+      ],
+      "affects": "Thumb at rest.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-scrollbar-thumb-hover",
+      "path": [
+        "foundation",
+        "scrollbar",
+        "thumb-hover"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-muted)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-muted"
+      ],
+      "affects": "Thumb while the pointer is over it. Firefox has no hover state for scrollbar-color.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-duration",
+      "path": [
+        "foundation",
+        "motion",
+        "color"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "transition-duration",
+      "declared": true,
+      "value": "120ms",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Color, border, and background transitions.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-duration-press",
+      "path": [
+        "foundation",
+        "motion",
+        "press"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "transition-duration",
+      "declared": true,
+      "value": "90ms",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Press scale on buttons, choices, and pagination.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-duration-reveal",
+      "path": [
+        "foundation",
+        "motion",
+        "reveal"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "animation-duration",
+      "declared": true,
+      "value": "180ms",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Field error and hint reveal, and dialog entrance.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-press-scale",
+      "path": [
+        "foundation",
+        "motion",
+        "press-scale"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "scale",
+      "declared": true,
+      "value": "0.985",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Scale applied on :active. Reduced motion forces 1.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-ease",
+      "path": [
+        "foundation",
+        "motion",
+        "ease"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "transition-timing-function",
+      "declared": true,
+      "value": "cubic-bezier(0.2, 0, 0, 1)",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Shared easing. No overshoot.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-shadow-sm",
+      "path": [
+        "foundation",
+        "elevation",
+        "shadow-sm"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "box-shadow",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "none",
+        "dark": "none"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Reserved small shadow. The kit default is none in both themes.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-shadow-md",
+      "path": [
+        "foundation",
+        "elevation",
+        "shadow-md"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "box-shadow",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "none",
+        "dark": "none"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Reserved medium shadow. The kit default is none in both themes.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-shadow-pop",
+      "path": [
+        "foundation",
+        "elevation",
+        "shadow-pop"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "box-shadow",
+      "declared": true,
+      "value": null,
+      "themes": {
+        "light": "0 16px 40px oklch(0.2 0.02 255 / 0.08)",
+        "dark": "0 16px 48px oklch(0 0 0 / 0.45)"
+      },
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Dialog panel and the open select list.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-z-dropdown",
+      "path": [
+        "foundation",
+        "elevation",
+        "z-dropdown"
+      ],
+      "component": "UiSelect",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "z-index",
+      "declared": true,
+      "value": "30",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Select listbox above surrounding content.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-z-overlay",
+      "path": [
+        "foundation",
+        "elevation",
+        "z-overlay"
+      ],
+      "component": "foundation",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "z-index",
+      "declared": true,
+      "value": "40",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Documented overlay layer under the dialog.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-z-dialog",
+      "path": [
+        "foundation",
+        "elevation",
+        "z-dialog"
+      ],
+      "component": "UiDialog",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "z-index",
+      "declared": true,
+      "value": "50",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Documented dialog layer. Native showModal also uses the top layer.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-content-width",
+      "path": [
+        "foundation",
+        "layout",
+        "content-width"
+      ],
+      "component": "UiAppShell",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "max-width",
+      "declared": true,
+      "value": "76rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Main column width. Container width falls back here.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-sidebar-width",
+      "path": [
+        "foundation",
+        "layout",
+        "sidebar-width"
+      ],
+      "component": "UiAppShell",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "width",
+      "declared": true,
+      "value": "15.5rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Sidebar width.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-container-width",
+      "path": [
+        "foundation",
+        "layout",
+        "container-width"
+      ],
+      "component": "layout",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "max-width",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-content-width)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-content-width"
+      ],
+      "affects": "Optional container cap. Unset, so it follows the content width.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-grid-min",
+      "path": [
+        "foundation",
+        "layout",
+        "grid-min"
+      ],
+      "component": "layout",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "min-width",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "16rem",
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Minimum track size for the auto-fit grid.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-radius",
+      "path": [
+        "button",
+        "shared",
+        "radius"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": true,
+      "value": "0.75rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Button corner radius only. Pagination stays at 2px and does not read this.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-bg",
+      "path": [
+        "button",
+        "rest",
+        "background"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "transparent",
+        "secondary": "transparent",
+        "ghost": "transparent",
+        "danger": "transparent"
+      },
+      "reads": [],
+      "affects": "Button fill at rest. One ancestor value restyles every variant.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-fg",
+      "path": [
+        "button",
+        "rest",
+        "text"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "var(--ui-color-fg)",
+        "secondary": "var(--ui-color-fg)",
+        "ghost": "var(--ui-color-muted)",
+        "danger": "var(--ui-color-danger)"
+      },
+      "reads": [
+        "--ui-color-fg",
+        "--ui-color-muted",
+        "--ui-color-danger"
+      ],
+      "affects": "Button text at rest. One ancestor value restyles every variant.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-border",
+      "path": [
+        "button",
+        "rest",
+        "border"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "color-mix(in oklch, var(--ui-color-fg) 18%, transparent)",
+        "secondary": "var(--ui-color-border)",
+        "ghost": "transparent",
+        "danger": "color-mix(in oklch, var(--ui-color-danger) 35%, transparent)"
+      },
+      "reads": [
+        "--ui-color-fg",
+        "--ui-color-border",
+        "--ui-color-danger"
+      ],
+      "affects": "Button border at rest. One ancestor value restyles every variant.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-bg-hover",
+      "path": [
+        "button",
+        "hover",
+        "background"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "color-mix(in oklch, var(--ui-color-accent) 14%, transparent)",
+        "secondary": "var(--ui-color-subtle)",
+        "ghost": "var(--ui-color-subtle)",
+        "danger": "var(--ui-color-danger-subtle)"
+      },
+      "reads": [
+        "--ui-color-accent",
+        "--ui-color-subtle",
+        "--ui-color-danger-subtle"
+      ],
+      "affects": "Button fill on hover. Primary is an accent wash, not an inverted solid.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-fg-hover",
+      "path": [
+        "button",
+        "hover",
+        "text"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "var(--ui-color-fg)",
+        "secondary": "var(--ui-color-fg)",
+        "ghost": "var(--ui-color-fg)",
+        "danger": "var(--ui-color-danger)"
+      },
+      "reads": [
+        "--ui-color-fg",
+        "--ui-color-danger"
+      ],
+      "affects": "Button text on hover.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-button-border-hover",
+      "path": [
+        "button",
+        "hover",
+        "border"
+      ],
+      "component": "UiButton",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": {
+        "primary": "var(--ui-color-accent)",
+        "secondary": "var(--ui-color-border-strong)",
+        "ghost": "var(--ui-color-border)",
+        "danger": "var(--ui-color-danger)"
+      },
+      "reads": [
+        "--ui-color-accent",
+        "--ui-color-border-strong",
+        "--ui-color-border",
+        "--ui-color-danger"
+      ],
+      "affects": "Button border on hover.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-radius",
+      "path": [
+        "field",
+        "chrome",
+        "radius"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-radius-md)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-radius-md"
+      ],
+      "affects": "Corner radius of inputs, textareas, and the select button.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-bg",
+      "path": [
+        "field",
+        "chrome",
+        "background"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-surface)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-surface"
+      ],
+      "affects": "Field fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-fg",
+      "path": [
+        "field",
+        "chrome",
+        "text"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-fg)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-fg"
+      ],
+      "affects": "Field text.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-border",
+      "path": [
+        "field",
+        "chrome",
+        "border"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-border"
+      ],
+      "affects": "Field border at rest.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-border-hover",
+      "path": [
+        "field",
+        "chrome",
+        "border"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border-strong)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-border-strong"
+      ],
+      "affects": "Field border on hover.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-border-focus",
+      "path": [
+        "field",
+        "chrome",
+        "border"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "focus",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-accent",
+        "--ui-color-focus"
+      ],
+      "affects": "Field border on focus. The ring is still --ui-color-focus.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-border-invalid",
+      "path": [
+        "field",
+        "chrome",
+        "border"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "invalid",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-danger)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-danger"
+      ],
+      "affects": "Field border when the field is invalid.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-bg-disabled",
+      "path": [
+        "field",
+        "chrome",
+        "background"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "disabled",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-subtle)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-subtle"
+      ],
+      "affects": "Disabled field fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-fg-disabled",
+      "path": [
+        "field",
+        "chrome",
+        "text"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "disabled",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-muted)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-muted"
+      ],
+      "affects": "Disabled field text.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-height-sm",
+      "path": [
+        "field",
+        "size",
+        "sm"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "block-size",
+      "declared": true,
+      "value": "2rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Small control height.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-height-md",
+      "path": [
+        "field",
+        "size",
+        "md"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "block-size",
+      "declared": true,
+      "value": "2.5rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Medium control height.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-control-height-lg",
+      "path": [
+        "field",
+        "size",
+        "lg"
+      ],
+      "component": "UiInput",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "block-size",
+      "declared": true,
+      "value": "3rem",
+      "themes": null,
+      "fallback": null,
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Large control height.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-choice-bg-checked",
+      "path": [
+        "choice",
+        "checked",
+        "background"
+      ],
+      "component": "UiCheckbox",
+      "variant": "all",
+      "state": "checked",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-accent"
+      ],
+      "affects": "Checked and indeterminate checkbox fill. The radio dot does not read this.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-choice-border-checked",
+      "path": [
+        "choice",
+        "checked",
+        "border"
+      ],
+      "component": "UiCheckbox",
+      "variant": "all",
+      "state": "checked",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-accent"
+      ],
+      "affects": "Checked checkbox border and selected radio ring.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-switch-bg-checked",
+      "path": [
+        "choice",
+        "switch",
+        "background"
+      ],
+      "component": "UiSwitch",
+      "variant": "all",
+      "state": "checked",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-accent",
+        "--ui-color-border-strong"
+      ],
+      "affects": "Switch track when on. The off track is --ui-color-border-strong.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-bg",
+      "path": [
+        "table",
+        "frame",
+        "background"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-surface)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-surface"
+      ],
+      "affects": "Table frame fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-border",
+      "path": [
+        "table",
+        "frame",
+        "border"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-border"
+      ],
+      "affects": "Table frame and cell hairline.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-radius",
+      "path": [
+        "table",
+        "frame",
+        "radius"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "border-radius",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-radius-lg)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-radius-lg"
+      ],
+      "affects": "Table frame radius.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-max-height",
+      "path": [
+        "table",
+        "frame",
+        "max-height"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "max-height",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "32rem",
+      "fallbackByVariant": null,
+      "reads": [],
+      "affects": "Scroll cap of a standalone table. Embedded tables ignore it.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-row-hover",
+      "path": [
+        "table",
+        "row",
+        "background"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "hover",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-surface-raised)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-surface-raised"
+      ],
+      "affects": "Row hover. Suppressed when the row is selected or contains focus.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-table-row-selected",
+      "path": [
+        "table",
+        "row",
+        "background"
+      ],
+      "component": "UiTable",
+      "variant": "all",
+      "state": "selected",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent-subtle)",
+      "fallbackByVariant": null,
+      "reads": [
+        "--ui-color-accent-subtle"
+      ],
+      "affects": "Selected row fill.",
+      "proposal": null
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# .gitignore excludes dist. Without this file npm would reuse .gitignore and drop the build.
+
+src/
+scripts/
+.github/
+.husky/
+.storybook/
+docs/
+public/
+*.config.ts
+commitlint.config.js
+eslint.config.ts
+tsconfig.json
+tsconfig.*.json
+.releaserc.json
+.nvmrc
+.prettierignore
+.prettierrc.json
+.editorconfig
+.gitattributes
+vite.config.ts
+vitest.config.ts
+index.html

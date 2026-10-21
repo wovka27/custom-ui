@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts", "src/**/*.vue", "env.d.ts"],
+  "exclude": ["src/**/*.stories.ts", "src/playground/**", "src/index.ts"],
+  "vueCompilerOptions": {
+    "plugins": ["./.storybook/volar-style-language.cjs"],
+    "resolveStyleImports": false,
+    "resolveStyleClassNames": false
+  }
+}

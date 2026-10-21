@@ -1,0 +1,16 @@
+export const Key = {
+  Enter: 'Enter',
+  Space: ' ',
+  Escape: 'Escape',
+  ArrowDown: 'ArrowDown',
+  ArrowUp: 'ArrowUp',
+  ArrowLeft: 'ArrowLeft',
+  ArrowRight: 'ArrowRight',
+  Home: 'Home',
+  End: 'End',
+  Tab: 'Tab',
+  Backspace: 'Backspace',
+  Delete: 'Delete',
+  PageUp: 'PageUp',
+  PageDown: 'PageDown',
+} as const

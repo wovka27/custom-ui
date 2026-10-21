@@ -1,0 +1,12 @@
+node_modules
+dist
+coverage
+storybook-static
+*.local
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+*.tsbuildinfo
+pr-changelog.md
+.husky/_

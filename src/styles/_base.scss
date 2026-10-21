@@ -1,0 +1,80 @@
+.ui-config {
+  min-height: 100%;
+  color: var(--ui-color-fg);
+  background: var(--ui-color-bg);
+  font-family: var(--ui-font-sans);
+  font-size: var(--ui-font-size-md);
+  line-height: var(--ui-line-height);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  accent-color: var(--ui-color-accent);
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    letter-spacing: inherit;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 560;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+:where(html, .ui-config, .ui-config *) {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ui-scrollbar-thumb, var(--ui-color-border-strong))
+    var(--ui-scrollbar-track, transparent);
+}
+
+@supports selector(::-webkit-scrollbar) {
+  :where(html, .ui-config, .ui-config *) {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+
+  :where(html, .ui-config, .ui-config *)::-webkit-scrollbar {
+    width: var(--ui-scrollbar-size);
+    height: var(--ui-scrollbar-size);
+  }
+
+  :where(html, .ui-config, .ui-config *)::-webkit-scrollbar-track {
+    background: var(--ui-scrollbar-track, transparent);
+  }
+
+  :where(html, .ui-config, .ui-config *)::-webkit-scrollbar-thumb {
+    background: var(--ui-scrollbar-thumb, var(--ui-color-border-strong));
+    border-radius: var(--ui-scrollbar-radius);
+  }
+
+  :where(html, .ui-config, .ui-config *)::-webkit-scrollbar-thumb:hover {
+    background: var(--ui-scrollbar-thumb-hover, var(--ui-color-muted));
+  }
+
+  :where(html, .ui-config, .ui-config *)::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
