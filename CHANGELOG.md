@@ -1,3 +1,9 @@
+## [0.1.2](https://github.com/wovka27/custom-ui/compare/v0.1.1...v0.1.2) (2026-10-21)
+
+### Fixed
+
+* **Form:** Change UiForm.vue ([211a3ff](https://github.com/wovka27/custom-ui/commit/211a3ff5ed4394ed6432eea600d2983cbfa6f133))
+
 ## [0.1.1](https://github.com/wovka27/custom-ui/compare/v0.1.0...v0.1.1) (2026-10-21)
 
 ### Fixed
