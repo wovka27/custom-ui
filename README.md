@@ -260,4 +260,5 @@ The `#field-${name}` slot for `custom` receives `value`, `error`, `disabled`, an
 
 ## Accessibility
 
+
 Controls expose a visible focus, a name, and a role. The dialog uses the native focus trap. A field error is associated with its control. Icons without text are hidden from the accessibility tree. Motion follows `prefers-reduced-motion`. Storybook checks screens with the a11y addon.
