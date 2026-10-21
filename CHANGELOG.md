@@ -1,3 +1,9 @@
+## [0.1.3](https://github.com/wovka27/custom-ui/compare/v0.1.2...v0.1.3) (2026-10-21)
+
+### Fixed
+
+* README.md ([163ea2d](https://github.com/wovka27/custom-ui/commit/163ea2d89ae466e57093de8b00ec86ccd9cc82ec))
+
 ## [0.1.2](https://github.com/wovka27/custom-ui/compare/v0.1.1...v0.1.2) (2026-10-21)
 
 ### Fixed
