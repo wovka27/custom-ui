@@ -1,3 +1,9 @@
+## [0.1.1](https://github.com/wovka27/custom-ui/compare/v0.1.0...v0.1.1) (2026-10-21)
+
+### Fixed
+
+* **README.md:** Change docs ([05b32a0](https://github.com/wovka27/custom-ui/commit/05b32a05132d49d5ed9f73bf687d7a0f46f74f3f))
+
 # Changelog
 
 semantic-release writes versions below this line when it publishes from `master`.
