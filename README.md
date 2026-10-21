@@ -6,23 +6,6 @@ Requirements: Node.js 22 (see `.nvmrc`) and Vue `^3.5.44`. Vue is a peer depende
 
 Public names use the `Ui` prefix. CSS variables and classes use the `ui-` prefix, for example `UiButton` and `--ui-button-radius`.
 
-## Commands
-
-| Command               | What it does                               |
-| --------------------- | ------------------------------------------ |
-| `npm run storybook`   | Component catalog at http://127.0.0.1:6006 |
-| `npm run dev:gallery` | Vite gallery at http://127.0.0.1:5173      |
-| `npm run typecheck`   | `vue-tsc --noEmit`                         |
-| `npm run lint`        | ESLint                                     |
-| `npm run format`      | Prettier                                   |
-| `npm run test`        | Vitest and the changelog script tests      |
-| `npm run ci`          | Test, lint, and build                      |
-| `npm run build`       | Typecheck and library build into `dist`    |
-
-`npm run dev` starts the same Storybook. Each component has Docs, Playground, and Showcases. The full CSS variable list is **Utilities / Tokens**.
-
-The gallery is a working application, not a catalog. A commission opens a contract, the contract opens a witness, an invoice cell holds a form, and the layout section shows a radius override.
-
 ## Setup
 
 After `npm run build`:
@@ -278,21 +261,3 @@ The `#field-${name}` slot for `custom` receives `value`, `error`, `disabled`, an
 ## Accessibility
 
 Controls expose a visible focus, a name, and a role. The dialog uses the native focus trap. A field error is associated with its control. Icons without text are hidden from the accessibility tree. Motion follows `prefers-reduced-motion`. Storybook checks screens with the a11y addon.
-
-## Release
-
-Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) and determine the [SemVer](https://semver.org/spec/v2.0.0.html) version. On a pull request, commitlint checks the whole range and a changelog comment is posted from those commits. The first push of `master` publishes `0.1.0`. Later pushes use semantic-release to update `CHANGELOG.md`, create the next tag, and publish to npm.
-
-Rules, examples, the baseline tag `v0.1.0`, and the `NPM_TOKEN` secret: [docs/commits.md](docs/commits.md).
-
-## Repository
-
-```text
-src/components   components and their stories
-src/composables  shared reactivity: value, theme, media query, field context
-src/styles       tokens, mixins, and token-overrides.json
-src/stories      Playground and Showcase templates, plus the token page
-src/playground   Vite gallery
-```
-
-Stories use Storybook 10 factories (`definePreview`, `preview.meta`, `meta.story`). `playground()` binds args to a live control. `showcases()` places several cases on one board.
