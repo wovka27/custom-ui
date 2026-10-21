@@ -132,6 +132,7 @@ async function submitForm(event: Event): Promise<void> {
 
 function onNativeSubmit(event: Event): void {
   if (region.value) return
+
   void submitForm(event)
 }
 
