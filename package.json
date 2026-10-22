@@ -34,7 +34,7 @@
     "dev:gallery": "vite",
     "storybook": "storybook dev -p 6006 --host 127.0.0.1",
     "build-storybook": "storybook build",
-    "build": "vue-tsc --noEmit -p tsconfig.json && vite build",
+    "build": "vue-tsc --noEmit -p tsconfig.json && vite build && node scripts/fix-vue-dts.mjs",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
