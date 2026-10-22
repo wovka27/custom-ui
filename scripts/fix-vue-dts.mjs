@@ -32,7 +32,7 @@ async function processDirectory(directory) {
 
     await writeFile(filePath, result, 'utf8')
 
-    console.log(`Fixed Vue declaration: ${filePath}`)
+    console.warn(`Fixed Vue declaration: ${filePath}`)
   }
 }
 
