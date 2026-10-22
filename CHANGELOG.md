@@ -1,3 +1,10 @@
+## [0.1.4](https://github.com/wovka27/custom-ui/compare/v0.1.3...v0.1.4) (2026-10-22)
+
+### Fixed
+
+* **scripts:** add script for fix dts files vue ([e7bd02f](https://github.com/wovka27/custom-ui/commit/e7bd02fde63b60bea3e7cc181c72809b7e65fb95))
+* **scripts:** change console method ([6d3b8fc](https://github.com/wovka27/custom-ui/commit/6d3b8fc50fa1bb341ba08972ce703d6b98f150f0))
+
 ## [0.1.3](https://github.com/wovka27/custom-ui/compare/v0.1.2...v0.1.3) (2026-10-21)
 
 ### Fixed
