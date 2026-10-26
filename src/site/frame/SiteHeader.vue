@@ -79,6 +79,13 @@ onScopeDispose(() => {
   <header class="shell">
     <div class="bar site-measure">
       <a class="word" href="#/">
+        <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect class="plate" width="32" height="32" rx="4" />
+          <rect class="edge" x="0.5" y="0.5" width="31" height="31" rx="3.5" />
+          <path class="ink" d="M9.65 10V17.2A3.8 3.8 0 0 0 17.25 17.2V10" />
+          <path class="ink" d="M22.35 15.4V21" />
+          <rect class="dot" x="21.2" y="10" width="2.3" height="2.3" />
+        </svg>
         Custom UI
         <ui-badge>{{ version }}</ui-badge>
       </a>
@@ -177,6 +184,33 @@ onScopeDispose(() => {
   letter-spacing: -0.03em;
   white-space: nowrap;
   text-decoration: none;
+}
+
+.mark {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.mark .plate {
+  fill: var(--ui-color-bg);
+}
+
+.mark .edge {
+  fill: none;
+  stroke: var(--ui-color-border-strong);
+  stroke-width: 1;
+}
+
+.mark .ink {
+  fill: none;
+  stroke: var(--ui-color-fg);
+  stroke-width: 2.3;
+}
+
+.mark .dot {
+  fill: var(--ui-color-accent);
 }
 
 .nav {

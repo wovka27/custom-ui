@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <title>Custom UI</title>
+  <style>
+    .plate { fill: #f7f8f8; }
+    .edge { stroke: #aeb6c0; }
+    .ink { stroke: #1a2330; }
+    .dot { fill: #007f9e; }
+    @media (prefers-color-scheme: dark) {
+      .plate { fill: #14181e; }
+      .edge { stroke: #6a7b90; }
+      .ink { stroke: #f2f4f5; }
+      .dot { fill: #4fd6ee; }
+    }
+  </style>
+  <rect class="plate" width="32" height="32" rx="4" />
+  <rect class="edge" x="0.5" y="0.5" width="31" height="31" rx="3.5" fill="none" stroke-width="1" />
+  <path
+    class="ink"
+    d="M9.65 10V17.2A3.8 3.8 0 0 0 17.25 17.2V10"
+    fill="none"
+    stroke-width="2.3"
+    stroke-linejoin="miter"
+  />
+  <path class="ink" d="M22.35 15.4V21" fill="none" stroke-width="2.3" />
+  <rect class="dot" x="21.2" y="10" width="2.3" height="2.3" />
+</svg>
