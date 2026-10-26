@@ -1,6 +1,6 @@
 {
   "name": "@wovka-dev/custom-ui",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Strict Vue 3 interface kit.",
   "license": "MIT",
   "type": "module",

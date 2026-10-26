@@ -1,3 +1,9 @@
+## [0.2.0](https://github.com/wovka27/custom-ui/compare/v0.1.4...v0.2.0) (2026-10-26)
+
+### Added
+
+* add the docs site and the rest of the kit ([e244cbc](https://github.com/wovka27/custom-ui/commit/e244cbce4d83734155808f9d2b30c6079082ee1e))
+
 ## [0.1.4](https://github.com/wovka27/custom-ui/compare/v0.1.3...v0.1.4) (2026-10-22)
 
 ### Fixed
