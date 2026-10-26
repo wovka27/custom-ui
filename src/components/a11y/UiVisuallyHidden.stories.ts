@@ -19,14 +19,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiVisuallyHidden, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Screen reader only" note="The name is in the accessibility tree and not on screen.">
+    <showcase-board>
+      <showcase-case title="Screen reader only" note="The name is in the accessibility tree and not on screen.">
         <button type="button">
           Menu
-          <UiVisuallyHidden>Open navigation</UiVisuallyHidden>
+          <ui-visually-hidden>Open navigation</UiVisuallyHidden>
         </button>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

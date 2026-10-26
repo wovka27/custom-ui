@@ -17,14 +17,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiSpinner, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Status" note="Announces Loading to assistive tech.">
-        <UiSpinner />
-      </ShowcaseCase>
-      <ShowcaseCase title="Decorative" note="Hidden from the accessibility tree.">
-        <UiSpinner decorative />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Status" note="Announces Loading to assistive tech.">
+        <ui-spinner />
+      </showcase-case>
+      <showcase-case title="Decorative" note="Hidden from the accessibility tree.">
+        <ui-spinner decorative />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

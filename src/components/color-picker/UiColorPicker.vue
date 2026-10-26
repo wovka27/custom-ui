@@ -65,7 +65,7 @@ watch(
 
 <template>
   <div v-if="variant === 'inline'" class="ui-color">
-    <ColorFields
+    <color-fields
       :variant="variant"
       :hsv="hsv"
       :draft="draft"
@@ -79,9 +79,9 @@ watch(
       <template v-if="$slots.swatch" #swatch="props">
         <slot name="swatch" v-bind="props" />
       </template>
-    </ColorFields>
+    </color-fields>
   </div>
-  <UiPopover v-else class="ui-color" :padded="false">
+  <ui-popover v-else class="ui-color" :padded="false">
     <template #trigger="{ open }">
       <slot name="trigger" :color="color" :open="open">
         <button
@@ -95,7 +95,7 @@ watch(
         </button>
       </slot>
     </template>
-    <ColorFields
+    <color-fields
       :variant="variant"
       :hsv="hsv"
       :draft="draft"
@@ -109,8 +109,8 @@ watch(
       <template v-if="$slots.swatch" #swatch="props">
         <slot name="swatch" v-bind="props" />
       </template>
-    </ColorFields>
-  </UiPopover>
+    </color-fields>
+  </ui-popover>
 </template>
 
 <style scoped lang="scss">

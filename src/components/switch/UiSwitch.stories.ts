@@ -23,13 +23,13 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiSwitch, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="States">
-        <UiSwitch label="Off" />
-        <UiSwitch label="On" :default-value="true" />
-        <UiSwitch label="Disabled" disabled />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="States">
+        <ui-switch label="Off" />
+        <ui-switch label="On" :default-value="true" />
+        <ui-switch label="Disabled" disabled />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

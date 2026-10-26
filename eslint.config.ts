@@ -15,6 +15,7 @@ export default tseslint.config(
     languageOptions: {
       globals: {
         document: 'readonly',
+        navigator: 'readonly',
         window: 'readonly',
         Node: 'readonly',
         Event: 'readonly',
@@ -30,11 +31,15 @@ export default tseslint.config(
         HTMLDialogElement: 'readonly',
         File: 'readonly',
         FileList: 'readonly',
+        URL: 'readonly',
         AbortSignal: 'readonly',
         AbortController: 'readonly',
         ClipboardEvent: 'readonly',
+        CompositionEvent: 'readonly',
         DragEvent: 'readonly',
+        InputEvent: 'readonly',
         IntersectionObserver: 'readonly',
+        ResizeObserver: 'readonly',
       },
       parserOptions: {
         parser: tseslint.parser,
@@ -54,7 +59,11 @@ export default tseslint.config(
         'error',
         { order: ['defineOptions', 'defineProps', 'defineEmits', 'defineSlots'] },
       ],
-      'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+      'vue/component-name-in-template-casing': [
+        'error',
+        'kebab-case',
+        { registeredComponentsOnly: false },
+      ],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'separate-type-imports' },

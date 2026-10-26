@@ -7,6 +7,8 @@ import {
   usePropWasPassed,
 } from '@/composables/use-controllable'
 import { useFieldControl } from '@/composables/use-field-control'
+import type { SliderEdge } from './range'
+import { slideRange } from './range'
 
 type SliderValue = number | readonly [number, number]
 type Thumb = 'single' | 'low' | 'high'
@@ -43,6 +45,8 @@ const emit = defineEmits<{
 }>()
 
 const trackRef = useTemplateRef<HTMLElement>('track')
+const lowThumbRef = useTemplateRef<HTMLElement>('lowThumb')
+const highThumbRef = useTemplateRef<HTMLElement>('highThumb')
 const active = ref<Thumb | null>(null)
 const modelPassed = useModelWasPassed()
 const defaultPassed = usePropWasPassed('defaultValue')
@@ -125,19 +129,20 @@ function pickThumb(clientX: number): Thumb {
   return Math.abs(value - low) <= Math.abs(value - high) ? 'low' : 'high'
 }
 
-function write(edge: Thumb, next: number): void {
+function move(edge: Thumb, next: number): Thumb {
   if (edge === 'single') {
     single.setValue(clamp(next))
-    return
+    return 'single'
   }
   const [low, high] = ends.value
-  if (edge === 'low') span.setValue(normalize(Math.min(next, high), high))
-  else span.setValue(normalize(low, Math.max(next, low)))
+  const placed = slideRange(edge, clamp(next), low, high)
+  span.setValue(placed.value)
+  return placed.edge
 }
 
 function setFromPointer(event: PointerEvent): void {
   if (field.isDisabled.value || !active.value) return
-  write(active.value, valueFromClient(event.clientX))
+  active.value = move(active.value, valueFromClient(event.clientX))
 }
 
 function onPointerDown(event: PointerEvent): void {
@@ -174,8 +179,8 @@ function onKeydown(edge: Thumb, event: KeyboardEvent): void {
   if (field.isDisabled.value) return
   const current =
     edge === 'high' ? ends.value[1] : edge === 'low' ? ends.value[0] : single.value.value
-  const floor = edge === 'high' ? ends.value[0] : min
-  const ceiling = edge === 'low' ? ends.value[1] : max
+  const floor = min
+  const ceiling = max
   const page = step * 10
   const delta =
     event.key === Key.ArrowRight || event.key === Key.ArrowUp
@@ -193,7 +198,14 @@ function onKeydown(edge: Thumb, event: KeyboardEvent): void {
                 : 0
   if (delta === 0) return
   event.preventDefault()
-  write(edge, current + delta)
+  const owner = move(edge, current + delta)
+  if (owner === edge || owner === 'single') return
+  focusEdge(owner)
+}
+
+function focusEdge(edge: SliderEdge): void {
+  const thumb = edge === 'high' ? highThumbRef.value : lowThumbRef.value
+  thumb?.focus()
 }
 
 watch([() => min, () => max, () => step], () => {
@@ -246,11 +258,12 @@ watch([() => min, () => max, () => step], () => {
       />
       <template v-else>
         <span
+          ref="lowThumb"
           class="ui-slider__thumb"
           role="slider"
           tabindex="0"
           :aria-valuemin="min"
-          :aria-valuemax="ends[1]"
+          :aria-valuemax="max"
           :aria-valuenow="ends[0]"
           :aria-label="`${label} minimum`"
           :aria-invalid="field.isInvalid.value || undefined"
@@ -260,10 +273,11 @@ watch([() => min, () => max, () => step], () => {
           @keydown="onLowKeydown"
         />
         <span
+          ref="highThumb"
           class="ui-slider__thumb"
           role="slider"
           tabindex="0"
-          :aria-valuemin="ends[0]"
+          :aria-valuemin="min"
           :aria-valuemax="max"
           :aria-valuenow="ends[1]"
           :aria-label="`${label} maximum`"

@@ -56,34 +56,34 @@ export const Showcases = meta.story(
       return { roles, detailed, visible, hasMore, loadingMore, loadMore }
     },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Placeholder">
-        <UiSelect :options="roles" placeholder="Choose a role" />
-      </ShowcaseCase>
-      <ShowcaseCase title="All option" note="The first option submits null.">
-        <UiSelect :options="roles" all-option :default-value="null" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Custom all value">
-        <UiSelect :options="roles" :all-option="{ label: 'Any role', value: null }" :default-value="null" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Custom option" note="The option slot receives the option, selected, and active.">
-        <UiSelect :options="detailed" placeholder="Choose a person">
+    <showcase-board>
+      <showcase-case title="Placeholder">
+        <ui-select :options="roles" placeholder="Choose a role" />
+      </showcase-case>
+      <showcase-case title="All option" note="The first option submits null.">
+        <ui-select :options="roles" all-option :default-value="null" />
+      </showcase-case>
+      <showcase-case title="Custom all value">
+        <ui-select :options="roles" :all-option="{ label: 'Any role', value: null }" :default-value="null" />
+      </showcase-case>
+      <showcase-case title="Custom option" note="The option slot receives the option, selected, and active.">
+        <ui-select :options="detailed" placeholder="Choose a person">
           <template #option="{ option, selected }">
             <span>{{ option.label }}</span>
             <small v-if="option.hint">{{ selected ? 'Selected' : option.hint }}</small>
           </template>
-        </UiSelect>
-      </ShowcaseCase>
-      <ShowcaseCase title="Paged options" note="The list asks for the next page when the end is visible.">
-        <UiSelect
+        </ui-select>
+      </showcase-case>
+      <showcase-case title="Paged options" note="The list asks for the next page when the end is visible.">
+        <ui-select
           :options="visible"
           :has-more="hasMore"
           :loading-more="loadingMore"
           placeholder="Choose a desk"
           @load-more="loadMore"
         />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

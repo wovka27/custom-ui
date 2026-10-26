@@ -21,10 +21,10 @@ export const Showcases = meta.story(
     components: { UiImage, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ src }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Loaded"><UiImage :src="src" alt="Harbor" ratio="16 / 9" style="width: 16rem" /></ShowcaseCase>
-        <ShowcaseCase title="Missing"><UiImage alt="No preview" style="width: 16rem" /></ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Loaded"><ui-image :src="src" alt="Harbor" ratio="16 / 9" style="width: 16rem" /></showcase-case>
+        <showcase-case title="Missing"><ui-image alt="No preview" style="width: 16rem" /></showcase-case>
+      </showcase-board>
     `,
   })),
 )

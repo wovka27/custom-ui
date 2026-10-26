@@ -21,5 +21,5 @@ Region.props = ['values', 'state']
 </script>
 
 <template>
-  <Region :values="form.values.value" :state="state" />
+  <region :values="form.values.value" :state="state" />
 </template>

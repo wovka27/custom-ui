@@ -1,0 +1,1 @@
+export { default as UiMark } from './UiMark.vue'

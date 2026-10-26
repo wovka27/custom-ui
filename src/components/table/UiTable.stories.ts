@@ -88,9 +88,9 @@ export const Showcases = meta.story(
     },
     setup: () => ({ columns, embeddedColumns, groupedColumns, line, rows }),
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Selection and sort">
-        <UiTable
+    <showcase-board>
+      <showcase-case title="Selection and sort">
+        <ui-table
           caption="Open and settled invoices"
           :columns="columns"
           :rows="rows"
@@ -100,35 +100,35 @@ export const Showcases = meta.story(
           zebra
         >
           <template #cell-status="{ row }">
-            <UiBadge :tone="row.status === 'Paid' ? 'success' : row.status === 'Overdue' ? 'danger' : 'info'">
+            <ui-badge :tone="row.status === 'Paid' ? 'success' : row.status === 'Overdue' ? 'danger' : 'info'">
               {{ row.status }}
-            </UiBadge>
+            </ui-badge>
           </template>
-        </UiTable>
-      </ShowcaseCase>
-      <ShowcaseCase title="Empty">
-        <UiTable
+        </ui-table>
+      </showcase-case>
+      <showcase-case title="Empty">
+        <ui-table
           caption="No matches"
           :columns="columns"
           :rows="[]"
           :row-key="(row) => row.id"
         >
           <template #empty>No clients match that search.</template>
-        </UiTable>
-      </ShowcaseCase>
-      <ShowcaseCase title="Loading">
-        <UiTable caption="Loading invoices" :columns="columns" :rows="rows" :row-key="(row) => row.id" loading />
-      </ShowcaseCase>
-      <ShowcaseCase title="Groups, details, actions" note="One header can cover several cells. Details open under the row. Actions stay on the right.">
-        <UiTable caption="Grouped invoices" :columns="groupedColumns" :rows="rows" :row-key="(row) => row.id" :row-label="(row) => row.client">
+        </ui-table>
+      </showcase-case>
+      <showcase-case title="Loading">
+        <ui-table caption="Loading invoices" :columns="columns" :rows="rows" :row-key="(row) => row.id" loading />
+      </showcase-case>
+      <showcase-case title="Groups, details, actions" note="One header can cover several cells. Details open under the row. Actions stay on the right.">
+        <ui-table caption="Grouped invoices" :columns="groupedColumns" :rows="rows" :row-key="(row) => row.id" :row-label="(row) => row.client">
           <template #detail="{ row }">Issued as {{ row.id }}.</template>
           <template #actions="{ row }">
             <button type="button">Open {{ row.id }}</button>
           </template>
-        </UiTable>
-      </ShowcaseCase>
-      <ShowcaseCase title="Form in a cell" note="A region form stays inside the cell without nesting a form element.">
-        <UiTable
+        </ui-table>
+      </showcase-case>
+      <showcase-case title="Form in a cell" note="A region form stays inside the cell without nesting a form element.">
+        <ui-table
           embedded
           layout="fixed"
           caption="Invoice notes"
@@ -137,11 +137,11 @@ export const Showcases = meta.story(
           :row-key="(row) => row.id"
         >
           <template #cell-note>
-            <UiForm as="region" :schema="line" submit-label="Save note" columns="100%" />
+            <ui-form as="region" :schema="line" submit-label="Save note" columns="100%" />
           </template>
-        </UiTable>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+        </ui-table>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

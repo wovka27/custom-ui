@@ -20,15 +20,15 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiCheckbox, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="States">
-        <UiCheckbox label="Off" />
-        <UiCheckbox label="On" :default-value="true" />
-        <UiCheckbox label="Mixed" indeterminate />
-        <UiCheckbox label="Disabled" disabled />
-        <UiCheckbox label="Invalid" invalid />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="States">
+        <ui-checkbox label="Off" />
+        <ui-checkbox label="On" :default-value="true" />
+        <ui-checkbox label="Mixed" indeterminate />
+        <ui-checkbox label="Disabled" disabled />
+        <ui-checkbox label="Invalid" invalid />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

@@ -1,0 +1,22 @@
+html,
+body,
+#app {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--ui-color-bg);
+  color: var(--ui-color-fg);
+}
+
+.site-measure {
+  width: min(100% - 2 * var(--ui-space-5), 90rem);
+  margin-inline: auto;
+}
+
+h1,
+h2,
+h3 {
+  scroll-margin-top: 4.75rem;
+}

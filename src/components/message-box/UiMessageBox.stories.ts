@@ -25,7 +25,7 @@ export const Playground = meta.story(
           },
         }
       },
-      template: '<UiMessageBox /><UiButton @click="ask">Ask</UiButton><p>{{ result }}</p>',
+      template: '<ui-message-box /><ui-button @click="ask">Ask</UiButton><p>{{ result }}</p>',
     }),
   }),
 )
@@ -49,13 +49,13 @@ export const Showcases = meta.story(
       }
     },
     template: `
-      <UiMessageBox />
-      <ShowcaseBoard>
-        <ShowcaseCase title="Prompt">
-          <UiButton @click="ask">Name</UiButton>
+      <ui-message-box />
+      <showcase-board>
+        <showcase-case title="Prompt">
+          <ui-button @click="ask">Name</UiButton>
           <p>{{ result }}</p>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

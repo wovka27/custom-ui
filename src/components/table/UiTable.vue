@@ -244,7 +244,7 @@ function toggleExpand(row: T): void {
                 scope="col"
                 :rowspan="grouped ? 2 : undefined"
               >
-                <UiCheckbox
+                <ui-checkbox
                   :model-value="allSelected"
                   :indeterminate="partiallySelected"
                   hide-label
@@ -317,7 +317,7 @@ function toggleExpand(row: T): void {
         <tbody v-if="loading">
           <tr>
             <td class="ui-table__loading" :colspan="columnCount">
-              <UiSpinner decorative />
+              <ui-spinner decorative />
               <span>Loading rows</span>
             </td>
           </tr>
@@ -326,7 +326,7 @@ function toggleExpand(row: T): void {
           <tr>
             <td class="ui-table__empty" :colspan="columnCount">
               <slot name="empty">
-                <UiEmpty title="No results" description="Nothing matches this view." variant="plain" />
+                <ui-empty title="No results" description="Nothing matches this view." variant="plain" />
               </slot>
             </td>
           </tr>
@@ -338,7 +338,7 @@ function toggleExpand(row: T): void {
               :data-selected="isSelected(row) || undefined"
             >
               <td v-if="selectable" class="ui-table__check">
-                <UiCheckbox
+                <ui-checkbox
                   :model-value="isSelected(row)"
                   hide-label
                   :label="`Select ${labelFor(row)}`"

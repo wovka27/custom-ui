@@ -21,9 +21,9 @@ createApp(App).mount('#app')
 
 ```vue
 <template>
-  <UiConfigProvider theme="system" locale="en">
-    <App />
-  </UiConfigProvider>
+  <ui-config-provider theme="system" locale="en">
+    <app />
+  </ui-config-provider>
 </template>
 ```
 
@@ -42,7 +42,7 @@ Controls share one rule.
 
 ## Appearance
 
-Tokens live in `src/styles/_tokens.scss`. A component reads a public variable and does not declare it again, so an ancestor wins:
+Customization is a replacement of CSS variables. Tokens live in `src/styles/_tokens.scss`. A component reads a public variable and does not declare it again, so an ancestor wins:
 
 ```css
 .toolbar {
@@ -51,12 +51,16 @@ Tokens live in `src/styles/_tokens.scss`. A component reads a public variable an
 }
 ```
 
-A button inside `.toolbar` becomes squarer, and a checked checkbox picks up the new accent. `cssVars` is a short name map for application code. The full contract is `src/styles/token-overrides.json`. Storybook → Utilities → Tokens renders the same tree and has a Copy JSON button. Paste that JSON into a model with the company design. The model fills `proposal` and must not invent token names.
+A button inside `.toolbar` becomes squarer, and a checked checkbox picks up the new accent. `cssVars` is a short name map for application code.
+
+A score writes the whole set for one region: the contract is `src/styles/design-score.json`. Storybook → Utilities → Tokens copies that JSON. Paste it into a model with the company design. The model returns one score: a name, a hue, a chroma, and a grammar for ground, shape, density, motion, elevation, and voice. Pass the score to `UiConfigProvider`. The provider compiles it into the same CSS variables, for the active theme. Light and dark come from the same score. `UiChord` is that compiler with a hue control, so one region can wear a different score from the page.
+
+`src/styles/token-overrides.json` is the variable inventory. Fill `proposal` only when one variable must differ from the compiled score. Do not invent token names.
 
 The cascade has two layers:
 
 - Foundation tokens are declared on `:root`. Theme colors and shadows have light and dark values. Type, space, radii, motion, and layout metrics are shared. Changing one moves every consumer.
-- Component hooks (`--ui-button-*`, `--ui-control-*`, `--ui-choice-*`, `--ui-switch-*`, `--ui-table-*`) are unset. Each falls back to a foundation token or a literal. Set the hook to restyle one family. One `--ui-button-*` value applies to every variant; the variant differences exist only while the variable is unset.
+- Component hooks (`--ui-button-*`, `--ui-control-*`, `--ui-choice-*`, `--ui-switch-*`, `--ui-table-*`, `--ui-slider-*`, `--ui-progress-*`, `--ui-date-day-selected-*`) are unset. Each falls back to a foundation token or a literal. Set the hook to restyle one family. One `--ui-button-*` value applies to every variant; the variant differences exist only while the variable is unset.
 
 ```text
 foundation
@@ -93,6 +97,9 @@ table
   fixed        embedded tables ignore max-height; zebra uses --ui-color-subtle
 dialog         no hooks: surface, border, --ui-radius-lg, --ui-shadow-pop, overlay
 pagination     no hooks: 1.75rem squares, 2px radius, current page uses fg on bg
+slider         track → border-strong, fill → accent, thumb → surface
+progress       track → border, fill → accent
+date           selected day bg → accent, fg → accent-fg
 ```
 
 Motion is short: color and border in 120ms, press in 90ms at a scale of `0.985`, reveal in 180ms. Under `prefers-reduced-motion: reduce`, durations collapse and `--ui-press-scale` becomes `1`. Text fields do not scale, so the caret does not jump.
@@ -128,7 +135,7 @@ Date and currency follow `locale`, `currency`, and `fractionDigits`. In `en`, ty
 `UiSelect` opens a listbox from a button. `all-option` prepends a choice. `true` uses the label All and the value `null`. An object `{ label, value }` supplies its own label and value. A custom value that already exists in the list is not duplicated.
 
 ```vue
-<UiSelect v-model="status" :options="statuses" all-option name="status" />
+<ui-select v-model="status" :options="statuses" all-option name="status" />
 ```
 
 Here `status` has the type `Status | null`. `null` means every status.
@@ -186,7 +193,7 @@ const profile = defineForm([
 ```
 
 ```vue
-<UiForm :schema="profile" label="Profile" submit-label="Save" @submit="onSubmit" />
+<ui-form :schema="profile" label="Profile" submit-label="Save" @submit="onSubmit" />
 ```
 
 Field kinds: `text`, `textarea`, `select`, `radio`, `checkbox`, `switch`, `date`, `datetime`, `slider`, `color`, `tags`, `otp`, `segmented`, `upload`, `table`, `custom`. `date`, `datetime`, and `slider` accept `range`. Each field can set `label`, `hint`, `required`, `rules`, `when`, `disabled`, `span` (`auto` or `full`), and `size`.
@@ -252,13 +259,28 @@ The `#field-${name}` slot for `custom` receives `value`, `error`, `disabled`, an
 
 `UiDatePicker` is one date, or a `range` with a start and an end. The first pick sets the start. The second pick sets the end and orders them. Trigger, header, day, and footer are slots. `min` and `max` are ISO dates. `--ui-date-day-selected-bg` and `--ui-date-day-selected-fg` recolor the selected day. `UiDateTimePicker` adds a time to that same single or range value. A single value is `YYYY-MM-DDTHH:mm`. A range is `{ start, end }`.
 
-`UiSlider` is one value, or a `range` with two thumbs. Changing `min` or `max` clamps both ends. `--ui-slider-track`, `--ui-slider-fill`, and `--ui-slider-thumb` restyle it. `UiColorPicker` edits a hex color. `variant` is `panel` (the popover), `inline` (always open), or `swatches` (chips and a hex field). `UiInputTag` commits on Enter or a separator. `UiInputOtp` is a fixed row of cells and accepts a paste. `UiSegmented` is a single-choice radio group. `UiUpload` keeps the selected files inside the control and can run a `request` that reports progress and accepts an abort signal.
+`UiCalendar` is the month, week, day, and agenda around a set of events. `v-model` is the selected day, `YYYY-MM-DD`. `v-model:view` is `month`, `week`, `day`, or `agenda`. An event `start` and `end` are a day or `YYYY-MM-DDTHH:mm`. Week and day place timed events on a 06:00–22:00 grid; overlapping events sit side by side. A day with no time, or a span of days, is a bar in the all-day lane and across the month. A line marks the current time. Clicking an empty hour opens the same dialog for a new event. Opening an event emits `open` and opens `UiDialog`. The fields are a `UiForm` built with `defineForm`: title, detail, all day, tone, and the start and end. Saving a new event emits `create` with the whole event. Saving an existing one emits `update`. Remove emits `remove` with its id. Previous, next, and today follow the current view. Arrow keys move the selected day. The `event` slot replaces an event’s label, and `empty` replaces the agenda message. In the agenda, a day opens that day.
+
+`UiEditor` is a rich text surface. `v-model` is a document of blocks. A block is a paragraph, heading, quote, code block, bulleted list, numbered list, checklist, divider, or image. Text is a list of runs with bold, italic, underline, strike, code, highlight, subscript, superscript, and a link. The toolbar sets the block, the marks, alignment, a link, an emoji, an image, a divider, and undo. An image comes from a file or an address through `UiDialog` and `UiForm`, and a pasted or dropped picture becomes an image block. At the start of a paragraph, `# `, `## `, `### `, `> `, `- `, `1. `, `---`, `***`, and a fence of three backticks become that block. On a bullet, `[ ] ` and `[x] ` become a checklist item. Enter splits a block. Backspace at the start joins it with the previous one, and removes a divider. An empty list item becomes a paragraph. `labels` replaces the visible words. The `toolbar` slot replaces the bar and receives `command`. The `status` slot replaces the word count.
+
+`UiSlider` is one value, or a `range` with two thumbs. Dragging or keying one thumb past the other keeps that thumb moving, and the ends trade places. Changing `min` or `max` clamps both ends. `--ui-slider-track`, `--ui-slider-fill`, and `--ui-slider-thumb` restyle it. `UiColorPicker` edits a hex color. `variant` is `panel` (the popover), `inline` (always open), or `swatches` (chips and a hex field). `UiInputTag` commits on Enter or a separator. `UiInputOtp` is a fixed row of cells and accepts a paste. `UiSegmented` is a single-choice radio group. `UiUpload` keeps the selected files inside the control. `variant` is `drop`, `button`, `picture`, or `gallery`. `shape` is `square` or `circle` on a picture. An image file is shown as soon as it is chosen, including while a `request` reports progress. The request accepts an abort signal. `remove-label` names the remove button. The default slot replaces the prompt, and the `file` slot receives `preview`.
 
 `UiTable` can group a header across several cells with `children` on a column. A single column spans both header rows, and a group title is centered over its cells. The `header` slot replaces the header rows. The `empty` slot replaces the state shown when there are no rows. The `detail` slot adds a disclosure under a row, controlled with `expanded`. The `actions` slot is a sticky column on the inline end, and `actions-header` names it. `UiDataTable` renders that table from a `defineTable` schema: columns, groups, sort, selection, page size, and empty copy. A column `field` is the sort value, and `value` is the displayed text. Cell, header, detail, actions, and empty stay slots. `UiPagination` takes `page-sizes` and `v-model:page-size`. The page buttons stay 28px squares with a 2px radius. The row count is a select of the same height. `UiEmpty` is `plain`, `panel`, or `dashed`, with `media` and `actions` slots. `UiTimeline` lists events. `UiAnchor` links to element ids and marks the section in view.
 
 `UiMessage` keeps the title and description in one column and the dismiss control in the other. `UiPopover` and `UiTooltip` anchor to the trigger. `placement` is `top`, `bottom`, `start`, or `end`. `align` is `start`, `center`, or `end` along that edge. Both use CSS anchor positioning, with a measured fallback. `UiMessage`, `UiNotification`, and `UiMessageBox` each need their host mounted once: `showMessage`, `showNotification`, `confirmBox`, `alertBox`, and `promptBox`. Notifications enter from the right edge and stack downward. `UiTour` walks `selector` steps. `UiProgress` is a `line`, `bar`, `circle`, or `steps` meter. `UiCarousel` snaps slides. `controls` is `inside`, `top`, `bottom`, or `none`. `pagination` is `dots` or `line`, always along the bottom of the frame, and `pagination-trigger` is `click` or `hover`. `UiCollapse` opens one item, or several when `multiple` is set. `UiDivider` is a rule with an optional label. `UiImage` covers loading, error, ratio, and an optional preview.
 
-## Accessibility
+## Patterns
 
+Page chrome and status sit on the same surface, tone, and focus mixins as the controls. `UiPageHeader`, `UiToolbar`, `UiCard`, and `UiScrollArea` frame a view. `UiSkeleton` covers loading. `UiAvatar`, `UiStat`, `UiDescription`, `UiSteps`, and `UiTree` present people and structure. `UiMenu` and `UiDrawer` hold actions without a new visual language. `UiNumberField`, `UiRate`, `UiChip`, `UiCopy`, and `UiCountdown` cover the small controls around a form. `UiBanner`, `UiStatus`, `UiResult`, `UiKbd`, `UiCode`, `UiLink`, and `UiBackTop` cover the remaining page states. Text props have a matching slot, so a label can be replaced without leaving the component.
+
+## Instruments
+
+`UiChord` tunes a score. One hue moves paper, ink, accent, and status together, and the grammar beside it rewrites shape, density, motion, elevation, and voice. The slot wears that score. `UiCompare` reveals one layer over another. `UiStamp` seals a document. `UiBalance` splits one bar between two amounts. `UiCycle` steps through named states. `UiSpark` draws a series as a single line. `UiIndex` jumps a list by its first letter. `UiWhisper` opens a note under a word. `UiPair` keeps two ends ordered and can swap them. `UiScan` reads across a frame. `UiBorderBeam` draws a light that follows the rim of its slot and bends with the corner. `duration`, `delay`, `size`, and `width` set the lap, the wait, the longest length, and the thickness. The length shortens and lengthens at random. `glow` adds a soft light behind the stroke. `reverse` turns it around. `mirror` adds a second light half a lap behind, with its own length. `tone` uses a status color. `active` false, and reduced motion, leave the light still. `UiQrCode` encodes text as a symbol. `shape` is square, rounded, dot, or diamond. Finder eyes stay square. `level` is L, M, Q, or H. `tone` colors the modules. `size` is the drawn length. `quiet` is the empty margin. A `mark` slot covers the center, so use H there. The `label` names the symbol and can be replaced by the caption slot. `UiMark` highlights a phrase.
+
+## Desk
+
+`UiRedact` hides a value until it is asked for. `UiWitness` records who signed a statement, and when.
+
+## Accessibility
 
 Controls expose a visible focus, a name, and a role. The dialog uses the native focus trap. A field error is associated with its control. Icons without text are hidden from the accessibility tree. Motion follows `prefers-reduced-motion`. Storybook checks screens with the a11y addon.

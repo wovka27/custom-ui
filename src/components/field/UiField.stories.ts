@@ -24,7 +24,7 @@ export const Playground = meta.story(
       components: { UiField, UiInput },
       setup: () => ({ args }),
       template:
-        '<UiField v-bind="args"><UiInput type="email" placeholder="ada@atelier.dev" /></UiField>',
+        '<ui-field v-bind="args"><ui-input type="email" placeholder="ada@atelier.dev" /></ui-field>',
     }),
   }),
 )
@@ -40,26 +40,26 @@ export const Showcases = meta.story(
       return { error, toggle }
     },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Hint">
-        <UiField label="Email" hint="Used for sign-in and receipts.">
-          <UiInput type="email" placeholder="ada@atelier.dev" />
-        </UiField>
-      </ShowcaseCase>
-      <ShowcaseCase title="Error">
-        <UiField label="Email" required error="Enter a valid email address.">
-          <UiInput type="email" invalid default-value="ada" />
-        </UiField>
-      </ShowcaseCase>
-      <ShowcaseCase title="Motion">
-        <UiField label="Email" required :error="error">
-          <UiInput type="email" :invalid="Boolean(error)" default-value="ada" />
-        </UiField>
-        <UiButton type="button" variant="secondary" @click="toggle">
+    <showcase-board>
+      <showcase-case title="Hint">
+        <ui-field label="Email" hint="Used for sign-in and receipts.">
+          <ui-input type="email" placeholder="ada@atelier.dev" />
+        </ui-field>
+      </showcase-case>
+      <showcase-case title="Error">
+        <ui-field label="Email" required error="Enter a valid email address.">
+          <ui-input type="email" invalid default-value="ada" />
+        </ui-field>
+      </showcase-case>
+      <showcase-case title="Motion">
+        <ui-field label="Email" required :error="error">
+          <ui-input type="email" :invalid="Boolean(error)" default-value="ada" />
+        </ui-field>
+        <ui-button type="button" variant="secondary" @click="toggle">
           {{ error ? 'Clear error' : 'Show error' }}
-        </UiButton>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+        </ui-button>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

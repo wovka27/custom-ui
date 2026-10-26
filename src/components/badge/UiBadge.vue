@@ -15,6 +15,8 @@ defineSlots<{
 </template>
 
 <style scoped lang="scss">
+@use '@/styles/mixins' as *;
+
 .ui-badge {
   display: inline-flex;
   align-items: center;
@@ -28,29 +30,6 @@ defineSlots<{
   line-height: 1;
   white-space: nowrap;
 
-  &[data-tone='accent'] {
-    background: var(--ui-color-accent-subtle);
-    color: var(--ui-color-accent);
-  }
-
-  &[data-tone='success'] {
-    background: var(--ui-color-success-subtle);
-    color: var(--ui-color-success);
-  }
-
-  &[data-tone='warning'] {
-    background: var(--ui-color-warning-subtle);
-    color: var(--ui-color-warning-fg);
-  }
-
-  &[data-tone='danger'] {
-    background: var(--ui-color-danger-subtle);
-    color: var(--ui-color-danger);
-  }
-
-  &[data-tone='info'] {
-    background: var(--ui-color-info-subtle);
-    color: var(--ui-color-info);
-  }
+  @include tone-ink;
 }
 </style>

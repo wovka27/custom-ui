@@ -3,7 +3,7 @@ import { dismissNotification, notificationItems } from './notification'
 </script>
 
 <template>
-  <TransitionGroup tag="div" class="ui-notification" name="ui-note" aria-live="polite">
+  <transition-group tag="div" class="ui-notification" name="ui-note" aria-live="polite">
     <article
       v-for="item in notificationItems"
       :key="item.id"
@@ -23,10 +23,12 @@ import { dismissNotification, notificationItems } from './notification'
       </header>
       <p>{{ item.description }}</p>
     </article>
-  </TransitionGroup>
+  </transition-group>
 </template>
 
 <style scoped lang="scss">
+@use '@/styles/mixins' as *;
+
 .ui-notification {
   position: fixed;
   z-index: var(--ui-z-dialog);
@@ -50,6 +52,8 @@ import { dismissNotification, notificationItems } from './notification'
   color: var(--ui-color-fg);
   box-shadow: var(--ui-shadow-pop);
   pointer-events: auto;
+
+  @include tone-mark(border-inline-start-color);
 }
 
 .ui-note-enter-from,
@@ -68,20 +72,6 @@ import { dismissNotification, notificationItems } from './notification'
 :dir(rtl) .ui-note-enter-from,
 :dir(rtl) .ui-note-leave-to {
   translate: calc(-100% - var(--ui-space-4)) 0;
-}
-
-.ui-notification__item[data-tone='success'] {
-  border-inline-start-color: var(--ui-color-success);
-}
-.ui-notification__item[data-tone='warning'] {
-  border-inline-start-color: var(--ui-color-warning);
-}
-.ui-notification__item[data-tone='danger'] {
-  border-inline-start-color: var(--ui-color-danger);
-}
-.ui-notification__item[data-tone='info'],
-.ui-notification__item[data-tone='accent'] {
-  border-inline-start-color: var(--ui-color-accent);
 }
 
 header {

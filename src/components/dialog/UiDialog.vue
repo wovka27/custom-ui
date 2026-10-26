@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onScopeDispose, ref, useId, useTemplateRef, watch } from 'vue'
+import { useCarriedTokens } from '@/composables/use-carried-tokens'
 import type { UiSize } from '@/types/common'
 import {
   activateDialog,
@@ -37,7 +38,9 @@ defineSlots<{
 const titleId = useId()
 const descriptionId = useId()
 const layerId = useId()
+const anchorRef = useTemplateRef<HTMLElement>('anchor')
 const dialogRef = useTemplateRef<HTMLDialogElement>('dialog')
+const carried = useCarriedTokens(anchorRef)
 const closing = ref(false)
 let closeTicket = 0
 
@@ -109,10 +112,12 @@ function onBackdrop(event: MouseEvent): void {
 </script>
 
 <template>
-  <Teleport to="body">
+  <span ref="anchor" class="ui-dialog__anchor" aria-hidden="true" />
+  <teleport to="body">
     <dialog
       ref="dialog"
       class="ui-dialog"
+      :style="carried"
       :data-size="size"
       :data-closing="closing ? 'true' : undefined"
       aria-modal="true"
@@ -154,17 +159,34 @@ function onBackdrop(event: MouseEvent): void {
         <slot name="footer" :close="askClose" :closing="closing" />
       </footer>
     </dialog>
-  </Teleport>
+  </teleport>
 </template>
 
 <style scoped lang="scss">
 @use '@/styles/mixins' as *;
 
+.ui-dialog__anchor {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .ui-dialog {
+  box-sizing: border-box;
+
+  :deep(*) {
+    box-sizing: border-box;
+  }
+
   width: min(calc(100vw - 2rem), var(--_width, 32rem));
   max-height: min(40rem, calc(100dvh - 2rem));
   padding: 0;
   overflow: auto;
+  font-family: var(--ui-font-sans);
+  font-size: var(--ui-font-size-md);
+  line-height: var(--ui-line-height);
   border: 1px solid var(--ui-color-border);
   border-radius: var(--ui-radius-lg);
   background: var(--ui-color-surface);

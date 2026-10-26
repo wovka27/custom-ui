@@ -20,11 +20,11 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiContainer, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Measure">
-        <UiContainer width="28rem">Content stays inside the measure.</UiContainer>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Measure">
+        <ui-container width="28rem">Content stays inside the measure.</ui-container>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

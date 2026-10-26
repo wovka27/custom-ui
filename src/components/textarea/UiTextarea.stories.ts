@@ -20,14 +20,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiTextarea, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Fixed rows">
-        <UiTextarea placeholder="Four rows" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Auto size" note="The field grows with its content.">
-        <UiTextarea auto-size default-value="Line one&#10;Line two" />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Fixed rows">
+        <ui-textarea placeholder="Four rows" />
+      </showcase-case>
+      <showcase-case title="Auto size" note="The field grows with its content.">
+        <ui-textarea auto-size default-value="Line one&#10;Line two" />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

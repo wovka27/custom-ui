@@ -15,11 +15,11 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiInputTag, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Tags" note="Enter or comma commits. Backspace removes the last tag.">
-          <UiInputTag :default-value="['Ada']" placeholder="Name" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Tags" note="Enter or comma commits. Backspace removes the last tag.">
+          <ui-input-tag :default-value="['Ada']" placeholder="Name" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

@@ -335,6 +335,8 @@ const handle = defineForm([
 const signals = defineForm([
   { kind: 'date', name: 'due', label: 'Due', range: true },
   { kind: 'datetime', name: 'slot', label: 'Slot' },
+  { kind: 'number', name: 'seats', label: 'Seats', min: 1, max: 12, defaultValue: 2 },
+  { kind: 'rate', name: 'score', label: 'Score', max: 5, defaultValue: 4 },
   { kind: 'slider', name: 'volume', label: 'Volume', defaultValue: 40 },
   { kind: 'color', name: 'ink', label: 'Ink', variant: 'swatches' },
   { kind: 'tags', name: 'labels', label: 'Labels', placeholder: 'Label' },
@@ -385,7 +387,7 @@ export const Playground = meta.story(
       },
       template: `
         <div style="width: min(40rem, 100%)">
-          <UiForm
+          <ui-form
             :schema="profile"
             :label="args.label"
             :submit-label="args.submitLabel"
@@ -409,12 +411,12 @@ export const Showcases = meta.story(
     components: { UiButton, UiCluster, UiForm, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ account, territory, roster, handle, signals, rejectHandle }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Schema" note="Groups, masks, a conditional pair, and a custom control.">
-          <UiForm :schema="account" submit-label="Create account" success-label="Account created." style="width: 100%; max-width: 46rem">
+      <showcase-board>
+        <showcase-case title="Schema" note="Groups, masks, a conditional pair, and a custom control.">
+          <ui-form :schema="account" submit-label="Create account" success-label="Account created." style="width: 100%; max-width: 46rem">
             <template #field-priority="{ value, setValue, disabled }">
-              <UiCluster>
-                <UiButton
+              <ui-cluster>
+                <ui-button
                   v-for="level in ['low', 'normal', 'high']"
                   :key="level"
                   type="button"
@@ -423,13 +425,13 @@ export const Showcases = meta.story(
                   @click="setValue(level)"
                 >
                   {{ level }}
-                </UiButton>
-              </UiCluster>
+                </ui-button>
+              </ui-cluster>
             </template>
-          </UiForm>
-        </ShowcaseCase>
-        <ShowcaseCase title="Async" note="A choice loads options, reveals a field, and opens a block that is not a field.">
-          <UiForm :schema="territory" label="Territory" submit-label="Save territory" style="width: 100%; max-width: 46rem">
+          </ui-form>
+        </showcase-case>
+        <showcase-case title="Async" note="A choice loads options, reveals a field, and opens a block that is not a field.">
+          <ui-form :schema="territory" label="Territory" submit-label="Save territory" style="width: 100%; max-width: 46rem">
             <template #block-dispatch="{ state }">
               <aside style="width: 100%; border: 1px solid var(--ui-color-border); border-radius: 4px; padding: 0.75rem 1rem">
                 <p v-if="state.status === 'pending'" style="margin: 0">Opening dispatch…</p>
@@ -442,18 +444,18 @@ export const Showcases = meta.story(
               <p v-else-if="state.status === 'success' && state.data" style="margin: 0">{{ state.data }}</p>
               <p v-else-if="state.status === 'error'" role="alert" style="margin: 0">{{ state.error.message }}</p>
             </template>
-          </UiForm>
-        </ShowcaseCase>
-        <ShowcaseCase title="Async field" note="Ada fails in the field. Any other handle is rejected by the server onto that same field.">
-          <UiForm :schema="handle" label="Handle" submit-label="Reserve" :on-submit="rejectHandle" style="width: 100%; max-width: 24rem" />
-        </ShowcaseCase>
-        <ShowcaseCase title="New controls" note="Date, time, slider, color, tags, code, segmented choice, and upload.">
-          <UiForm :schema="signals" label="Signals" submit-label="Save signals" style="width: 100%; max-width: 28rem" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Table" note="Selection and edited cells belong to the form model.">
-          <UiForm :schema="roster" label="Desk" submit-label="Save crew" style="width: 100%" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+          </ui-form>
+        </showcase-case>
+        <showcase-case title="Async field" note="Ada fails in the field. Any other handle is rejected by the server onto that same field.">
+          <ui-form :schema="handle" label="Handle" submit-label="Reserve" :on-submit="rejectHandle" style="width: 100%; max-width: 24rem" />
+        </showcase-case>
+        <showcase-case title="New controls" note="Date, time, slider, color, tags, code, segmented choice, and upload.">
+          <ui-form :schema="signals" label="Signals" submit-label="Save signals" style="width: 100%; max-width: 28rem" />
+        </showcase-case>
+        <showcase-case title="Table" note="Selection and edited cells belong to the form model.">
+          <ui-form :schema="roster" label="Desk" submit-label="Save crew" style="width: 100%" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

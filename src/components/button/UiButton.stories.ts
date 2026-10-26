@@ -29,24 +29,24 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiButton, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Variants">
-        <UiButton>Primary</UiButton>
-        <UiButton variant="secondary">Secondary</UiButton>
-        <UiButton variant="ghost">Ghost</UiButton>
-        <UiButton variant="danger">Danger</UiButton>
-      </ShowcaseCase>
-      <ShowcaseCase title="Sizes">
-        <UiButton size="sm">Small</UiButton>
-        <UiButton size="md">Medium</UiButton>
-        <UiButton size="lg">Large</UiButton>
-      </ShowcaseCase>
-      <ShowcaseCase title="States">
-        <UiButton loading>Saving</UiButton>
-        <UiButton disabled>Disabled</UiButton>
-        <UiButton aria-pressed="true">Pressed</UiButton>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Variants">
+        <ui-button>Primary</UiButton>
+        <ui-button variant="secondary">Secondary</UiButton>
+        <ui-button variant="ghost">Ghost</UiButton>
+        <ui-button variant="danger">Danger</UiButton>
+      </showcase-case>
+      <showcase-case title="Sizes">
+        <ui-button size="sm">Small</UiButton>
+        <ui-button size="md">Medium</UiButton>
+        <ui-button size="lg">Large</UiButton>
+      </showcase-case>
+      <showcase-case title="States">
+        <ui-button loading>Saving</UiButton>
+        <ui-button disabled>Disabled</UiButton>
+        <ui-button aria-pressed="true">Pressed</UiButton>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

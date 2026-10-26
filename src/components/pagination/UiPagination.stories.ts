@@ -21,7 +21,7 @@ export const Playground = meta.story(
         const page = ref(Number(args.page ?? 1))
         return { args, page }
       },
-      template: '<UiPagination v-bind="args" v-model:page="page" />',
+      template: '<ui-pagination v-bind="args" v-model:page="page" />',
     }),
   }),
 )
@@ -38,26 +38,26 @@ export const Showcases = meta.story(
       return { early, middle, last, page, pageSize }
     },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="First pages" note="1 and 2 stay together.">
-        <UiPagination v-model:page="early" :page-count="10" label="First pages" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Gap" note="First page, ellipsis, then the previous and current page.">
-        <UiPagination v-model:page="middle" :page-count="10" label="Middle pages" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Last page">
-        <UiPagination v-model:page="last" :page-count="10" label="Last pages" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Page size" note="The squares stay 28px. The row count is a select of the same height.">
-        <UiPagination
+    <showcase-board>
+      <showcase-case title="First pages" note="1 and 2 stay together.">
+        <ui-pagination v-model:page="early" :page-count="10" label="First pages" />
+      </showcase-case>
+      <showcase-case title="Gap" note="First page, ellipsis, then the previous and current page.">
+        <ui-pagination v-model:page="middle" :page-count="10" label="Middle pages" />
+      </showcase-case>
+      <showcase-case title="Last page">
+        <ui-pagination v-model:page="last" :page-count="10" label="Last pages" />
+      </showcase-case>
+      <showcase-case title="Page size" note="The squares stay 28px. The row count is a select of the same height.">
+        <ui-pagination
           v-model:page="page"
           v-model:page-size="pageSize"
           :page-count="8"
           :page-sizes="[10, 20, 50]"
           label="Sized pages"
         />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

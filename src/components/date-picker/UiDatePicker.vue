@@ -219,7 +219,7 @@ watch(activeIso, (value) => {
 
 <template>
   <div class="ui-date">
-    <UiPopover v-model:open="open" :padded="false">
+    <ui-popover v-model:open="open" :padded="false">
       <template #trigger="{ open: isOpen, toggle }">
         <slot name="trigger" :open="isOpen" :label="selectedLabel" :toggle="toggle">
           <button
@@ -293,7 +293,7 @@ watch(activeIso, (value) => {
           </div>
         </slot>
       </div>
-    </UiPopover>
+    </ui-popover>
     <input
       v-if="name && !range"
       type="hidden"

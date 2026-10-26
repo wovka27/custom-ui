@@ -4,6 +4,14 @@ import { UiButton } from '@/components/button'
 import { UiCheckbox } from '@/components/checkbox'
 import { UiInput } from '@/components/input'
 import TokenTree from './TokenTree.vue'
+import { useScoreScheme } from '@/composables/use-score-scheme'
+import {
+  designScoreDocument,
+  designScoreJson,
+  ledgerScore,
+  scoreVariables,
+  type DesignScore,
+} from '@/styles/score'
 import {
   tokenDefault,
   tokenOverrideJson,
@@ -11,13 +19,16 @@ import {
   type TokenRecord,
 } from '@/styles/token-override'
 
-type CopyState = { status: 'idle' } | { status: 'copied' } | { status: 'failed' }
+type CopyState =
+  { status: 'idle' } | { status: 'copied'; what: 'score' | 'inventory' } | { status: 'failed' }
 
 const radius = ref('0.75rem')
 const accent = ref('')
 const branch = ref('all')
+const worn = ref<DesignScore | undefined>()
 const copyState = ref<CopyState>({ status: 'idle' })
 const jsonDetails = useTemplateRef('jsonDetails')
+const scheme = useScoreScheme()
 
 const branches = computed(() => [
   { id: 'all', label: 'All' },
@@ -29,6 +40,7 @@ const visible = computed(() =>
 )
 
 const frameStyle = computed(() => {
+  if (worn.value) return scoreVariables(worn.value, scheme.value)
   const style: Record<string, string> = {
     '--ui-button-radius': radius.value,
   }
@@ -37,7 +49,10 @@ const frameStyle = computed(() => {
 })
 
 const copyMessage = computed(() => {
-  if (copyState.value.status === 'copied') return 'Copied. Paste it into the model with the company design.'
+  if (copyState.value.status === 'copied' && copyState.value.what === 'score') {
+    return 'Copied the score. Paste it into the model with the company design.'
+  }
+  if (copyState.value.status === 'copied') return 'Copied the variable inventory.'
   if (copyState.value.status === 'failed') return 'Clipboard was blocked. Select the JSON below.'
   return ''
 })
@@ -46,10 +61,10 @@ function tokenKey(token: TokenRecord): string {
   return token.name
 }
 
-async function copyJson(): Promise<void> {
+async function copyText(text: string, what: 'score' | 'inventory'): Promise<void> {
   try {
-    await globalThis.navigator.clipboard.writeText(tokenOverrideJson)
-    copyState.value = { status: 'copied' }
+    await globalThis.navigator.clipboard.writeText(text)
+    copyState.value = { status: 'copied', what }
   } catch {
     copyState.value = { status: 'failed' }
     const details = jsonDetails.value
@@ -62,9 +77,17 @@ async function copyJson(): Promise<void> {
   <div class="ui-tokens">
     <section class="ui-tokens__live" :style="frameStyle">
       <p class="ui-tokens__lead">
-        Set a variable on any ancestor. Components read it with a fallback, so your value wins
-        without editing the kit.
+        Replace a CSS variable on an ancestor to restyle. A score writes the whole set. Kit keeps
+        the defaults. Ledger is one score.
       </p>
+      <div class="ui-tokens__sample">
+        <button type="button" :aria-pressed="worn === undefined" @click="worn = undefined">
+          Kit
+        </button>
+        <button type="button" :aria-pressed="worn?.name === 'Ledger'" @click="worn = ledgerScore">
+          Ledger
+        </button>
+      </div>
       <label>
         Button radius
         <input v-model="radius" type="text" spellcheck="false" />
@@ -74,28 +97,38 @@ async function copyJson(): Promise<void> {
         <input v-model="accent" type="text" placeholder="oklch(0.55 0.14 145)" spellcheck="false" />
       </label>
       <div class="ui-tokens__sample">
-        <UiButton>Save</UiButton>
-        <UiInput placeholder="Ada" aria-label="Sample name" />
-        <UiCheckbox :default-value="true" label="Selected" />
+        <ui-button>Save</ui-button>
+        <ui-input placeholder="Ada" aria-label="Sample name" />
+        <ui-checkbox :default-value="true" label="Selected" />
       </div>
     </section>
     <section class="ui-tokens__contract">
       <div class="ui-tokens__contract-head">
-        <h2>Override contract</h2>
-        <button type="button" @click="copyJson">Copy JSON</button>
+        <h2>Score for a design model</h2>
+        <div class="ui-tokens__copies">
+          <button type="button" @click="copyText(designScoreJson, 'score')">Copy score</button>
+          <button type="button" @click="copyText(tokenOverrideJson, 'inventory')">
+            Copy variables
+          </button>
+        </div>
       </div>
       <p>
-        The same document lives in <code>src/styles/token-overrides.json</code>. Paste it into a
-        model with the company design. The model fills <code>proposal</code> and must not invent
-        token names.
+        Customization is still a replacement of <code>--ui-*</code> variables. The score document
+        lives in <code>src/styles/design-score.json</code>. Paste it into a model with the company
+        design. The model returns one score, and that score compiles into those same variables.
       </p>
       <ul>
-        <li v-for="rule in tokenOverrides.rules" :key="rule">{{ rule }}</li>
+        <li v-for="rule in designScoreDocument.rules" :key="rule">{{ rule }}</li>
       </ul>
       <p class="ui-tokens__status" role="status" aria-live="polite">{{ copyMessage }}</p>
       <details ref="jsonDetails">
         <summary>JSON for a design model</summary>
-        <textarea :value="tokenOverrideJson" readonly spellcheck="false" aria-label="Token override JSON" />
+        <textarea
+          :value="designScoreJson"
+          readonly
+          spellcheck="false"
+          aria-label="Design score JSON"
+        />
       </details>
     </section>
 
@@ -106,7 +139,7 @@ async function copyJson(): Promise<void> {
         foundation token or a literal. Open a branch to see the state, the CSS property, and the
         fallback.
       </p>
-      <TokenTree
+      <token-tree
         v-for="node in tokenOverrides.tree"
         :key="node.id"
         :node="node"
@@ -130,7 +163,9 @@ async function copyJson(): Promise<void> {
       This branch has no override variable. The fixed behavior is in the tree above.
     </p>
     <table v-else>
-      <caption class="ui-sr-only">CSS variables that can be overridden from outside the kit</caption>
+      <caption class="ui-sr-only">
+        CSS variables that can be overridden from outside the kit
+      </caption>
       <thead>
         <tr>
           <th scope="col">Variable</th>
@@ -208,6 +243,20 @@ input {
   align-items: center;
 }
 
+.ui-tokens__live > .ui-tokens__sample button {
+  height: var(--ui-control-height-sm);
+  padding-inline: var(--ui-space-2);
+  border: 1px solid var(--ui-color-border);
+  border-radius: var(--ui-button-radius, 0.75rem);
+  background: transparent;
+  color: var(--ui-color-fg);
+  cursor: pointer;
+}
+
+.ui-tokens__live > .ui-tokens__sample button[aria-pressed='true'] {
+  border-color: var(--ui-color-accent);
+}
+
 .ui-tokens__sample :deep(.ui-input) {
   width: 12rem;
 }
@@ -248,6 +297,12 @@ input {
   justify-content: space-between;
   gap: var(--ui-space-3);
   margin-bottom: var(--ui-space-2);
+}
+
+.ui-tokens__copies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ui-space-2);
 }
 
 .ui-tokens__contract-head button {

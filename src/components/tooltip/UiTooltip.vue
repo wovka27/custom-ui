@@ -22,7 +22,7 @@ const describedBy = useId()
 </script>
 
 <template>
-  <UiPopover
+  <ui-popover
     trigger="hover"
     :placement="placement"
     :align="align"
@@ -37,7 +37,7 @@ const describedBy = useId()
     <div :id="describedBy" class="ui-tooltip__bubble" role="tooltip">
       <slot name="content">{{ content }}</slot>
     </div>
-  </UiPopover>
+  </ui-popover>
 </template>
 
 <style scoped lang="scss">

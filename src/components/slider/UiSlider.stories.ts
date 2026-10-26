@@ -28,16 +28,16 @@ export const Showcases = meta.story(
       return { min, max, tight, toggleScale }
     },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Value"><UiSlider :default-value="40" label="Volume" /></ShowcaseCase>
-        <ShowcaseCase title="Step"><UiSlider :default-value="0.5" :min="0" :max="1" :step="0.1" label="Opacity" /></ShowcaseCase>
-        <ShowcaseCase title="Two anchors" note="Each thumb moves its own end. The scale can change underneath them.">
-          <UiSlider range :default-value="[24, 70]" :min="min" :max="max" label="Window" />
-          <UiButton size="sm" variant="secondary" @click="toggleScale">
+      <showcase-board>
+        <showcase-case title="Value"><ui-slider :default-value="40" label="Volume" /></showcase-case>
+        <showcase-case title="Step"><ui-slider :default-value="0.5" :min="0" :max="1" :step="0.1" label="Opacity" /></showcase-case>
+        <showcase-case title="Two anchors" note="A thumb can pass through the other. The scale can change underneath them.">
+          <ui-slider range :default-value="[24, 70]" :min="min" :max="max" label="Window" />
+          <ui-button size="sm" variant="secondary" @click="toggleScale">
             {{ tight ? 'Restore the scale' : 'Tighten the scale' }}
-          </UiButton>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+          </ui-button>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

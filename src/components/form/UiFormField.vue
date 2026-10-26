@@ -6,6 +6,8 @@ import { UiDatePicker, type UiDateRange } from '@/components/date-picker'
 import { UiDateTimePicker } from '@/components/date-time-picker'
 import { UiField } from '@/components/field'
 import { UiInput } from '@/components/input'
+import { UiNumberField } from '@/components/number-field'
+import { UiRate } from '@/components/rate'
 import { UiInputOtp } from '@/components/input-otp'
 import { UiInputTag } from '@/components/input-tag'
 import { UiRadioGroup } from '@/components/radio-group'
@@ -116,6 +118,14 @@ function sliderValue(
   return [min, max]
 }
 
+function numberValue(value: FormValue): number | null {
+  return typeof value === 'number' ? value : null
+}
+
+function rateValue(value: FormValue): number {
+  return typeof value === 'number' ? value : 0
+}
+
 function onSlider(value: number | readonly [number, number]): void {
   if (typeof value === 'number') {
     assign(value)
@@ -155,14 +165,14 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
 
 <template>
   <div :data-loading="optionsPending || rowsPending || undefined" @focusout="onFocusOut">
-    <CustomSlot
+    <custom-slot
       v-if="bare"
       :value="raw"
       :error="error"
       :disabled="controlDisabled"
       :set-value="assign"
     />
-    <UiField
+    <ui-field
       v-else-if="hasCustom"
       :label="field.label"
       :hint="field.hint"
@@ -170,9 +180,9 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <CustomSlot :value="raw" :error="error" :disabled="controlDisabled" :set-value="assign" />
-    </UiField>
-    <UiField
+      <custom-slot :value="raw" :error="error" :disabled="controlDisabled" :set-value="assign" />
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'text'"
       :label="field.label"
       :hint="field.hint"
@@ -180,7 +190,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiInput
+      <ui-input
         :model-value="text(raw)"
         :type="field.type"
         :format="field.format"
@@ -198,8 +208,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'textarea'"
       :label="field.label"
       :hint="field.hint"
@@ -207,7 +217,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiTextarea
+      <ui-textarea
         :model-value="text(raw)"
         :placeholder="field.placeholder"
         :rows="field.rows"
@@ -218,8 +228,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'select'"
       :label="field.label"
       :hint="shownHint"
@@ -227,7 +237,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled || optionsPending"
     >
-      <UiSelect
+      <ui-select
         :model-value="choice(raw) ?? null"
         :options="selectOptions"
         :all-option="field.allOption"
@@ -238,8 +248,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled || optionsPending"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'radio'"
       :label="field.label"
       hide-label
@@ -248,7 +258,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiRadioGroup
+      <ui-radio-group
         :model-value="choice(raw)"
         :legend="field.label"
         :options="field.options"
@@ -256,8 +266,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'checkbox'"
       :label="field.label"
       hide-label
@@ -266,7 +276,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiCheckbox
+      <ui-checkbox
         :model-value="checked(raw)"
         :size="controlSize"
         :name="field.name"
@@ -275,9 +285,9 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       >
         {{ field.label }}
         <span v-if="field.required" class="ui-form__mark" aria-hidden="true">*</span>
-      </UiCheckbox>
-    </UiField>
-    <UiField
+      </ui-checkbox>
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'table'"
       :label="field.label"
       :hint="field.hint"
@@ -285,9 +295,9 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiFormTable :field="field" :disabled="controlDisabled" />
-    </UiField>
-    <UiField
+      <ui-form-table :field="field" :disabled="controlDisabled" />
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'switch'"
       :label="field.label"
       hide-label
@@ -296,7 +306,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiSwitch
+      <ui-switch
         :model-value="checked(raw)"
         :size="controlSize"
         :disabled="controlDisabled"
@@ -304,9 +314,9 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       >
         {{ field.label }}
         <span v-if="field.required" class="ui-form__mark" aria-hidden="true">*</span>
-      </UiSwitch>
-    </UiField>
-    <UiField
+      </ui-switch>
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'date' || field.kind === 'datetime'"
       :label="field.label"
       :hint="field.hint"
@@ -327,8 +337,42 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
+      v-else-if="field.kind === 'number'"
+      :label="field.label"
+      :hint="field.hint"
+      :error="error"
+      :required="field.required"
+      :disabled="controlDisabled"
+    >
+      <ui-number-field
+        :model-value="numberValue(raw)"
+        :min="field.min"
+        :max="field.max"
+        :step="field.step"
+        :label="field.label"
+        :disabled="controlDisabled"
+        @update:model-value="assign"
+      />
+    </ui-field>
+    <ui-field
+      v-else-if="field.kind === 'rate'"
+      :label="field.label"
+      :hint="field.hint"
+      :error="error"
+      :required="field.required"
+      :disabled="controlDisabled"
+    >
+      <ui-rate
+        :model-value="rateValue(raw)"
+        :max="field.max"
+        :label="field.label"
+        :disabled="controlDisabled"
+        @update:model-value="assign"
+      />
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'slider'"
       :label="field.label"
       :hint="field.hint"
@@ -336,7 +380,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiSlider
+      <ui-slider
         :model-value="sliderValue(raw, field.range === true, field.min ?? 0, field.max ?? 100)"
         :range="field.range === true"
         :min="field.min"
@@ -347,8 +391,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="onSlider"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'color'"
       :label="field.label"
       :hint="field.hint"
@@ -356,7 +400,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiColorPicker
+      <ui-color-picker
         :model-value="text(raw) || undefined"
         :variant="field.variant"
         :swatches="field.swatches"
@@ -364,8 +408,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'tags'"
       :label="field.label"
       :hint="field.hint"
@@ -373,15 +417,15 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiInputTag
+      <ui-input-tag
         :model-value="tagsOf(raw)"
         :placeholder="field.placeholder"
         :max="field.max"
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'otp'"
       :label="field.label"
       :hint="field.hint"
@@ -389,7 +433,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiInputOtp
+      <ui-input-otp
         :model-value="text(raw)"
         :length="field.length"
         :type="field.type"
@@ -397,8 +441,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'segmented'"
       :label="field.label"
       :hint="field.hint"
@@ -406,7 +450,7 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiSegmented
+      <ui-segmented
         :model-value="choice(raw)"
         :options="field.options"
         :size="controlSize"
@@ -414,8 +458,8 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
-    <UiField
+    </ui-field>
+    <ui-field
       v-else-if="field.kind === 'upload'"
       :label="field.label"
       :hint="field.hint"
@@ -423,15 +467,17 @@ CustomSlot.props = ['value', 'error', 'disabled', 'setValue']
       :required="field.required"
       :disabled="controlDisabled"
     >
-      <UiUpload
+      <ui-upload
         :model-value="filesOf(raw)"
         :accept="field.accept"
         :multiple="field.multiple"
+        :variant="field.variant"
+        :shape="field.shape"
         :label="field.dropLabel ?? 'Upload files'"
         :disabled="controlDisabled"
         @update:model-value="assign"
       />
-    </UiField>
+    </ui-field>
   </div>
 </template>
 

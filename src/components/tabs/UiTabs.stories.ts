@@ -33,7 +33,7 @@ export const Playground = meta.story(
     render: (args) => ({
       components: { UiTabs },
       setup: () => ({ args }),
-      template: `<UiTabs v-bind="args">${panels}</UiTabs>`,
+      template: `<ui-tabs v-bind="args">${panels}</ui-tabs>`,
     }),
   }),
 )
@@ -43,14 +43,14 @@ export const Showcases = meta.story(
     components: { UiTabs, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ tabs }),
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Horizontal">
-        <UiTabs label="Topics" :tabs="tabs" default-value="tokens">${panels}</UiTabs>
-      </ShowcaseCase>
-      <ShowcaseCase title="Vertical">
-        <UiTabs label="Topics" :tabs="tabs" orientation="vertical" default-value="motion">${panels}</UiTabs>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Horizontal">
+        <ui-tabs label="Topics" :tabs="tabs" default-value="tokens">${panels}</ui-tabs>
+      </showcase-case>
+      <showcase-case title="Vertical">
+        <ui-tabs label="Topics" :tabs="tabs" orientation="vertical" default-value="motion">${panels}</ui-tabs>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

@@ -1,0 +1,36 @@
+{
+  "kit": "Custom UI",
+  "version": 1,
+  "prompt": "You are replacing the visual system of the Custom UI kit. Return one JSON object, a score, and nothing else. A score is not a list of CSS variables and not a theme. It is the grammar the kit compiles into every color, type, space, radius, motion, shadow, and chrome hook, for both light and dark. Every field is required. hue is the single chromatic root, a number from 0 to 360. chroma is how much color that root carries, a number from 0.04 to 0.2. Neutrals are the same hue at a whisper of that chroma, so paper and ink belong to the accent. Status hues stay recognizable and move a short distance toward hue. ground is void, paper, or fog. shape is square, cut, soft, or round, and it rewrites the radius scale, the button, the control, the table, and the scrollbar together. density is tight, even, or open, and it rewrites space, type size, line height, and control height together. motion is still, brief, or measured, and it rewrites duration and press together. elevation is flat or lift, and it rewrites every shadow together. voice is plain or mono, and it rewrites the text and display fonts together. name is a short label, 1 to 48 characters. Do not invent fields. Do not return CSS. Do not return token names. Pagination stays a 2px square and is not part of a score. z-index and page width stay as they are.",
+  "rules": [
+    "Return one score. A missing field is not a request to keep the kit default.",
+    "One hue colors the accent, the neutrals, and the focus ring. Status colors are pulled toward that hue and keep their meaning.",
+    "Shape, density, motion, elevation, and voice each rewrite a whole family. They do not rewrite a single component.",
+    "Light and dark are compiled from the same score. Do not author two palettes.",
+    "Do not invent fields, token names, or a pagination radius."
+  ],
+  "axes": {
+    "name": "Short label, 1 to 48 characters.",
+    "hue": "Number from 0 to 360. The chromatic root. 360 is the same hue as 0.",
+    "chroma": "Number from 0.04 to 0.2. Accent strength. Neutrals use a fraction of it.",
+    "ground": "void, paper, or fog. The lightness and tint of the page.",
+    "shape": "square, cut, soft, or round. Radii for chrome, buttons, controls, tables, and scrollbars.",
+    "density": "tight, even, or open. Space, type, line height, and control height.",
+    "motion": "still, brief, or measured. Duration, press, and easing.",
+    "elevation": "flat or lift. Every shadow.",
+    "voice": "plain or mono. Text and display fonts."
+  },
+  "examples": [
+    {
+      "name": "Ledger",
+      "hue": 42,
+      "chroma": 0.08,
+      "ground": "paper",
+      "shape": "square",
+      "density": "tight",
+      "motion": "still",
+      "elevation": "flat",
+      "voice": "mono"
+    }
+  ]
+}

@@ -84,7 +84,7 @@ onScopeDispose(() => {
 </script>
 
 <template>
-  <UiGrid :gap="gap" :min-column="columns">
+  <ui-grid :gap="gap" :min-column="columns">
     <template v-for="node in visible" :key="nodeKey(node)">
       <div
         v-if="node.kind === 'group'"
@@ -96,9 +96,9 @@ onScopeDispose(() => {
           <legend v-if="node.title" class="ui-form__legend">{{ node.title }}</legend>
           <p v-if="node.description" class="ui-form__description">{{ node.description }}</p>
           <div v-if="sectionName(node.id)" class="ui-form__section">
-            <UiFormRegion :name="sectionName(node.id) ?? ''" :state="regionState(node)" />
+            <ui-form-region :name="sectionName(node.id) ?? ''" :state="regionState(node)" />
           </div>
-          <UiFormNodes
+          <ui-form-nodes
             :nodes="node.fields"
             :columns="node.columns ?? columns"
             :gap="node.gap ?? gap"
@@ -112,7 +112,7 @@ onScopeDispose(() => {
         :data-span="node.span ?? 'full'"
         :data-block="node.id"
       >
-        <UiFormRegion :name="`block-${node.id}`" :state="regionState(node)" />
+        <ui-form-region :name="`block-${node.id}`" :state="regionState(node)" />
       </div>
       <div
         v-else
@@ -121,10 +121,10 @@ onScopeDispose(() => {
         :data-span="spanOf(node)"
         :data-field="node.name"
       >
-        <UiFormField :field="node" />
+        <ui-form-field :field="node" />
       </div>
     </template>
-  </UiGrid>
+  </ui-grid>
 </template>
 
 <style scoped lang="scss">

@@ -15,11 +15,11 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiInputOtp, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Six digits" note="Paste fills the remaining cells.">
-          <UiInputOtp />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Six digits" note="Paste fills the remaining cells.">
+          <ui-input-otp />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

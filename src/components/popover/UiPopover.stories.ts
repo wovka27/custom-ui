@@ -25,12 +25,12 @@ export const Playground = meta.story(
       setup: () => ({ args }),
       template: `
         <div style="padding: 4rem">
-          <UiPopover :placement="args.placement" :align="args.align" :trigger="args.trigger">
+          <ui-popover :placement="args.placement" :align="args.align" :trigger="args.trigger">
             <template #trigger="{ open }">
-              <UiButton :aria-expanded="open">Open</UiButton>
+              <ui-button :aria-expanded="open">Open</UiButton>
             </template>
             The panel sits on the chosen side of this button.
-          </UiPopover>
+          </ui-popover>
         </div>
       `,
     }),
@@ -41,28 +41,28 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiPopover, UiButton, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Sides" note="placement picks the side. align shifts the panel along that edge.">
+      <showcase-board>
+        <showcase-case title="Sides" note="placement picks the side. align shifts the panel along that edge.">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:3rem 1rem">
-            <UiPopover placement="top" align="center">
-              <template #trigger="{ open }"><UiButton :aria-expanded="open">Top</UiButton></template>
+            <ui-popover placement="top" align="center">
+              <template #trigger="{ open }"><ui-button :aria-expanded="open">Top</UiButton></template>
               Above the trigger.
-            </UiPopover>
-            <UiPopover placement="bottom" align="center">
-              <template #trigger="{ open }"><UiButton :aria-expanded="open">Bottom</UiButton></template>
+            </ui-popover>
+            <ui-popover placement="bottom" align="center">
+              <template #trigger="{ open }"><ui-button :aria-expanded="open">Bottom</UiButton></template>
               Under the trigger.
-            </UiPopover>
-            <UiPopover placement="start" align="center">
-              <template #trigger="{ open }"><UiButton :aria-expanded="open">Start</UiButton></template>
+            </ui-popover>
+            <ui-popover placement="start" align="center">
+              <template #trigger="{ open }"><ui-button :aria-expanded="open">Start</UiButton></template>
               Before the trigger.
-            </UiPopover>
-            <UiPopover placement="end" align="center">
-              <template #trigger="{ open }"><UiButton :aria-expanded="open">End</UiButton></template>
+            </ui-popover>
+            <ui-popover placement="end" align="center">
+              <template #trigger="{ open }"><ui-button :aria-expanded="open">End</UiButton></template>
               After the trigger.
-            </UiPopover>
+            </ui-popover>
           </div>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

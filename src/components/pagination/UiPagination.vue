@@ -109,7 +109,7 @@ function onSize(next: number | null): void {
         />
       </svg>
     </button>
-    <UiSelect
+    <ui-select
       v-if="sizeOptions.length > 0"
       class="ui-pagination__size"
       :model-value="sizeState.value.value"

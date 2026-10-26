@@ -24,16 +24,16 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiBadge, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Tones">
-        <UiBadge>Neutral</UiBadge>
-        <UiBadge tone="accent">Accent</UiBadge>
-        <UiBadge tone="success">Paid</UiBadge>
-        <UiBadge tone="warning">Review</UiBadge>
-        <UiBadge tone="danger">Overdue</UiBadge>
-        <UiBadge tone="info">Open</UiBadge>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Tones">
+        <ui-badge>Neutral</UiBadge>
+        <ui-badge tone="accent">Accent</UiBadge>
+        <ui-badge tone="success">Paid</UiBadge>
+        <ui-badge tone="warning">Review</UiBadge>
+        <ui-badge tone="danger">Overdue</UiBadge>
+        <ui-badge tone="info">Open</UiBadge>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

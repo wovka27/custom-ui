@@ -5,10 +5,10 @@ import { playground, ShowcaseBoard, ShowcaseCase, showcases } from '@/stories/te
 const board = {
   components: { UiCollapse, UiCollapseItem },
   template: `
-    <UiCollapse :default-value="['one']" style="width: 22rem">
-      <UiCollapseItem name="one" title="Schedule">The desk opens at nine.</UiCollapseItem>
-      <UiCollapseItem name="two" title="Crew">Ada, Lin, and Mio.</UiCollapseItem>
-    </UiCollapse>
+    <ui-collapse :default-value="['one']" style="width: 22rem">
+      <ui-collapse-item name="one" title="Schedule">The desk opens at nine.</ui-collapse-item>
+      <ui-collapse-item name="two" title="Crew">Ada, Lin, and Mio.</ui-collapse-item>
+    </ui-collapse>
   `,
 }
 
@@ -20,20 +20,20 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiCollapse, UiCollapseItem, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Single">
-          <UiCollapse :default-value="['one']" style="width: 22rem">
-            <UiCollapseItem name="one" title="Schedule">The desk opens at nine.</UiCollapseItem>
-            <UiCollapseItem name="two" title="Crew">Ada, Lin, and Mio.</UiCollapseItem>
-          </UiCollapse>
-        </ShowcaseCase>
-        <ShowcaseCase title="Multiple">
-          <UiCollapse multiple :default-value="['a']" style="width: 22rem">
-            <UiCollapseItem name="a" title="Notes">Both panels can stay open.</UiCollapseItem>
-            <UiCollapseItem name="b" title="Archive">Older work lives here.</UiCollapseItem>
-          </UiCollapse>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Single">
+          <ui-collapse :default-value="['one']" style="width: 22rem">
+            <ui-collapse-item name="one" title="Schedule">The desk opens at nine.</ui-collapse-item>
+            <ui-collapse-item name="two" title="Crew">Ada, Lin, and Mio.</ui-collapse-item>
+          </ui-collapse>
+        </showcase-case>
+        <showcase-case title="Multiple">
+          <ui-collapse multiple :default-value="['a']" style="width: 22rem">
+            <ui-collapse-item name="a" title="Notes">Both panels can stay open.</ui-collapse-item>
+            <ui-collapse-item name="b" title="Archive">Older work lives here.</ui-collapse-item>
+          </ui-collapse>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

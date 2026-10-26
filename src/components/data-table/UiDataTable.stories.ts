@@ -63,7 +63,7 @@ export const Playground = meta.story(
     render: () => ({
       components: { UiDataTable: UiDataTable as ConcreteComponent },
       setup: () => ({ schema, rows }),
-      template: '<div style="width: min(46rem, 100%)"><UiDataTable :schema="schema" :rows="rows" /></div>',
+      template: '<div style="width: min(46rem, 100%)"><ui-data-table :schema="schema" :rows="rows" /></div>',
     }),
   }),
 )
@@ -73,14 +73,14 @@ export const Showcases = meta.story(
     components: { UiDataTable: UiDataTable as ConcreteComponent, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ schema, rows }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Schema" note="Columns, groups, sort, selection, and page size come from the config.">
-          <UiDataTable :schema="schema" :rows="rows" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Empty" note="The empty slot can replace the default state.">
-          <UiDataTable :schema="schema" :rows="[]" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Schema" note="Columns, groups, sort, selection, and page size come from the config.">
+          <ui-data-table :schema="schema" :rows="rows" />
+        </showcase-case>
+        <showcase-case title="Empty" note="The empty slot can replace the default state.">
+          <ui-data-table :schema="schema" :rows="[]" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

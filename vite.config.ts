@@ -11,7 +11,12 @@ export default defineConfig(({ command }) => ({
           dts({
             entryRoot: 'src',
             include: ['src'],
-            exclude: ['src/playground', 'src/stories', 'src/**/*.spec.ts', 'src/**/*.stories.ts'],
+            exclude: [
+              'src/site',
+              'src/stories',
+              'src/**/*.spec.ts',
+              'src/**/*.stories.ts',
+            ],
             tsconfigPath: './tsconfig.json',
             insertTypesEntry: true,
             cleanVueFileName: true,

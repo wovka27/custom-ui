@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { nativeRole, nativeTag } from '@/lib/native-tag'
 import type { UiAlign, UiGap } from '@/types/common'
 
 const {
@@ -6,7 +8,7 @@ const {
   gap = 'md',
   align = 'stretch',
 } = defineProps<{
-  as?: 'div' | 'section' | 'ul' | 'ol' | 'nav'
+  as?: 'div' | 'section' | 'article' | 'aside' | 'ul' | 'ol' | 'nav' | 'search'
   gap?: UiGap
   align?: UiAlign
 }>()
@@ -14,10 +16,13 @@ const {
 defineSlots<{
   default(): unknown
 }>()
+const tag = computed(() => nativeTag(as))
+const role = computed(() => nativeRole(as))
+
 </script>
 
 <template>
-  <component :is="as" class="ui-stack" :data-gap="gap" :data-align="align">
+  <component :is="tag" class="ui-stack" :role="role" :data-gap="gap" :data-align="align">
     <slot />
   </component>
 </template>

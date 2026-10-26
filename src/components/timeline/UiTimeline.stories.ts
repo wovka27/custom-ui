@@ -23,11 +23,11 @@ export const Showcases = meta.story(
     components: { UiTimeline, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ items }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Day">
-          <UiTimeline :items="items" label="Desk day" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Day">
+          <ui-timeline :items="items" label="Desk day" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

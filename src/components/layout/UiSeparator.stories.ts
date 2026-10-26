@@ -20,7 +20,7 @@ export const Playground = meta.story(
       setup: () => ({ args }),
       template: `
       <div :style="args.orientation === 'vertical' ? 'display:flex;height:4rem' : 'width:16rem'">
-        <UiSeparator :orientation="args.orientation" />
+        <ui-separator :orientation="args.orientation" />
       </div>
     `,
     }),
@@ -31,14 +31,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiSeparator, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Horizontal">
-        <div style="width: 16rem"><UiSeparator /></div>
-      </ShowcaseCase>
-      <ShowcaseCase title="Vertical">
-        <div style="display: flex; height: 4rem"><UiSeparator orientation="vertical" /></div>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Horizontal">
+        <div style="width: 16rem"><ui-separator /></div>
+      </showcase-case>
+      <showcase-case title="Vertical">
+        <div style="display: flex; height: 4rem"><ui-separator orientation="vertical" /></div>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { nativeRole, nativeTag } from '@/lib/native-tag'
 import type { UiGap } from '@/types/common'
 
 const {
@@ -6,7 +8,7 @@ const {
   gap = 'md',
   minColumn = '16rem',
 } = defineProps<{
-  as?: 'div' | 'section' | 'ul' | 'ol'
+  as?: 'div' | 'section' | 'article' | 'ul' | 'ol' | 'search'
   gap?: UiGap
   minColumn?: string
 }>()
@@ -14,10 +16,13 @@ const {
 defineSlots<{
   default(): unknown
 }>()
+const tag = computed(() => nativeTag(as))
+const role = computed(() => nativeRole(as))
+
 </script>
 
 <template>
-  <component :is="as" class="ui-grid" :data-gap="gap" :style="{ '--ui-grid-min': minColumn }">
+  <component :is="tag" class="ui-grid" :role="role" :data-gap="gap" :style="{ '--ui-grid-min': minColumn }">
     <slot />
   </component>
 </template>

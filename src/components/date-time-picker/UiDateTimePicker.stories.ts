@@ -18,14 +18,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiDateTimePicker, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Date and time">
-          <UiDateTimePicker default-value="2026-10-21T09:30" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Range" note="Start and end each keep a time.">
-          <UiDateTimePicker range placeholder="Start and end" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Date and time">
+          <ui-date-time-picker default-value="2026-10-21T09:30" />
+        </showcase-case>
+        <showcase-case title="Range" note="Start and end each keep a time.">
+          <ui-date-time-picker range placeholder="Start and end" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

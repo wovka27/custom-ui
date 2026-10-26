@@ -15,17 +15,17 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiColorPicker, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Panel">
-          <UiColorPicker default-value="#3f9d6a" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Inline">
-          <UiColorPicker variant="inline" default-value="#d2a04a" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Swatches">
-          <UiColorPicker variant="swatches" default-value="#5aa8ff" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Panel">
+          <ui-color-picker default-value="#3f9d6a" />
+        </showcase-case>
+        <showcase-case title="Inline">
+          <ui-color-picker variant="inline" default-value="#d2a04a" />
+        </showcase-case>
+        <showcase-case title="Swatches">
+          <ui-color-picker variant="swatches" default-value="#5aa8ff" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

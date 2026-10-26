@@ -12,7 +12,7 @@ export const Playground = meta.story(
       setup: () => ({
         send: () => showMessage({ description: 'Draft saved.', tone: 'success' }),
       }),
-      template: '<UiMessage /><UiButton @click="send">Show message</UiButton>',
+      template: '<ui-message /><ui-button @click="send">Show message</UiButton>',
     }),
   }),
 )
@@ -25,12 +25,12 @@ export const Showcases = meta.story(
         showMessage({ title: 'Saved', description: 'The desk kept this draft.', tone: 'success' }),
     }),
     template: `
-      <UiMessage />
-      <ShowcaseBoard>
-        <ShowcaseCase title="Transient">
-          <UiButton @click="send">Save</UiButton>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <ui-message />
+      <showcase-board>
+        <showcase-case title="Transient">
+          <ui-button @click="send">Save</UiButton>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

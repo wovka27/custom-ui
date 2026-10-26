@@ -1,7 +1,7 @@
 {
   "kit": "Custom UI",
   "version": 1,
-  "prompt": "You are aligning the Custom UI kit with an internal design system. This JSON is the complete override contract. Fill proposal only. Do not add, rename, or remove tokens. proposal stays null when the kit default should remain. When themes is an object, proposal must be { \"light\": \"<css>\", \"dark\": \"<css>\" }. When themes is null, proposal must be a single CSS value string. Set variables on an ancestor such as .ui-config. Components read var(--name, fallback) and do not redeclare the public name, so the ancestor wins. fallback and fallbackByVariant are the kit defaults used when the variable is unset. Do not copy them into proposal unless the design intentionally matches them. One --ui-button-* value applies to every button variant. Variant differences exist only while the variable is unset. Pagination radius is fixed at 2px and is not a token. Do not invent a token for it. prefers-reduced-motion sets --ui-press-scale to 1 and collapses transition duration. Do not encode meaning in motion. Return the same JSON with proposal filled, then one CSS block for .ui-config and [data-theme=\"dark\"] .ui-config containing only variables whose proposal is not null.",
+  "prompt": "A complete visual redesign is a score in design-score.json, not a filled proposal list. This inventory is for a single variable that must differ from that score. You are aligning the Custom UI kit with an internal design system. This JSON is the complete override contract. Fill proposal only. Do not add, rename, or remove tokens. proposal stays null when the kit default should remain. When themes is an object, proposal must be { \"light\": \"<css>\", \"dark\": \"<css>\" }. When themes is null, proposal must be a single CSS value string. Set variables on an ancestor such as .ui-config. Components read var(--name, fallback) and do not redeclare the public name, so the ancestor wins. fallback and fallbackByVariant are the kit defaults used when the variable is unset. Do not copy them into proposal unless the design intentionally matches them. One --ui-button-* value applies to every button variant. Variant differences exist only while the variable is unset. Pagination radius is fixed at 2px and is not a token. Do not invent a token for it. prefers-reduced-motion sets --ui-press-scale to 1 and collapses transition duration. Do not encode meaning in motion. Return the same JSON with proposal filled, then one CSS block for .ui-config and [data-theme=\"dark\"] .ui-config containing only variables whose proposal is not null.",
   "rules": [
     "Override on an ancestor. Never redeclare --ui-* on the component itself.",
     "Foundation tokens change every consumer. Component hooks change one family.",
@@ -96,12 +96,7 @@
           "id": "shape",
           "title": "Shape",
           "summary": "Chrome radii are 2px, 4px, and 6px. Full is the pill radius. Buttons do not use this scale.",
-          "tokens": [
-            "--ui-radius-sm",
-            "--ui-radius-md",
-            "--ui-radius-lg",
-            "--ui-radius-full"
-          ]
+          "tokens": ["--ui-radius-sm", "--ui-radius-md", "--ui-radius-lg", "--ui-radius-full"]
         },
         {
           "id": "scrollbar",
@@ -172,29 +167,19 @@
           "id": "button-shared",
           "title": "Shared",
           "summary": "Radius is the only button token declared by the kit. Default is 0.75rem.",
-          "tokens": [
-            "--ui-button-radius"
-          ]
+          "tokens": ["--ui-button-radius"]
         },
         {
           "id": "button-rest",
           "title": "Rest",
           "summary": "Transparent fill. Primary border is an 18% foreground hairline. Ghost has no border. Danger text is --ui-color-danger.",
-          "tokens": [
-            "--ui-button-bg",
-            "--ui-button-fg",
-            "--ui-button-border"
-          ]
+          "tokens": ["--ui-button-bg", "--ui-button-fg", "--ui-button-border"]
         },
         {
           "id": "button-hover",
           "title": "Hover",
           "summary": "Primary hover is an accent wash at 14%, not an inverted solid. Secondary and ghost use --ui-color-subtle. Danger uses --ui-color-danger-subtle.",
-          "tokens": [
-            "--ui-button-bg-hover",
-            "--ui-button-fg-hover",
-            "--ui-button-border-hover"
-          ]
+          "tokens": ["--ui-button-bg-hover", "--ui-button-fg-hover", "--ui-button-border-hover"]
         }
       ]
     },
@@ -229,11 +214,7 @@
           "id": "field-size",
           "title": "Size",
           "summary": "Declared heights for sm, md, and lg.",
-          "tokens": [
-            "--ui-control-height-sm",
-            "--ui-control-height-md",
-            "--ui-control-height-lg"
-          ]
+          "tokens": ["--ui-control-height-sm", "--ui-control-height-md", "--ui-control-height-lg"]
         }
       ]
     },
@@ -252,18 +233,13 @@
           "id": "choice-checked",
           "title": "Checked",
           "summary": "Checkbox fill and the shared checked border. Radio uses the border hook only.",
-          "tokens": [
-            "--ui-choice-bg-checked",
-            "--ui-choice-border-checked"
-          ]
+          "tokens": ["--ui-choice-bg-checked", "--ui-choice-border-checked"]
         },
         {
           "id": "choice-switch",
           "title": "Switch",
           "summary": "On-track hook. Falls back to the accent.",
-          "tokens": [
-            "--ui-switch-bg-checked"
-          ]
+          "tokens": ["--ui-switch-bg-checked"]
         }
       ]
     },
@@ -292,10 +268,7 @@
           "id": "table-row",
           "title": "Row",
           "summary": "Hover falls back to surface-raised. Selection falls back to accent-subtle.",
-          "tokens": [
-            "--ui-table-row-hover",
-            "--ui-table-row-selected"
-          ]
+          "tokens": ["--ui-table-row-hover", "--ui-table-row-selected"]
         }
       ]
     },
@@ -322,16 +295,31 @@
         "Focus ring is --ui-color-focus. Press scale is --ui-press-scale."
       ],
       "tokens": []
+    },
+    {
+      "id": "slider",
+      "title": "Slider",
+      "summary": "Track, fill, and thumb. Each falls back to a foundation color.",
+      "fixed": ["The thumb border uses the fill color."],
+      "tokens": ["--ui-slider-track", "--ui-slider-fill", "--ui-slider-thumb"]
+    },
+    {
+      "id": "progress",
+      "title": "Progress",
+      "summary": "Track and fill. Both fall back to foundation colors.",
+      "tokens": ["--ui-progress-track", "--ui-progress-fill"]
+    },
+    {
+      "id": "date",
+      "title": "Date",
+      "summary": "The selected day. Unset, it uses the accent and the accent foreground.",
+      "tokens": ["--ui-date-day-selected-bg", "--ui-date-day-selected-fg"]
     }
   ],
   "tokens": [
     {
       "name": "--ui-color-bg",
-      "path": [
-        "foundation",
-        "color",
-        "bg"
-      ],
+      "path": ["foundation", "color", "bg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -350,11 +338,7 @@
     },
     {
       "name": "--ui-color-fg",
-      "path": [
-        "foundation",
-        "color",
-        "fg"
-      ],
+      "path": ["foundation", "color", "fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -373,11 +357,7 @@
     },
     {
       "name": "--ui-color-muted",
-      "path": [
-        "foundation",
-        "color",
-        "muted"
-      ],
+      "path": ["foundation", "color", "muted"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -396,11 +376,7 @@
     },
     {
       "name": "--ui-color-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "subtle"
-      ],
+      "path": ["foundation", "color", "subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -419,11 +395,7 @@
     },
     {
       "name": "--ui-color-surface",
-      "path": [
-        "foundation",
-        "color",
-        "surface"
-      ],
+      "path": ["foundation", "color", "surface"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -442,11 +414,7 @@
     },
     {
       "name": "--ui-color-surface-raised",
-      "path": [
-        "foundation",
-        "color",
-        "surface-raised"
-      ],
+      "path": ["foundation", "color", "surface-raised"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -465,11 +433,7 @@
     },
     {
       "name": "--ui-color-border",
-      "path": [
-        "foundation",
-        "color",
-        "border"
-      ],
+      "path": ["foundation", "color", "border"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -488,11 +452,7 @@
     },
     {
       "name": "--ui-color-border-strong",
-      "path": [
-        "foundation",
-        "color",
-        "border-strong"
-      ],
+      "path": ["foundation", "color", "border-strong"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -511,11 +471,7 @@
     },
     {
       "name": "--ui-color-ink",
-      "path": [
-        "foundation",
-        "color",
-        "ink"
-      ],
+      "path": ["foundation", "color", "ink"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -534,11 +490,7 @@
     },
     {
       "name": "--ui-color-paper",
-      "path": [
-        "foundation",
-        "color",
-        "paper"
-      ],
+      "path": ["foundation", "color", "paper"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -557,11 +509,7 @@
     },
     {
       "name": "--ui-color-accent",
-      "path": [
-        "foundation",
-        "color",
-        "accent"
-      ],
+      "path": ["foundation", "color", "accent"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -580,11 +528,7 @@
     },
     {
       "name": "--ui-color-accent-hover",
-      "path": [
-        "foundation",
-        "color",
-        "accent-hover"
-      ],
+      "path": ["foundation", "color", "accent-hover"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -603,11 +547,7 @@
     },
     {
       "name": "--ui-color-accent-fg",
-      "path": [
-        "foundation",
-        "color",
-        "accent-fg"
-      ],
+      "path": ["foundation", "color", "accent-fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -626,11 +566,7 @@
     },
     {
       "name": "--ui-color-accent-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "accent-subtle"
-      ],
+      "path": ["foundation", "color", "accent-subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -649,11 +585,7 @@
     },
     {
       "name": "--ui-color-danger",
-      "path": [
-        "foundation",
-        "color",
-        "danger"
-      ],
+      "path": ["foundation", "color", "danger"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -672,11 +604,7 @@
     },
     {
       "name": "--ui-color-danger-hover",
-      "path": [
-        "foundation",
-        "color",
-        "danger-hover"
-      ],
+      "path": ["foundation", "color", "danger-hover"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -695,11 +623,7 @@
     },
     {
       "name": "--ui-color-danger-fg",
-      "path": [
-        "foundation",
-        "color",
-        "danger-fg"
-      ],
+      "path": ["foundation", "color", "danger-fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -718,11 +642,7 @@
     },
     {
       "name": "--ui-color-danger-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "danger-subtle"
-      ],
+      "path": ["foundation", "color", "danger-subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -741,11 +661,7 @@
     },
     {
       "name": "--ui-color-success",
-      "path": [
-        "foundation",
-        "color",
-        "success"
-      ],
+      "path": ["foundation", "color", "success"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -764,11 +680,7 @@
     },
     {
       "name": "--ui-color-success-fg",
-      "path": [
-        "foundation",
-        "color",
-        "success-fg"
-      ],
+      "path": ["foundation", "color", "success-fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -787,11 +699,7 @@
     },
     {
       "name": "--ui-color-success-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "success-subtle"
-      ],
+      "path": ["foundation", "color", "success-subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -810,11 +718,7 @@
     },
     {
       "name": "--ui-color-warning",
-      "path": [
-        "foundation",
-        "color",
-        "warning"
-      ],
+      "path": ["foundation", "color", "warning"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -833,11 +737,7 @@
     },
     {
       "name": "--ui-color-warning-fg",
-      "path": [
-        "foundation",
-        "color",
-        "warning-fg"
-      ],
+      "path": ["foundation", "color", "warning-fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -856,11 +756,7 @@
     },
     {
       "name": "--ui-color-warning-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "warning-subtle"
-      ],
+      "path": ["foundation", "color", "warning-subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -879,11 +775,7 @@
     },
     {
       "name": "--ui-color-info",
-      "path": [
-        "foundation",
-        "color",
-        "info"
-      ],
+      "path": ["foundation", "color", "info"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -902,11 +794,7 @@
     },
     {
       "name": "--ui-color-info-fg",
-      "path": [
-        "foundation",
-        "color",
-        "info-fg"
-      ],
+      "path": ["foundation", "color", "info-fg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -925,11 +813,7 @@
     },
     {
       "name": "--ui-color-info-subtle",
-      "path": [
-        "foundation",
-        "color",
-        "info-subtle"
-      ],
+      "path": ["foundation", "color", "info-subtle"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -948,11 +832,7 @@
     },
     {
       "name": "--ui-color-focus",
-      "path": [
-        "foundation",
-        "color",
-        "focus"
-      ],
+      "path": ["foundation", "color", "focus"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -971,11 +851,7 @@
     },
     {
       "name": "--ui-color-overlay",
-      "path": [
-        "foundation",
-        "color",
-        "overlay"
-      ],
+      "path": ["foundation", "color", "overlay"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -994,11 +870,7 @@
     },
     {
       "name": "--ui-font-sans",
-      "path": [
-        "foundation",
-        "type",
-        "sans"
-      ],
+      "path": ["foundation", "type", "sans"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1014,11 +886,7 @@
     },
     {
       "name": "--ui-font-display",
-      "path": [
-        "foundation",
-        "type",
-        "display"
-      ],
+      "path": ["foundation", "type", "display"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1034,11 +902,7 @@
     },
     {
       "name": "--ui-font-mono",
-      "path": [
-        "foundation",
-        "type",
-        "mono"
-      ],
+      "path": ["foundation", "type", "mono"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1054,11 +918,7 @@
     },
     {
       "name": "--ui-font-size-xs",
-      "path": [
-        "foundation",
-        "type",
-        "size-xs"
-      ],
+      "path": ["foundation", "type", "size-xs"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1074,11 +934,7 @@
     },
     {
       "name": "--ui-font-size-sm",
-      "path": [
-        "foundation",
-        "type",
-        "size-sm"
-      ],
+      "path": ["foundation", "type", "size-sm"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1094,11 +950,7 @@
     },
     {
       "name": "--ui-font-size-md",
-      "path": [
-        "foundation",
-        "type",
-        "size-md"
-      ],
+      "path": ["foundation", "type", "size-md"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1114,11 +966,7 @@
     },
     {
       "name": "--ui-font-size-lg",
-      "path": [
-        "foundation",
-        "type",
-        "size-lg"
-      ],
+      "path": ["foundation", "type", "size-lg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1134,11 +982,7 @@
     },
     {
       "name": "--ui-font-size-xl",
-      "path": [
-        "foundation",
-        "type",
-        "size-xl"
-      ],
+      "path": ["foundation", "type", "size-xl"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1154,11 +998,7 @@
     },
     {
       "name": "--ui-font-size-2xl",
-      "path": [
-        "foundation",
-        "type",
-        "size-2xl"
-      ],
+      "path": ["foundation", "type", "size-2xl"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1174,11 +1014,7 @@
     },
     {
       "name": "--ui-line-height",
-      "path": [
-        "foundation",
-        "type",
-        "line-height"
-      ],
+      "path": ["foundation", "type", "line-height"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1194,11 +1030,7 @@
     },
     {
       "name": "--ui-space-1",
-      "path": [
-        "foundation",
-        "space",
-        "1"
-      ],
+      "path": ["foundation", "space", "1"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1214,11 +1046,7 @@
     },
     {
       "name": "--ui-space-2",
-      "path": [
-        "foundation",
-        "space",
-        "2"
-      ],
+      "path": ["foundation", "space", "2"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1234,11 +1062,7 @@
     },
     {
       "name": "--ui-space-3",
-      "path": [
-        "foundation",
-        "space",
-        "3"
-      ],
+      "path": ["foundation", "space", "3"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1254,11 +1078,7 @@
     },
     {
       "name": "--ui-space-4",
-      "path": [
-        "foundation",
-        "space",
-        "4"
-      ],
+      "path": ["foundation", "space", "4"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1274,11 +1094,7 @@
     },
     {
       "name": "--ui-space-5",
-      "path": [
-        "foundation",
-        "space",
-        "5"
-      ],
+      "path": ["foundation", "space", "5"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1294,11 +1110,7 @@
     },
     {
       "name": "--ui-space-6",
-      "path": [
-        "foundation",
-        "space",
-        "6"
-      ],
+      "path": ["foundation", "space", "6"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1314,11 +1126,7 @@
     },
     {
       "name": "--ui-space-7",
-      "path": [
-        "foundation",
-        "space",
-        "7"
-      ],
+      "path": ["foundation", "space", "7"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1334,11 +1142,7 @@
     },
     {
       "name": "--ui-radius-sm",
-      "path": [
-        "foundation",
-        "shape",
-        "sm"
-      ],
+      "path": ["foundation", "shape", "sm"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1354,11 +1158,7 @@
     },
     {
       "name": "--ui-radius-md",
-      "path": [
-        "foundation",
-        "shape",
-        "md"
-      ],
+      "path": ["foundation", "shape", "md"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1374,11 +1174,7 @@
     },
     {
       "name": "--ui-radius-lg",
-      "path": [
-        "foundation",
-        "shape",
-        "lg"
-      ],
+      "path": ["foundation", "shape", "lg"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1394,11 +1190,7 @@
     },
     {
       "name": "--ui-radius-full",
-      "path": [
-        "foundation",
-        "shape",
-        "full"
-      ],
+      "path": ["foundation", "shape", "full"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1414,11 +1206,7 @@
     },
     {
       "name": "--ui-scrollbar-size",
-      "path": [
-        "foundation",
-        "scrollbar",
-        "size"
-      ],
+      "path": ["foundation", "scrollbar", "size"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1434,11 +1222,7 @@
     },
     {
       "name": "--ui-scrollbar-radius",
-      "path": [
-        "foundation",
-        "scrollbar",
-        "radius"
-      ],
+      "path": ["foundation", "scrollbar", "radius"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1454,11 +1238,7 @@
     },
     {
       "name": "--ui-scrollbar-track",
-      "path": [
-        "foundation",
-        "scrollbar",
-        "track"
-      ],
+      "path": ["foundation", "scrollbar", "track"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1474,11 +1254,7 @@
     },
     {
       "name": "--ui-scrollbar-thumb",
-      "path": [
-        "foundation",
-        "scrollbar",
-        "thumb"
-      ],
+      "path": ["foundation", "scrollbar", "thumb"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1488,19 +1264,13 @@
       "themes": null,
       "fallback": "var(--ui-color-border-strong)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-border-strong"
-      ],
+      "reads": ["--ui-color-border-strong"],
       "affects": "Thumb at rest.",
       "proposal": null
     },
     {
       "name": "--ui-scrollbar-thumb-hover",
-      "path": [
-        "foundation",
-        "scrollbar",
-        "thumb-hover"
-      ],
+      "path": ["foundation", "scrollbar", "thumb-hover"],
       "component": "foundation",
       "variant": "all",
       "state": "hover",
@@ -1510,19 +1280,13 @@
       "themes": null,
       "fallback": "var(--ui-color-muted)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-muted"
-      ],
+      "reads": ["--ui-color-muted"],
       "affects": "Thumb while the pointer is over it. Firefox has no hover state for scrollbar-color.",
       "proposal": null
     },
     {
       "name": "--ui-duration",
-      "path": [
-        "foundation",
-        "motion",
-        "color"
-      ],
+      "path": ["foundation", "motion", "color"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1538,11 +1302,7 @@
     },
     {
       "name": "--ui-duration-press",
-      "path": [
-        "foundation",
-        "motion",
-        "press"
-      ],
+      "path": ["foundation", "motion", "press"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1558,11 +1318,7 @@
     },
     {
       "name": "--ui-duration-reveal",
-      "path": [
-        "foundation",
-        "motion",
-        "reveal"
-      ],
+      "path": ["foundation", "motion", "reveal"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1578,11 +1334,7 @@
     },
     {
       "name": "--ui-press-scale",
-      "path": [
-        "foundation",
-        "motion",
-        "press-scale"
-      ],
+      "path": ["foundation", "motion", "press-scale"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1598,11 +1350,7 @@
     },
     {
       "name": "--ui-ease",
-      "path": [
-        "foundation",
-        "motion",
-        "ease"
-      ],
+      "path": ["foundation", "motion", "ease"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1618,11 +1366,7 @@
     },
     {
       "name": "--ui-shadow-sm",
-      "path": [
-        "foundation",
-        "elevation",
-        "shadow-sm"
-      ],
+      "path": ["foundation", "elevation", "shadow-sm"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1641,11 +1385,7 @@
     },
     {
       "name": "--ui-shadow-md",
-      "path": [
-        "foundation",
-        "elevation",
-        "shadow-md"
-      ],
+      "path": ["foundation", "elevation", "shadow-md"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1664,11 +1404,7 @@
     },
     {
       "name": "--ui-shadow-pop",
-      "path": [
-        "foundation",
-        "elevation",
-        "shadow-pop"
-      ],
+      "path": ["foundation", "elevation", "shadow-pop"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1687,11 +1423,7 @@
     },
     {
       "name": "--ui-z-dropdown",
-      "path": [
-        "foundation",
-        "elevation",
-        "z-dropdown"
-      ],
+      "path": ["foundation", "elevation", "z-dropdown"],
       "component": "UiSelect",
       "variant": "all",
       "state": "rest",
@@ -1707,11 +1439,7 @@
     },
     {
       "name": "--ui-z-overlay",
-      "path": [
-        "foundation",
-        "elevation",
-        "z-overlay"
-      ],
+      "path": ["foundation", "elevation", "z-overlay"],
       "component": "foundation",
       "variant": "all",
       "state": "rest",
@@ -1727,11 +1455,7 @@
     },
     {
       "name": "--ui-z-dialog",
-      "path": [
-        "foundation",
-        "elevation",
-        "z-dialog"
-      ],
+      "path": ["foundation", "elevation", "z-dialog"],
       "component": "UiDialog",
       "variant": "all",
       "state": "rest",
@@ -1747,11 +1471,7 @@
     },
     {
       "name": "--ui-content-width",
-      "path": [
-        "foundation",
-        "layout",
-        "content-width"
-      ],
+      "path": ["foundation", "layout", "content-width"],
       "component": "UiAppShell",
       "variant": "all",
       "state": "rest",
@@ -1767,11 +1487,7 @@
     },
     {
       "name": "--ui-sidebar-width",
-      "path": [
-        "foundation",
-        "layout",
-        "sidebar-width"
-      ],
+      "path": ["foundation", "layout", "sidebar-width"],
       "component": "UiAppShell",
       "variant": "all",
       "state": "rest",
@@ -1787,11 +1503,7 @@
     },
     {
       "name": "--ui-container-width",
-      "path": [
-        "foundation",
-        "layout",
-        "container-width"
-      ],
+      "path": ["foundation", "layout", "container-width"],
       "component": "layout",
       "variant": "all",
       "state": "rest",
@@ -1801,19 +1513,13 @@
       "themes": null,
       "fallback": "var(--ui-content-width)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-content-width"
-      ],
+      "reads": ["--ui-content-width"],
       "affects": "Optional container cap. Unset, so it follows the content width.",
       "proposal": null
     },
     {
       "name": "--ui-grid-min",
-      "path": [
-        "foundation",
-        "layout",
-        "grid-min"
-      ],
+      "path": ["foundation", "layout", "grid-min"],
       "component": "layout",
       "variant": "all",
       "state": "rest",
@@ -1829,11 +1535,7 @@
     },
     {
       "name": "--ui-button-radius",
-      "path": [
-        "button",
-        "shared",
-        "radius"
-      ],
+      "path": ["button", "shared", "radius"],
       "component": "UiButton",
       "variant": "all",
       "state": "rest",
@@ -1849,11 +1551,7 @@
     },
     {
       "name": "--ui-button-bg",
-      "path": [
-        "button",
-        "rest",
-        "background"
-      ],
+      "path": ["button", "rest", "background"],
       "component": "UiButton",
       "variant": "all",
       "state": "rest",
@@ -1874,11 +1572,7 @@
     },
     {
       "name": "--ui-button-fg",
-      "path": [
-        "button",
-        "rest",
-        "text"
-      ],
+      "path": ["button", "rest", "text"],
       "component": "UiButton",
       "variant": "all",
       "state": "rest",
@@ -1893,21 +1587,13 @@
         "ghost": "var(--ui-color-muted)",
         "danger": "var(--ui-color-danger)"
       },
-      "reads": [
-        "--ui-color-fg",
-        "--ui-color-muted",
-        "--ui-color-danger"
-      ],
+      "reads": ["--ui-color-fg", "--ui-color-muted", "--ui-color-danger"],
       "affects": "Button text at rest. One ancestor value restyles every variant.",
       "proposal": null
     },
     {
       "name": "--ui-button-border",
-      "path": [
-        "button",
-        "rest",
-        "border"
-      ],
+      "path": ["button", "rest", "border"],
       "component": "UiButton",
       "variant": "all",
       "state": "rest",
@@ -1922,21 +1608,13 @@
         "ghost": "transparent",
         "danger": "color-mix(in oklch, var(--ui-color-danger) 35%, transparent)"
       },
-      "reads": [
-        "--ui-color-fg",
-        "--ui-color-border",
-        "--ui-color-danger"
-      ],
+      "reads": ["--ui-color-fg", "--ui-color-border", "--ui-color-danger"],
       "affects": "Button border at rest. One ancestor value restyles every variant.",
       "proposal": null
     },
     {
       "name": "--ui-button-bg-hover",
-      "path": [
-        "button",
-        "hover",
-        "background"
-      ],
+      "path": ["button", "hover", "background"],
       "component": "UiButton",
       "variant": "all",
       "state": "hover",
@@ -1951,21 +1629,13 @@
         "ghost": "var(--ui-color-subtle)",
         "danger": "var(--ui-color-danger-subtle)"
       },
-      "reads": [
-        "--ui-color-accent",
-        "--ui-color-subtle",
-        "--ui-color-danger-subtle"
-      ],
+      "reads": ["--ui-color-accent", "--ui-color-subtle", "--ui-color-danger-subtle"],
       "affects": "Button fill on hover. Primary is an accent wash, not an inverted solid.",
       "proposal": null
     },
     {
       "name": "--ui-button-fg-hover",
-      "path": [
-        "button",
-        "hover",
-        "text"
-      ],
+      "path": ["button", "hover", "text"],
       "component": "UiButton",
       "variant": "all",
       "state": "hover",
@@ -1980,20 +1650,13 @@
         "ghost": "var(--ui-color-fg)",
         "danger": "var(--ui-color-danger)"
       },
-      "reads": [
-        "--ui-color-fg",
-        "--ui-color-danger"
-      ],
+      "reads": ["--ui-color-fg", "--ui-color-danger"],
       "affects": "Button text on hover.",
       "proposal": null
     },
     {
       "name": "--ui-button-border-hover",
-      "path": [
-        "button",
-        "hover",
-        "border"
-      ],
+      "path": ["button", "hover", "border"],
       "component": "UiButton",
       "variant": "all",
       "state": "hover",
@@ -2019,11 +1682,7 @@
     },
     {
       "name": "--ui-control-radius",
-      "path": [
-        "field",
-        "chrome",
-        "radius"
-      ],
+      "path": ["field", "chrome", "radius"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2033,19 +1692,13 @@
       "themes": null,
       "fallback": "var(--ui-radius-md)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-radius-md"
-      ],
+      "reads": ["--ui-radius-md"],
       "affects": "Corner radius of inputs, textareas, and the select button.",
       "proposal": null
     },
     {
       "name": "--ui-control-bg",
-      "path": [
-        "field",
-        "chrome",
-        "background"
-      ],
+      "path": ["field", "chrome", "background"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2055,19 +1708,13 @@
       "themes": null,
       "fallback": "var(--ui-color-surface)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-surface"
-      ],
+      "reads": ["--ui-color-surface"],
       "affects": "Field fill.",
       "proposal": null
     },
     {
       "name": "--ui-control-fg",
-      "path": [
-        "field",
-        "chrome",
-        "text"
-      ],
+      "path": ["field", "chrome", "text"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2077,19 +1724,13 @@
       "themes": null,
       "fallback": "var(--ui-color-fg)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-fg"
-      ],
+      "reads": ["--ui-color-fg"],
       "affects": "Field text.",
       "proposal": null
     },
     {
       "name": "--ui-control-border",
-      "path": [
-        "field",
-        "chrome",
-        "border"
-      ],
+      "path": ["field", "chrome", "border"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2099,19 +1740,13 @@
       "themes": null,
       "fallback": "var(--ui-color-border)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-border"
-      ],
+      "reads": ["--ui-color-border"],
       "affects": "Field border at rest.",
       "proposal": null
     },
     {
       "name": "--ui-control-border-hover",
-      "path": [
-        "field",
-        "chrome",
-        "border"
-      ],
+      "path": ["field", "chrome", "border"],
       "component": "UiInput",
       "variant": "all",
       "state": "hover",
@@ -2121,19 +1756,13 @@
       "themes": null,
       "fallback": "var(--ui-color-border-strong)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-border-strong"
-      ],
+      "reads": ["--ui-color-border-strong"],
       "affects": "Field border on hover.",
       "proposal": null
     },
     {
       "name": "--ui-control-border-focus",
-      "path": [
-        "field",
-        "chrome",
-        "border"
-      ],
+      "path": ["field", "chrome", "border"],
       "component": "UiInput",
       "variant": "all",
       "state": "focus",
@@ -2143,20 +1772,13 @@
       "themes": null,
       "fallback": "var(--ui-color-accent)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-accent",
-        "--ui-color-focus"
-      ],
+      "reads": ["--ui-color-accent", "--ui-color-focus"],
       "affects": "Field border on focus. The ring is still --ui-color-focus.",
       "proposal": null
     },
     {
       "name": "--ui-control-border-invalid",
-      "path": [
-        "field",
-        "chrome",
-        "border"
-      ],
+      "path": ["field", "chrome", "border"],
       "component": "UiInput",
       "variant": "all",
       "state": "invalid",
@@ -2166,19 +1788,13 @@
       "themes": null,
       "fallback": "var(--ui-color-danger)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-danger"
-      ],
+      "reads": ["--ui-color-danger"],
       "affects": "Field border when the field is invalid.",
       "proposal": null
     },
     {
       "name": "--ui-control-bg-disabled",
-      "path": [
-        "field",
-        "chrome",
-        "background"
-      ],
+      "path": ["field", "chrome", "background"],
       "component": "UiInput",
       "variant": "all",
       "state": "disabled",
@@ -2188,19 +1804,13 @@
       "themes": null,
       "fallback": "var(--ui-color-subtle)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-subtle"
-      ],
+      "reads": ["--ui-color-subtle"],
       "affects": "Disabled field fill.",
       "proposal": null
     },
     {
       "name": "--ui-control-fg-disabled",
-      "path": [
-        "field",
-        "chrome",
-        "text"
-      ],
+      "path": ["field", "chrome", "text"],
       "component": "UiInput",
       "variant": "all",
       "state": "disabled",
@@ -2210,19 +1820,13 @@
       "themes": null,
       "fallback": "var(--ui-color-muted)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-muted"
-      ],
+      "reads": ["--ui-color-muted"],
       "affects": "Disabled field text.",
       "proposal": null
     },
     {
       "name": "--ui-control-height-sm",
-      "path": [
-        "field",
-        "size",
-        "sm"
-      ],
+      "path": ["field", "size", "sm"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2238,11 +1842,7 @@
     },
     {
       "name": "--ui-control-height-md",
-      "path": [
-        "field",
-        "size",
-        "md"
-      ],
+      "path": ["field", "size", "md"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2258,11 +1858,7 @@
     },
     {
       "name": "--ui-control-height-lg",
-      "path": [
-        "field",
-        "size",
-        "lg"
-      ],
+      "path": ["field", "size", "lg"],
       "component": "UiInput",
       "variant": "all",
       "state": "rest",
@@ -2278,11 +1874,7 @@
     },
     {
       "name": "--ui-choice-bg-checked",
-      "path": [
-        "choice",
-        "checked",
-        "background"
-      ],
+      "path": ["choice", "checked", "background"],
       "component": "UiCheckbox",
       "variant": "all",
       "state": "checked",
@@ -2292,19 +1884,13 @@
       "themes": null,
       "fallback": "var(--ui-color-accent)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-accent"
-      ],
+      "reads": ["--ui-color-accent"],
       "affects": "Checked and indeterminate checkbox fill. The radio dot does not read this.",
       "proposal": null
     },
     {
       "name": "--ui-choice-border-checked",
-      "path": [
-        "choice",
-        "checked",
-        "border"
-      ],
+      "path": ["choice", "checked", "border"],
       "component": "UiCheckbox",
       "variant": "all",
       "state": "checked",
@@ -2314,19 +1900,13 @@
       "themes": null,
       "fallback": "var(--ui-color-accent)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-accent"
-      ],
+      "reads": ["--ui-color-accent"],
       "affects": "Checked checkbox border and selected radio ring.",
       "proposal": null
     },
     {
       "name": "--ui-switch-bg-checked",
-      "path": [
-        "choice",
-        "switch",
-        "background"
-      ],
+      "path": ["choice", "switch", "background"],
       "component": "UiSwitch",
       "variant": "all",
       "state": "checked",
@@ -2336,20 +1916,13 @@
       "themes": null,
       "fallback": "var(--ui-color-accent)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-accent",
-        "--ui-color-border-strong"
-      ],
+      "reads": ["--ui-color-accent", "--ui-color-border-strong"],
       "affects": "Switch track when on. The off track is --ui-color-border-strong.",
       "proposal": null
     },
     {
       "name": "--ui-table-bg",
-      "path": [
-        "table",
-        "frame",
-        "background"
-      ],
+      "path": ["table", "frame", "background"],
       "component": "UiTable",
       "variant": "all",
       "state": "rest",
@@ -2359,19 +1932,13 @@
       "themes": null,
       "fallback": "var(--ui-color-surface)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-surface"
-      ],
+      "reads": ["--ui-color-surface"],
       "affects": "Table frame fill.",
       "proposal": null
     },
     {
       "name": "--ui-table-border",
-      "path": [
-        "table",
-        "frame",
-        "border"
-      ],
+      "path": ["table", "frame", "border"],
       "component": "UiTable",
       "variant": "all",
       "state": "rest",
@@ -2381,19 +1948,13 @@
       "themes": null,
       "fallback": "var(--ui-color-border)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-border"
-      ],
+      "reads": ["--ui-color-border"],
       "affects": "Table frame and cell hairline.",
       "proposal": null
     },
     {
       "name": "--ui-table-radius",
-      "path": [
-        "table",
-        "frame",
-        "radius"
-      ],
+      "path": ["table", "frame", "radius"],
       "component": "UiTable",
       "variant": "all",
       "state": "rest",
@@ -2403,19 +1964,13 @@
       "themes": null,
       "fallback": "var(--ui-radius-lg)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-radius-lg"
-      ],
+      "reads": ["--ui-radius-lg"],
       "affects": "Table frame radius.",
       "proposal": null
     },
     {
       "name": "--ui-table-max-height",
-      "path": [
-        "table",
-        "frame",
-        "max-height"
-      ],
+      "path": ["table", "frame", "max-height"],
       "component": "UiTable",
       "variant": "all",
       "state": "rest",
@@ -2431,11 +1986,7 @@
     },
     {
       "name": "--ui-table-row-hover",
-      "path": [
-        "table",
-        "row",
-        "background"
-      ],
+      "path": ["table", "row", "background"],
       "component": "UiTable",
       "variant": "all",
       "state": "hover",
@@ -2445,19 +1996,13 @@
       "themes": null,
       "fallback": "var(--ui-color-surface-raised)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-surface-raised"
-      ],
+      "reads": ["--ui-color-surface-raised"],
       "affects": "Row hover. Suppressed when the row is selected or contains focus.",
       "proposal": null
     },
     {
       "name": "--ui-table-row-selected",
-      "path": [
-        "table",
-        "row",
-        "background"
-      ],
+      "path": ["table", "row", "background"],
       "component": "UiTable",
       "variant": "all",
       "state": "selected",
@@ -2467,10 +2012,120 @@
       "themes": null,
       "fallback": "var(--ui-color-accent-subtle)",
       "fallbackByVariant": null,
-      "reads": [
-        "--ui-color-accent-subtle"
-      ],
+      "reads": ["--ui-color-accent-subtle"],
       "affects": "Selected row fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-slider-track",
+      "path": ["slider", "track", "background"],
+      "component": "UiSlider",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border-strong)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-border-strong"],
+      "affects": "Slider track behind the fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-slider-fill",
+      "path": ["slider", "fill", "background"],
+      "component": "UiSlider",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-accent"],
+      "affects": "Slider range fill and the thumb border.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-slider-thumb",
+      "path": ["slider", "thumb", "background"],
+      "component": "UiSlider",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-surface)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-surface"],
+      "affects": "Slider thumb fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-progress-track",
+      "path": ["progress", "track", "background"],
+      "component": "UiProgress",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-border)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-border"],
+      "affects": "Progress track.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-progress-fill",
+      "path": ["progress", "fill", "color"],
+      "component": "UiProgress",
+      "variant": "all",
+      "state": "rest",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-accent"],
+      "affects": "Progress fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-date-day-selected-bg",
+      "path": ["date", "day", "background"],
+      "component": "UiDatePicker",
+      "variant": "all",
+      "state": "selected",
+      "cssProperty": "background-color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-accent"],
+      "affects": "Selected day fill.",
+      "proposal": null
+    },
+    {
+      "name": "--ui-date-day-selected-fg",
+      "path": ["date", "day", "text"],
+      "component": "UiDatePicker",
+      "variant": "all",
+      "state": "selected",
+      "cssProperty": "color",
+      "declared": false,
+      "value": null,
+      "themes": null,
+      "fallback": "var(--ui-color-accent-fg)",
+      "fallbackByVariant": null,
+      "reads": ["--ui-color-accent-fg"],
+      "affects": "Selected day text.",
       "proposal": null
     }
   ]

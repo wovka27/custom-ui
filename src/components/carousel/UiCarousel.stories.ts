@@ -31,9 +31,9 @@ export const Playground = meta.story(
       components: { UiCarousel },
       setup: () => ({ args }),
       template: `
-        <UiCarousel :label="args.label" :controls="args.controls" :loop="args.loop" :pagination="args.pagination" :pagination-trigger="args.paginationTrigger" style="width: 20rem">
+        <ui-carousel :label="args.label" :controls="args.controls" :loop="args.loop" :pagination="args.pagination" :pagination-trigger="args.paginationTrigger" style="width: 20rem">
           ${slides}
-        </UiCarousel>
+        </ui-carousel>
       `,
     }),
   }),
@@ -43,14 +43,14 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiCarousel, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Dots" note="Click a dot. The pages stay at the bottom of the frame.">
-          <UiCarousel label="Frames" pagination="dots" pagination-trigger="click" style="width: 20rem">${slides}</UiCarousel>
-        </ShowcaseCase>
-        <ShowcaseCase title="Line" note="Hover a line to change the slide.">
-          <UiCarousel label="Frames" pagination="line" pagination-trigger="hover" controls="top" style="width: 20rem">${slides}</UiCarousel>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Dots" note="Click a dot. The pages stay at the bottom of the frame.">
+          <ui-carousel label="Frames" pagination="dots" pagination-trigger="click" style="width: 20rem">${slides}</ui-carousel>
+        </showcase-case>
+        <showcase-case title="Line" note="Hover a line to change the slide.">
+          <ui-carousel label="Frames" pagination="line" pagination-trigger="hover" controls="top" style="width: 20rem">${slides}</ui-carousel>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

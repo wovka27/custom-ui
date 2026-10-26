@@ -58,7 +58,7 @@ export default definePreview({
         return { theme, fullscreen }
       },
       template:
-        '<UiConfigProvider :theme="theme" class="sb-frame" :data-fullscreen="fullscreen || undefined"><story /></UiConfigProvider>',
+        '<ui-config-provider :theme="theme" class="sb-frame" :data-fullscreen="fullscreen || undefined"><story /></ui-config-provider>',
     }),
   ],
   tags: ['autodocs'],

@@ -21,9 +21,9 @@ export const Playground = meta.story(
       components: { UiCluster },
       setup: () => ({ args }),
       template: `
-      <UiCluster v-bind="args" style="width: 24rem">
+      <ui-cluster v-bind="args" style="width: 24rem">
         <span>Northwind</span><span>Harbor</span><span>Lumen</span><span>Cedar</span>
-      </UiCluster>
+      </ui-cluster>
     `,
     }),
   }),
@@ -33,11 +33,11 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiCluster, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Space between">
-        <UiCluster justify="between" style="width: 24rem"><span>Selected</span><span>4 pages</span></UiCluster>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Space between">
+        <ui-cluster justify="between" style="width: 24rem"><span>Selected</span><span>4 pages</span></ui-cluster>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

@@ -163,12 +163,12 @@ defineExpose({
     :novalidate="region ? undefined : true"
     @submit="onNativeSubmit"
   >
-    <UiStack :gap="gap">
+    <ui-stack :gap="gap">
       <header v-if="label || $slots.header">
         <h2 v-if="label" :id="titleId" class="ui-form__title">{{ label }}</h2>
         <slot name="header" />
       </header>
-      <UiAlert
+      <ui-alert
         v-if="errorMessage"
         class="ui-reveal"
         tone="danger"
@@ -178,10 +178,10 @@ defineExpose({
       <p v-else-if="succeeded && successLabel" class="ui-form__status ui-reveal" role="status">
         {{ successLabel }}
       </p>
-      <UiFormNodes :nodes="schema" :columns="columns" :gap="gap" />
+      <ui-form-nodes :nodes="schema" :columns="columns" :gap="gap" />
       <slot name="actions" :submitting="submitting">
-        <UiCluster justify="end">
-          <UiButton
+        <ui-cluster justify="end">
+          <ui-button
             v-if="showReset"
             type="button"
             variant="secondary"
@@ -189,19 +189,19 @@ defineExpose({
             @click="api.reset()"
           >
             {{ resetLabel }}
-          </UiButton>
-          <UiButton
+          </ui-button>
+          <ui-button
             :type="region ? 'button' : 'submit'"
             :loading="submitting"
             :disabled="disabled"
             @click="onRegionSubmit"
           >
             {{ submitLabel }}
-          </UiButton>
-        </UiCluster>
+          </ui-button>
+        </ui-cluster>
       </slot>
       <slot name="footer" />
-    </UiStack>
+    </ui-stack>
   </component>
 </template>
 

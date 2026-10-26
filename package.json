@@ -38,6 +38,7 @@
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "reference": "node scripts/component-reference.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run && node --test scripts/changelog-from-commits.test.mjs",

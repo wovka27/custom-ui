@@ -26,9 +26,9 @@ export const Playground = meta.story(
         return { args, lines }
       },
       template: `
-      <UiStack :gap="args.gap" :align="args.align">
+      <ui-stack :gap="args.gap" :align="args.align">
         <span v-for="item in lines()" :key="item">{{ item }}</span>
-      </UiStack>
+      </ui-stack>
     `,
     }),
   }),
@@ -38,11 +38,11 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiStack, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Gap scale">
-        <UiStack gap="sm"><span>First</span><span>Second</span><span>Third</span></UiStack>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Gap scale">
+        <ui-stack gap="sm"><span>First</span><span>Second</span><span>Third</span></ui-stack>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

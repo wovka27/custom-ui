@@ -10,6 +10,6 @@ export const Reference = meta.story({
   name: 'Reference',
   render: () => ({
     components: { TokenCatalog },
-    template: '<TokenCatalog />',
+    template: '<token-catalog />',
   }),
 })

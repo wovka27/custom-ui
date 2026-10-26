@@ -65,21 +65,7 @@ defineSlots<{
   background: var(--ui-color-info-subtle);
   color: var(--ui-color-fg);
 
-  &[data-tone='success'] {
-    background: var(--ui-color-success-subtle);
-  }
-  &[data-tone='warning'] {
-    background: var(--ui-color-warning-subtle);
-  }
-  &[data-tone='danger'] {
-    background: var(--ui-color-danger-subtle);
-  }
-  &[data-tone='accent'] {
-    background: var(--ui-color-accent-subtle);
-  }
-  &[data-tone='neutral'] {
-    background: var(--ui-color-subtle);
-  }
+  @include tone-surface;
 }
 
 .ui-alert__copy {

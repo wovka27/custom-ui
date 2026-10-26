@@ -17,7 +17,7 @@ export const Playground = meta.story(
             tone: 'info',
           }),
       }),
-      template: '<UiNotification /><UiButton @click="send">Notify</UiButton>',
+      template: '<ui-notification /><ui-button @click="send">Notify</UiButton>',
     }),
   }),
 )
@@ -47,15 +47,15 @@ export const Showcases = meta.story(
       },
     }),
     template: `
-      <UiNotification />
-      <ShowcaseBoard>
-        <ShowcaseCase title="From the right edge">
-          <UiButton variant="danger" @click="send">Fail</UiButton>
-        </ShowcaseCase>
-        <ShowcaseCase title="Stack" note="Each new notice is added under the previous one.">
-          <UiButton @click="stack">Three</UiButton>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <ui-notification />
+      <showcase-board>
+        <showcase-case title="From the right edge">
+          <ui-button variant="danger" @click="send">Fail</UiButton>
+        </showcase-case>
+        <showcase-case title="Stack" note="Each new notice is added under the previous one.">
+          <ui-button @click="stack">Three</UiButton>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

@@ -28,10 +28,10 @@ export const Playground = meta.story(
       setup: () => ({ open: ref(false), steps }),
       template: `
         <div style="display:flex;gap:1rem">
-          <UiButton id="tour-save" @click="open = true">Save</UiButton>
-          <UiButton id="tour-share" variant="secondary">Share</UiButton>
+          <ui-button id="tour-save" @click="open = true">Save</UiButton>
+          <ui-button id="tour-share" variant="secondary">Share</UiButton>
         </div>
-        <UiTour v-model="open" :steps="steps" />
+        <ui-tour v-model="open" :steps="steps" />
       `,
     }),
   }),
@@ -42,15 +42,15 @@ export const Showcases = meta.story(
     components: { UiTour, UiButton, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ open: ref(false), steps }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Two steps">
+      <showcase-board>
+        <showcase-case title="Two steps">
           <div style="display:flex;gap:1rem">
-            <UiButton id="tour-save" @click="open = true">Start</UiButton>
-            <UiButton id="tour-share" variant="secondary">Share</UiButton>
+            <ui-button id="tour-save" @click="open = true">Start</UiButton>
+            <ui-button id="tour-share" variant="secondary">Share</UiButton>
           </div>
-          <UiTour v-model="open" :steps="steps" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+          <ui-tour v-model="open" :steps="steps" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

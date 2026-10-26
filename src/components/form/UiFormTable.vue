@@ -85,7 +85,7 @@ function onCell(rowId: string, columnId: string, text: string): void {
 </script>
 
 <template>
-  <UiTable
+  <ui-table
     embedded
     layout="fixed"
     :caption="field.caption"
@@ -101,7 +101,7 @@ function onCell(rowId: string, columnId: string, text: string): void {
     @update:selected="onSelected"
   >
     <template v-for="column in field.columns" :key="column.id" #[`cell-${column.id}`]="{ row }">
-      <UiInput
+      <ui-input
         v-if="column.editable"
         :model-value="shown(row, column.id)"
         :name="`${field.name}.${row.id}.${column.id}`"
@@ -111,5 +111,5 @@ function onCell(rowId: string, columnId: string, text: string): void {
       />
       <span v-else>{{ shown(row, column.id) }}</span>
     </template>
-  </UiTable>
+  </ui-table>
 </template>

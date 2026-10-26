@@ -23,7 +23,7 @@ export const Playground = meta.story(
       setup: () => ({ items }),
       template: `
         <div style="display:grid;grid-template-columns:9rem minmax(0,1fr);gap:1rem;height:16rem">
-          <UiAnchor :items="items" />
+          <ui-anchor :items="items" />
           <div style="overflow:auto">
             <section id="anchor-brief" style="min-height:14rem"><h3>Brief</h3><p>The request.</p></section>
             <section id="anchor-proof" style="min-height:14rem"><h3>Proof</h3><p>The marked lines.</p></section>
@@ -46,18 +46,18 @@ export const Showcases = meta.story(
       ],
     }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="In this page" note="The current section is marked as you scroll.">
+      <showcase-board>
+        <showcase-case title="In this page" note="The current section is marked as you scroll.">
           <div style="display:grid;grid-template-columns:9rem minmax(0,1fr);gap:1rem;height:16rem;width:100%">
-            <UiAnchor :items="items" />
+            <ui-anchor :items="items" />
             <div style="overflow:auto">
               <section id="anchor-case-brief" style="min-height:14rem"><h3 style="margin:0">Brief</h3></section>
               <section id="anchor-case-proof" style="min-height:14rem"><h3 style="margin:0">Proof</h3></section>
               <section id="anchor-case-send" style="min-height:14rem"><h3 style="margin:0">Send</h3></section>
             </div>
           </div>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

@@ -20,11 +20,11 @@ export const Playground = meta.story(
       setup: () => ({ args }),
       template: `
         <div style="padding: 4rem">
-          <UiTooltip :content="args.content" :placement="args.placement" :align="args.align">
+          <ui-tooltip :content="args.content" :placement="args.placement" :align="args.align">
             <template #default="{ describedBy }">
-              <UiButton :aria-describedby="describedBy">Save</UiButton>
+              <ui-button :aria-describedby="describedBy">Save</UiButton>
             </template>
-          </UiTooltip>
+          </ui-tooltip>
         </div>
       `,
     }),
@@ -35,24 +35,24 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiTooltip, UiButton, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Sides">
+      <showcase-board>
+        <showcase-case title="Sides">
           <div style="display:flex;flex-wrap:wrap;gap:3rem;padding:3rem 1rem">
-            <UiTooltip content="Above" placement="top">
-              <template #default="{ describedBy }"><UiButton variant="ghost" :aria-describedby="describedBy">Top</UiButton></template>
-            </UiTooltip>
-            <UiTooltip content="Under" placement="bottom">
-              <template #default="{ describedBy }"><UiButton variant="ghost" :aria-describedby="describedBy">Bottom</UiButton></template>
-            </UiTooltip>
-            <UiTooltip content="Before" placement="start">
-              <template #default="{ describedBy }"><UiButton variant="ghost" :aria-describedby="describedBy">Start</UiButton></template>
-            </UiTooltip>
-            <UiTooltip content="After" placement="end">
-              <template #default="{ describedBy }"><UiButton variant="ghost" :aria-describedby="describedBy">End</UiButton></template>
-            </UiTooltip>
+            <ui-tooltip content="Above" placement="top">
+              <template #default="{ describedBy }"><ui-button variant="ghost" :aria-describedby="describedBy">Top</UiButton></template>
+            </ui-tooltip>
+            <ui-tooltip content="Under" placement="bottom">
+              <template #default="{ describedBy }"><ui-button variant="ghost" :aria-describedby="describedBy">Bottom</UiButton></template>
+            </ui-tooltip>
+            <ui-tooltip content="Before" placement="start">
+              <template #default="{ describedBy }"><ui-button variant="ghost" :aria-describedby="describedBy">Start</UiButton></template>
+            </ui-tooltip>
+            <ui-tooltip content="After" placement="end">
+              <template #default="{ describedBy }"><ui-button variant="ghost" :aria-describedby="describedBy">End</UiButton></template>
+            </ui-tooltip>
           </div>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

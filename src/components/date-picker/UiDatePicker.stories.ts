@@ -18,17 +18,17 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiDatePicker, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Single date" note="Header, day, footer, and trigger are slots.">
-          <UiDatePicker default-value="2026-10-21" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Bounded">
-          <UiDatePicker min="2026-10-01" max="2026-10-31" placeholder="October only" />
-        </ShowcaseCase>
-        <ShowcaseCase title="Range" note="The first day is the start. The second day is the end.">
-          <UiDatePicker range default-value="2026-10-12" placeholder="Start and end" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Single date" note="Header, day, footer, and trigger are slots.">
+          <ui-date-picker default-value="2026-10-21" />
+        </showcase-case>
+        <showcase-case title="Bounded">
+          <ui-date-picker min="2026-10-01" max="2026-10-31" placeholder="October only" />
+        </showcase-case>
+        <showcase-case title="Range" note="The first day is the start. The second day is the end.">
+          <ui-date-picker range default-value="2026-10-12" placeholder="Start and end" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

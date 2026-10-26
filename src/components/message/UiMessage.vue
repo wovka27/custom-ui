@@ -21,6 +21,8 @@ import { dismissMessage, messageItems } from './message'
 </template>
 
 <style scoped lang="scss">
+@use '@/styles/mixins' as *;
+
 .ui-message {
   position: fixed;
   z-index: var(--ui-z-dialog);
@@ -46,19 +48,7 @@ import { dismissMessage, messageItems } from './message'
   pointer-events: auto;
   animation: ui-reveal var(--ui-duration-reveal) var(--ui-ease) both;
 
-  &[data-tone='success'] {
-    border-color: var(--ui-color-success);
-  }
-  &[data-tone='warning'] {
-    border-color: var(--ui-color-warning);
-  }
-  &[data-tone='danger'] {
-    border-color: var(--ui-color-danger);
-  }
-  &[data-tone='info'],
-  &[data-tone='accent'] {
-    border-color: var(--ui-color-accent);
-  }
+  @include tone-mark(border-color);
 }
 
 .ui-message__copy {

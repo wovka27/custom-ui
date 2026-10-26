@@ -3,12 +3,12 @@ import { UiAppShell } from '@/components/layout'
 import { playground, showcases } from '@/stories/templates'
 
 const shell = `
-  <UiAppShell v-bind="args">
+  <ui-app-shell v-bind="args">
     <template #header><strong>Custom UI</strong></template>
     <template #sidebar><nav>Forms<br />Data<br />Layout</nav></template>
     <p>Main content sits beside the sidebar and stacks under it on a narrow viewport.</p>
     <template #footer>Custom UI Kit</template>
-  </UiAppShell>
+  </ui-app-shell>
 `
 
 const meta = preview.meta({

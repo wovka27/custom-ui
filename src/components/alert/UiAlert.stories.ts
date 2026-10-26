@@ -25,19 +25,19 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiAlert, ShowcaseBoard, ShowcaseCase },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Tones">
-        <UiAlert tone="neutral" title="Neutral" description="Quiet status." />
-        <UiAlert tone="accent" title="Accent" description="A single signal." />
-        <UiAlert tone="success" title="Saved" description="The profile is stored." />
-        <UiAlert tone="warning" title="Review" description="A field still needs attention." />
-        <UiAlert tone="danger" title="Failed" description="The request did not complete." />
-        <UiAlert tone="info" title="Note" description="Color hangs off CSS variables." />
-      </ShowcaseCase>
-      <ShowcaseCase title="Dismissible">
-        <UiAlert dismissible title="Draft archived" description="You can restore it later." />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Tones">
+        <ui-alert tone="neutral" title="Neutral" description="Quiet status." />
+        <ui-alert tone="accent" title="Accent" description="A single signal." />
+        <ui-alert tone="success" title="Saved" description="The profile is stored." />
+        <ui-alert tone="warning" title="Review" description="A field still needs attention." />
+        <ui-alert tone="danger" title="Failed" description="The request did not complete." />
+        <ui-alert tone="info" title="Note" description="Color hangs off CSS variables." />
+      </showcase-case>
+      <showcase-case title="Dismissible">
+        <ui-alert dismissible title="Draft archived" description="You can restore it later." />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

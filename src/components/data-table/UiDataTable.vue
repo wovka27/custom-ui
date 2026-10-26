@@ -138,7 +138,7 @@ watch(pageCount, (count) => {
     <div v-if="slots.toolbar" class="ui-data__toolbar">
       <slot name="toolbar" />
     </div>
-    <UiTable
+    <ui-table
       :sort="sortValue"
       :selected="selected"
       :expanded="expanded"
@@ -181,16 +181,16 @@ watch(pageCount, (count) => {
       </template>
       <template #empty>
         <slot name="empty">
-          <UiEmpty
+          <ui-empty
             :title="schema.emptyTitle ?? 'No results'"
             :description="schema.emptyDescription"
             variant="plain"
           />
         </slot>
       </template>
-    </UiTable>
+    </ui-table>
     <div v-if="schema.pageSizes && schema.pageSizes.length > 0" class="ui-data__pager">
-      <UiPagination
+      <ui-pagination
         :page="pageValue"
         :page-size="sizeValue"
         :page-count="pageCount"

@@ -22,21 +22,21 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiButton, UiEmpty, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Plain" note="Sits inside a table or another frame.">
-          <UiEmpty variant="plain" title="No results" description="Nothing matches this view." />
-        </ShowcaseCase>
-        <ShowcaseCase title="Panel">
-          <UiEmpty variant="panel" title="No invoices" description="The desk has not filed one yet." />
-        </ShowcaseCase>
-        <ShowcaseCase title="Dashed" note="The actions slot holds the next step.">
-          <UiEmpty variant="dashed" title="No file" description="Drop a brief, or choose one.">
+      <showcase-board>
+        <showcase-case title="Plain" note="Sits inside a table or another frame.">
+          <ui-empty variant="plain" title="No results" description="Nothing matches this view." />
+        </showcase-case>
+        <showcase-case title="Panel">
+          <ui-empty variant="panel" title="No invoices" description="The desk has not filed one yet." />
+        </showcase-case>
+        <showcase-case title="Dashed" note="The actions slot holds the next step.">
+          <ui-empty variant="dashed" title="No file" description="Drop a brief, or choose one.">
             <template #actions>
-              <UiButton size="sm" variant="secondary">Choose a file</UiButton>
+              <ui-button size="sm" variant="secondary">Choose a file</UiButton>
             </template>
-          </UiEmpty>
-        </ShowcaseCase>
-      </ShowcaseBoard>
+          </ui-empty>
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )

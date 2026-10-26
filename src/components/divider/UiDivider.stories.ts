@@ -15,10 +15,10 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiDivider, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Label"><UiDivider>Or continue</UiDivider></ShowcaseCase>
-        <ShowcaseCase title="Rule"><UiDivider /></ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Label"><ui-divider>Or continue</UiDivider></showcase-case>
+        <showcase-case title="Rule"><ui-divider /></showcase-case>
+      </showcase-board>
     `,
   })),
 )

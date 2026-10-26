@@ -28,14 +28,14 @@ export const Showcases = meta.story(
     components: { UiRadioGroup, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ plans }),
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="With hints">
-        <UiRadioGroup legend="Plan" name="plan-showcase" :options="plans" default-value="studio" />
-      </ShowcaseCase>
-      <ShowcaseCase title="Disabled">
-        <UiRadioGroup legend="Plan" name="plan-disabled" :options="plans" default-value="house" disabled />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="With hints">
+        <ui-radio-group legend="Plan" name="plan-showcase" :options="plans" default-value="studio" />
+      </showcase-case>
+      <showcase-case title="Disabled">
+        <ui-radio-group legend="Plan" name="plan-disabled" :options="plans" default-value="house" disabled />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

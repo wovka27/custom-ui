@@ -40,7 +40,7 @@ const listed = computed(() => {
       </li>
     </ul>
     <div v-if="node.children.length > 0" class="ui-token-tree__children">
-      <TokenTree
+      <token-tree
         v-for="child in node.children"
         :key="child.id"
         :node="child"

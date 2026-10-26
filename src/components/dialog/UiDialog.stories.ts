@@ -28,14 +28,14 @@ export const Playground = meta.story(
         return { args, open }
       },
       template: `
-      <UiButton @click="open = true">Open dialog</UiButton>
-      <UiDialog v-bind="args" v-model:open="open">
+      <ui-button @click="open = true">Open dialog</UiButton>
+      <ui-dialog v-bind="args" v-model:open="open">
         Nothing is deleted. The workspace leaves the active list.
         <template #footer="{ close }">
-          <UiButton variant="secondary" @click="close">Cancel</UiButton>
-          <UiButton variant="danger" @click="open = false">Archive</UiButton>
+          <ui-button variant="secondary" @click="close">Cancel</UiButton>
+          <ui-button variant="danger" @click="open = false">Archive</UiButton>
         </template>
-      </UiDialog>
+      </ui-dialog>
     `,
     }),
   }),
@@ -73,35 +73,35 @@ export const Showcases = meta.story(
       return { open, first, second, stackStatus, closeFirst, closeSecond, closeBoth }
     },
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Confirm" note="Cancel closes. Archive is the destructive action.">
-        <UiButton @click="open = true">Archive workspace</UiButton>
-        <UiDialog v-model:open="open" title="Archive this workspace?" description="Members keep read access.">
+    <showcase-board>
+      <showcase-case title="Confirm" note="Cancel closes. Archive is the destructive action.">
+        <ui-button @click="open = true">Archive workspace</UiButton>
+        <ui-dialog v-model:open="open" title="Archive this workspace?" description="Members keep read access.">
           Nothing is deleted.
           <template #footer="{ close }">
-            <UiButton variant="secondary" @click="close">Cancel</UiButton>
-            <UiButton variant="danger" @click="open = false">Archive</UiButton>
+            <ui-button variant="secondary" @click="close">Cancel</UiButton>
+            <ui-button variant="danger" @click="open = false">Archive</UiButton>
           </template>
-        </UiDialog>
-      </ShowcaseCase>
-      <ShowcaseCase title="Stack" note="The top dialog finishes its wait before the one under it can close.">
-        <UiButton @click="first = true">Open the first dialog</UiButton>
+        </ui-dialog>
+      </showcase-case>
+      <showcase-case title="Stack" note="The top dialog finishes its wait before the one under it can close.">
+        <ui-button @click="first = true">Open the first dialog</UiButton>
         <p role="status">{{ stackStatus }}</p>
-        <UiDialog v-model:open="first" title="First dialog" description="Open the next dialog from here." :before-close="closeFirst">
+        <ui-dialog v-model:open="first" title="First dialog" description="Open the next dialog from here." :before-close="closeFirst">
           The second dialog sits above this one.
           <template #footer="{ closing }">
-            <UiButton :disabled="closing" @click="second = true">Open the next</UiButton>
+            <ui-button :disabled="closing" @click="second = true">Open the next</UiButton>
           </template>
-        </UiDialog>
-        <UiDialog v-model:open="second" title="Second dialog" description="Closing waits, then the first dialog waits." :before-close="closeSecond">
+        </ui-dialog>
+        <ui-dialog v-model:open="second" title="Second dialog" description="Closing waits, then the first dialog waits." :before-close="closeSecond">
           Discard both closes this dialog, then the one underneath.
           <template #footer="{ close, closing }">
-            <UiButton variant="secondary" :disabled="closing" @click="close">Close this one</UiButton>
-            <UiButton :loading="closing" @click="closeBoth">Discard both</UiButton>
+            <ui-button variant="secondary" :disabled="closing" @click="close">Close this one</UiButton>
+            <ui-button :loading="closing" @click="closeBoth">Discard both</UiButton>
           </template>
-        </UiDialog>
-      </ShowcaseCase>
-    </ShowcaseBoard>
+        </ui-dialog>
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

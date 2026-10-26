@@ -157,7 +157,7 @@ watch(
 
 <template>
   <div class="ui-datetime">
-    <UiDatePicker
+    <ui-date-picker
       :id="id"
       :model-value="dateModel"
       :range="range"
@@ -212,7 +212,7 @@ watch(
           <button type="button" @click="today">Today</button>
         </div>
       </template>
-    </UiDatePicker>
+    </ui-date-picker>
     <input
       v-if="name && !range"
       type="hidden"

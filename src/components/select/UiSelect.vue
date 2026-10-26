@@ -343,7 +343,7 @@ onScopeDispose(() => {
       </li>
       <li v-if="hasMore" ref="more" class="ui-select__more" role="presentation">
         <slot name="footer" :has-more="hasMore" :loading="loadingMore">
-          <UiSpinner v-if="loadingMore" label="Loading more options" />
+          <ui-spinner v-if="loadingMore" label="Loading more options" />
         </slot>
       </li>
     </ul>

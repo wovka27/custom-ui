@@ -23,11 +23,11 @@ export const Showcases = meta.story(
     components: { UiBreadcrumb, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ trail }),
     template: `
-    <ShowcaseBoard>
-      <ShowcaseCase title="Current page">
-        <UiBreadcrumb :items="trail" />
-      </ShowcaseCase>
-    </ShowcaseBoard>
+    <showcase-board>
+      <showcase-case title="Current page">
+        <ui-breadcrumb :items="trail" />
+      </showcase-case>
+    </showcase-board>
   `,
   })),
 )

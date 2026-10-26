@@ -18,13 +18,13 @@ export const Showcases = meta.story(
   showcases(() => ({
     components: { UiProgress, ShowcaseBoard, ShowcaseCase },
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Line"><UiProgress variant="line" :value="64" label="Upload" /></ShowcaseCase>
-        <ShowcaseCase title="Bar"><UiProgress variant="bar" :value="64" label="Sync" show-value /></ShowcaseCase>
-        <ShowcaseCase title="Circle"><UiProgress variant="circle" :value="70" label="Sync" /></ShowcaseCase>
-        <ShowcaseCase title="Steps"><UiProgress variant="steps" :value="40" label="Review" :steps="5" show-value /></ShowcaseCase>
-        <ShowcaseCase title="Indeterminate"><UiProgress indeterminate label="Waiting" /></ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Line"><ui-progress variant="line" :value="64" label="Upload" /></showcase-case>
+        <showcase-case title="Bar"><ui-progress variant="bar" :value="64" label="Sync" show-value /></showcase-case>
+        <showcase-case title="Circle"><ui-progress variant="circle" :value="70" label="Sync" /></showcase-case>
+        <showcase-case title="Steps"><ui-progress variant="steps" :value="40" label="Review" :steps="5" show-value /></showcase-case>
+        <showcase-case title="Indeterminate"><ui-progress indeterminate label="Waiting" /></showcase-case>
+      </showcase-board>
     `,
   })),
 )

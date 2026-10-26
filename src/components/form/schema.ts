@@ -1,6 +1,7 @@
 import type { UiGap, UiOption, UiSize } from '@/types/common'
 import type { UiSelectAllOption } from '@/components/select'
 import type { UiInputFormat, UiInputType } from '@/components/input'
+import type { UiUploadShape, UiUploadVariant } from '@/components/upload'
 import { warn } from '@/lib/warn'
 
 export interface FormTableColumn {
@@ -174,6 +175,22 @@ export interface FormDateField extends FieldBase {
   defaultValue?: string | null | FormSpan
 }
 
+export interface FormNumberField extends FieldBase {
+  kind: 'number'
+  name: string
+  min?: number
+  max?: number
+  step?: number
+  defaultValue?: number | null
+}
+
+export interface FormRateField extends FieldBase {
+  kind: 'rate'
+  name: string
+  max?: number
+  defaultValue?: number
+}
+
 export interface FormSliderField extends FieldBase {
   kind: 'slider'
   name: string
@@ -220,6 +237,8 @@ export interface FormUploadField extends FieldBase {
   name: string
   accept?: string
   multiple?: boolean
+  variant?: UiUploadVariant
+  shape?: UiUploadShape
   dropLabel?: string
   defaultValue?: readonly File[]
 }
@@ -233,6 +252,8 @@ export type FormField =
   | FormSwitchField
   | FormTableField
   | FormDateField
+  | FormNumberField
+  | FormRateField
   | FormSliderField
   | FormColorField
   | FormTagsField
@@ -275,29 +296,36 @@ type ValueOf<TNode> = TNode extends { kind: 'text' | 'textarea' | 'color' | 'otp
           ? { start: number; end: number }
           : TNode extends { kind: 'slider' }
             ? number
-            : TNode extends { kind: 'tags' }
-              ? string[]
-              : TNode extends { kind: 'upload' }
-                ? readonly File[]
-                : TNode extends { kind: 'segmented'; options: readonly (infer Option)[] }
-                  ? Option extends { value: infer Value extends string | number }
-                    ? Value
-                    : string | number
-                  : TNode extends { kind: 'select'; options: readonly (infer Option)[] }
-      ? Option extends { value: infer Value extends string | number }
-        ? Value | null
-        : string | number | null
-      : TNode extends { kind: 'select' }
-        ? string | number | null
-        : TNode extends { kind: 'radio'; options: readonly (infer Option)[] }
-          ? Option extends { value: infer Value extends string | number }
-            ? Value
-            : string | number
-          : TNode extends { kind: 'table' }
-            ? FormTableValue
-            : TNode extends { kind: 'custom'; defaultValue: infer Value extends FormValue }
-            ? Value
-            : FormValue
+            : TNode extends { kind: 'number' }
+              ? number | null
+              : TNode extends { kind: 'rate' }
+                ? number
+                : TNode extends { kind: 'tags' }
+                  ? string[]
+                  : TNode extends { kind: 'upload' }
+                    ? readonly File[]
+                    : TNode extends { kind: 'segmented'; options: readonly (infer Option)[] }
+                      ? Option extends { value: infer Value extends string | number }
+                        ? Value
+                        : string | number
+                      : TNode extends { kind: 'select'; options: readonly (infer Option)[] }
+                        ? Option extends { value: infer Value extends string | number }
+                          ? Value | null
+                          : string | number | null
+                        : TNode extends { kind: 'select' }
+                          ? string | number | null
+                          : TNode extends { kind: 'radio'; options: readonly (infer Option)[] }
+                            ? Option extends { value: infer Value extends string | number }
+                              ? Value
+                              : string | number
+                            : TNode extends { kind: 'table' }
+                              ? FormTableValue
+                              : TNode extends {
+                                    kind: 'custom'
+                                    defaultValue: infer Value extends FormValue
+                                  }
+                                ? Value
+                                : FormValue
 
 type Leaf<TNodes, TDepth extends readonly unknown[] = []> = TDepth['length'] extends 6
   ? never
@@ -421,7 +449,8 @@ function sameFormValue(left: FormValue | undefined, right: FormValue | undefined
   if (isFormTableValue(left) && isFormTableValue(right)) {
     return JSON.stringify(left) === JSON.stringify(right)
   }
-  if (isFormSpan(left) && isFormSpan(right)) return left.start === right.start && left.end === right.end
+  if (isFormSpan(left) && isFormSpan(right))
+    return left.start === right.start && left.end === right.end
   if (Array.isArray(left) && Array.isArray(right)) {
     return left.length === right.length && left.every((item, index) => item === right[index])
   }
@@ -586,6 +615,8 @@ function fieldDefault(field: FormField): FormValue {
     if (field.kind !== 'select' && field.range) return { start: null, end: null }
     return null
   }
+  if (field.kind === 'number') return field.min ?? 0
+  if (field.kind === 'rate') return 0
   if (field.kind === 'slider') {
     if (field.range) return { start: field.min ?? 0, end: field.max ?? 100 }
     return field.min ?? 0

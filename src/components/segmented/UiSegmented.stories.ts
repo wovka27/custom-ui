@@ -22,11 +22,11 @@ export const Showcases = meta.story(
     components: { UiSegmented, ShowcaseBoard, ShowcaseCase },
     setup: () => ({ modes }),
     template: `
-      <ShowcaseBoard>
-        <ShowcaseCase title="Single choice">
-          <UiSegmented :options="modes" default-value="day" label="Range" />
-        </ShowcaseCase>
-      </ShowcaseBoard>
+      <showcase-board>
+        <showcase-case title="Single choice">
+          <ui-segmented :options="modes" default-value="day" label="Range" />
+        </showcase-case>
+      </showcase-board>
     `,
   })),
 )
