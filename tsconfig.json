@@ -29,6 +29,7 @@
     "src/**/*.vue",
     ".storybook/**/*.ts",
     "vite.config.ts",
+    "vite.site.config.ts",
     "eslint.config.ts",
     "env.d.ts"
   ]

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-const version = '0.1.4'
+import { version } from '../../../package.json'
+
 const repo = 'https://github.com/wovka27/custom-ui'
 const columns = [
   {
