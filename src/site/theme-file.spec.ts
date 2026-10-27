@@ -10,7 +10,7 @@ function mentioned(source: string): string[] {
 
 describe('theme file templates', () => {
   it('names only real variables', () => {
-    const known = new Set(names)
+    const known = new Set<string>(names)
     for (const source of [figmaPrompt, figmaStylesheet]) {
       for (const name of mentioned(source)) expect(known.has(name)).toBe(true)
     }
