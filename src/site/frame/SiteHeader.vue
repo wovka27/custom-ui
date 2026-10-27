@@ -2,9 +2,9 @@
 import { computed, onMounted, onScopeDispose, ref, useTemplateRef } from 'vue'
 import { UiBadge, UiButton, UiInput, UiKbd, UiSegmented } from '@/index'
 import type { UiTheme } from '@/index'
-import { version } from '../../../package.json'
 import { catalog, componentHref, componentTitle } from '../catalog'
 import type { SiteSection } from '../route'
+import { usePackageVersion } from '../version'
 
 const { theme, section } = defineProps<{
   theme: UiTheme
@@ -15,6 +15,7 @@ const emit = defineEmits<{
   'update:theme': [theme: UiTheme]
 }>()
 
+const version = usePackageVersion()
 const repo = 'https://github.com/wovka27/custom-ui'
 const query = ref('')
 const searchRoot = useTemplateRef<HTMLElement>('searchRoot')

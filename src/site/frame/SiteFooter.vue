@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { version } from '../../../package.json'
+import { usePackageVersion } from '../version'
+
+const version = usePackageVersion()
 
 const repo = 'https://github.com/wovka27/custom-ui'
 const columns = [
