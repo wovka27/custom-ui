@@ -38,6 +38,9 @@ const toc = computed((): readonly SiteLink[] => {
   if (page === 'installation') return [{ href: '#import', label: 'Import' }]
   if (page === 'tokens') {
     return [
+      { href: '#figma', label: 'From Figma' },
+      { href: '#prompt', label: 'Prompt' },
+      { href: '#file', label: 'CSS file' },
       { href: '#override', label: 'What an override is' },
       { href: '#try', label: 'Try an override' },
       { href: '#contracts', label: 'Contracts' },
@@ -148,6 +151,11 @@ import '@wovka-dev/custom-ui/styles.css'"
         <p>
           A dialog is teleported to <ui-code code="body" /> and still follows the ancestor. It
           copies the computed variables onto itself.
+        </p>
+        <p>
+          To restyle the whole app from a Figma collection, copy the prompt and the CSS file on the
+          <ui-link href="#/guide/tokens">token guide</ui-link>. Save the result as
+          <ui-code code="ui-theme.css" /> and import it after the kit stylesheet.
         </p>
 
         <h2 id="layers">Two layers</h2>

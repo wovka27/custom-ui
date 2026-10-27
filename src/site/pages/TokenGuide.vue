@@ -5,6 +5,7 @@ import TokenTree from '@/stories/TokenTree.vue'
 import { designScoreJson } from '@/styles/score'
 import { tokenDefault, tokenOverrideJson, tokenOverrides } from '@/styles/token-override'
 import type { TokenRecord } from '@/styles/token-override'
+import { figmaPrompt, figmaStylesheet, themeImport } from '../theme-file'
 
 const radius = ref('0.75rem')
 const accent = ref('')
@@ -50,6 +51,37 @@ function tokenKey(token: TokenRecord): string {
       Components read public variables and do not declare them again, so a value on an ancestor
       always wins. Set it on <ui-code code=".ui-config" /> or any element that wraps the control.
     </p>
+    <h2 id="figma">From Figma</h2>
+    <p>
+      Copy the prompt, paste the Figma color styles and the spacing scale under
+      <ui-code code="FIGMA" />, and ask for the CSS file. Save that file as
+      <ui-code code="ui-theme.css" /> and import it after the kit stylesheet. Declarations on
+      <ui-code code=":root" /> and the theme selectors replace the kit. A line you leave out keeps
+      the kit default.
+    </p>
+    <ui-code block :code="themeImport" />
+    <ui-copy :value="themeImport" label="Copy the theme import">Copy import</ui-copy>
+
+    <h3 id="prompt">Prompt</h3>
+    <p>
+      The prompt lists every public variable. The model may set only those names. It returns the
+      light block, the dark theme, and the system dark theme.
+    </p>
+    <ui-copy :value="figmaPrompt" label="Copy the Figma prompt">Copy prompt</ui-copy>
+    <div class="sheet">
+      <ui-code block :code="figmaPrompt" />
+    </div>
+
+    <h3 id="file">CSS file</h3>
+    <p>
+      The same shape, with every variable commented out. Uncomment a line to set it by hand. A theme
+      color is written three times, and the two dark copies stay the same.
+    </p>
+    <ui-copy :value="figmaStylesheet" label="Copy the CSS file">Copy CSS file</ui-copy>
+    <div class="sheet">
+      <ui-code block :code="figmaStylesheet" />
+    </div>
+
     <ui-code block :code="tokenOverrides.example.css" />
     <ui-copy :value="tokenOverrides.example.css" label="Copy override example"
       >Copy example</ui-copy
@@ -205,6 +237,19 @@ h1 {
 h2 {
   margin: var(--ui-space-6) 0 var(--ui-space-3);
   font-size: var(--ui-font-size-lg);
+}
+
+h3 {
+  margin: var(--ui-space-5) 0 var(--ui-space-2);
+  font-size: var(--ui-font-size-md);
+}
+
+.sheet {
+  margin: var(--ui-space-3) 0 var(--ui-space-4);
+}
+
+.sheet :deep(.ui-code[data-block]) {
+  max-height: 28rem;
 }
 
 p,
