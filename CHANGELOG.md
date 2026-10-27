@@ -1,3 +1,9 @@
+## [0.2.1](https://github.com/wovka27/custom-ui/compare/v0.2.0...v0.2.1) (2026-10-27)
+
+### Fixed
+
+* compare theme-file token names as strings ([90574c6](https://github.com/wovka27/custom-ui/commit/90574c6f042bddbe08f8c36034d550ab9b4a6bcc))
+
 ## [0.2.0](https://github.com/wovka27/custom-ui/compare/v0.1.4...v0.2.0) (2026-10-26)
 
 ### Added
